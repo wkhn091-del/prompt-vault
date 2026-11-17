@@ -7,9 +7,12 @@ export function toPromptDTO(row: PromptRow): PromptDTO {
     title: row.title,
     slug: row.slug,
     category: row.category,
+    // promptText is for clipboard copy only — never render in the UI
     promptText: row.prompt_text,
     mediaUrl: row.media_url,
     mediaType: row.media_type,
+    previewHtml: row.preview_html ?? null,
+    backdropColor: row.backdrop_color ?? null,
     isPremium: row.is_premium,
     price: typeof row.price === "string" ? Number(row.price) : row.price,
     createdAt: row.created_at,

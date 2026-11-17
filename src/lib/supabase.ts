@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { MediaType } from "./types";
 
 export type PromptRow = {
   id: string;
@@ -7,7 +8,9 @@ export type PromptRow = {
   category: string;
   prompt_text: string;
   media_url: string | null;
-  media_type: "video" | "image" | null;
+  media_type: MediaType | null;
+  preview_html?: string | null;
+  backdrop_color?: string | null;
   normalized_hash: string;
   is_premium: boolean;
   price: number | string;
@@ -24,7 +27,6 @@ function requireEnv(name: string): string {
   return value;
 }
 
-/** Browser / public client (anon / publishable key). */
 export function createBrowserClient(): SupabaseClient {
   return createClient(
     requireEnv("NEXT_PUBLIC_SUPABASE_URL"),
@@ -32,11 +34,6 @@ export function createBrowserClient(): SupabaseClient {
   );
 }
 
-/**
- * Server client for API routes.
- * Prefers service_role (bypasses RLS). Falls back to anon/publishable key
- * when service_role is not set — requires anon INSERT policies on prompts.
- */
 export function createServiceClient(): SupabaseClient {
   const url = requireEnv("NEXT_PUBLIC_SUPABASE_URL");
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();

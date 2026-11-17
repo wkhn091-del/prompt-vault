@@ -10,7 +10,7 @@ type CategoryPillsProps = {
 export function CategoryPills({ active, onChange }: CategoryPillsProps) {
   return (
     <div className="relative">
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-[#0A0A0B] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-black to-transparent" />
       <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
         {CATEGORIES.map((cat) => {
           const isActive = active === cat;
@@ -19,10 +19,10 @@ export function CategoryPills({ active, onChange }: CategoryPillsProps) {
               key={cat}
               type="button"
               onClick={() => onChange(cat)}
-              className={`shrink-0 rounded-full border px-3.5 py-1.5 text-sm transition-colors ${
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] font-medium tracking-tight transition-colors duration-200 ${
                 isActive
-                  ? "border-white/20 bg-white text-[#0A0A0B]"
-                  : "border-white/[0.06] bg-[#141416] text-[#a1a1aa] hover:border-white/12 hover:text-white"
+                  ? "bg-white/[0.12] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"
+                  : "bg-transparent text-white/45 hover:bg-white/[0.05] hover:text-white/80"
               }`}
             >
               {cat}

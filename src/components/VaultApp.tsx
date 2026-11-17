@@ -1,19 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Plus, Search, Sparkles } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Plus } from "lucide-react";
 import type { PromptDTO } from "@/lib/types";
-import { CategoryPills } from "./CategoryPills";
 import { PasteModal } from "./PasteModal";
 import { PreviewModal } from "./PreviewModal";
 import { PromptCard } from "./PromptCard";
+import { SiteHeader } from "./SiteHeader";
 import { Toast } from "./Toast";
+import { VaultFilterBar } from "./VaultFilterBar";
 
 export function VaultApp() {
   const [prompts, setPrompts] = useState<PromptDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
+  const [sort, setSort] = useState<"featured" | "popular" | "recent">(
+    "featured",
+  );
   const [pasteOpen, setPasteOpen] = useState(false);
   const [selected, setSelected] = useState<PromptDTO | null>(null);
   const [toast, setToast] = useState<{
@@ -21,7 +25,6 @@ export function VaultApp() {
     variant: "success" | "error" | "info";
   } | null>(null);
   const [configError, setConfigError] = useState<string | null>(null);
-  const fetchedOnce = useRef(false);
 
   const showToast = useCallback(
     (message: string, variant: "success" | "error" | "info" = "success") => {
@@ -31,10 +34,6 @@ export function VaultApp() {
   );
 
   useEffect(() => {
-    // Guard against React Strict Mode double-invoke remounting a fetch loop
-    if (fetchedOnce.current) return;
-    fetchedOnce.current = true;
-
     let cancelled = false;
 
     (async () => {
@@ -65,7 +64,7 @@ export function VaultApp() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return prompts.filter((p) => {
+    let list = prompts.filter((p) => {
       const catOk = category === "All" || p.category === category;
       if (!catOk) return false;
       if (!q) return true;
@@ -74,7 +73,18 @@ export function VaultApp() {
         p.category.toLowerCase().includes(q)
       );
     });
-  }, [prompts, query, category]);
+
+    if (sort === "recent") {
+      list = [...list].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+    } else if (sort === "popular") {
+      list = [...list].sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    return list;
+  }, [prompts, query, category, sort]);
 
   function openExisting(id: string) {
     const found = prompts.find((p) => p.id === id);
@@ -89,67 +99,70 @@ export function VaultApp() {
       });
   }
 
+  function clearFilters() {
+    setCategory("All");
+    setSort("featured");
+    setQuery("");
+  }
+
   return (
-    <div className="min-h-screen bg-[#0A0A0B] text-white">
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.035),_transparent_50%)]" />
+    <div className="relative min-h-screen bg-black text-white">
+      <div className="vault-grain" aria-hidden />
+      <div
+        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(255,255,255,0.06),transparent_55%)]"
+        aria-hidden
+      />
 
-      <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#0A0A0B]/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-4 py-3 sm:px-6">
-          <div className="flex items-center gap-2.5">
-            <div className="flex size-8 items-center justify-center rounded-lg border border-white/[0.06] bg-[#141416]">
-              <Sparkles className="size-4 text-white" />
-            </div>
-            <p className="text-sm font-semibold tracking-tight">Prompt Vault</p>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-xl">
-            <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#6f6f78]" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search…"
-              className="w-full rounded-full border border-white/[0.06] bg-[#141416] py-2.5 pl-10 pr-4 text-sm text-white outline-none placeholder:text-[#5a5a62] focus:border-white/15"
-            />
-          </div>
-
+      <SiteHeader
+        active="sites"
+        showSearch
+        searchValue={query}
+        onSearchChange={setQuery}
+        rightAction={
           <button
             type="button"
             onClick={() => setPasteOpen(true)}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white px-3.5 py-2.5 text-sm font-semibold text-[#0A0A0B] transition hover:bg-zinc-200"
+            className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full bg-white/[0.08] px-4 text-[13px] font-medium text-white transition hover:bg-white/[0.12]"
           >
-            <Plus className="size-4" />
+            <Plus className="size-3.5" strokeWidth={2.5} />
             Add
           </button>
-        </div>
-      </header>
+        }
+      />
 
-      <main className="relative mx-auto max-w-[1400px] px-4 py-6 sm:px-6">
-        <div className="mb-6">
-          <CategoryPills active={category} onChange={setCategory} />
-        </div>
+      <VaultFilterBar
+        sort={sort}
+        onSortChange={setSort}
+        category={category}
+        onCategoryChange={setCategory}
+        onClear={clearFilters}
+      />
 
+      <main className="relative z-10 mx-auto max-w-[1400px] px-4 pb-16 pt-8 sm:px-6 lg:px-8">
         {configError && (
-          <div className="mb-6 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+          <div className="mb-6 rounded-2xl border border-amber-500/25 bg-amber-500/[0.08] px-4 py-3 text-sm text-amber-100">
             {configError}
           </div>
         )}
 
         {loading ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {Array.from({ length: 4 }).map((_, i) => (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
-                className="aspect-[16/10] animate-pulse rounded-xl bg-[#141416]"
-              />
+                className="overflow-hidden rounded-[22px] bg-white/[0.03]"
+              >
+                <div className="aspect-[16/10] animate-pulse bg-white/[0.04]" />
+                <div className="h-14 animate-pulse bg-white/[0.02]" />
+              </div>
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/[0.08] bg-[#141416]/40 px-6 py-24 text-center">
-            <Sparkles className="mb-4 size-8 text-[#5a5a62]" />
+          <div className="flex flex-col items-center justify-center rounded-[28px] border border-dashed border-white/[0.1] bg-white/[0.02] px-6 py-28 text-center">
             <h2 className="text-xl font-semibold tracking-tight">
               {prompts.length === 0 ? "Your vault is empty" : "No prompts match"}
             </h2>
-            <p className="mt-2 max-w-md text-sm text-[#8b8b96]">
+            <p className="mt-2 max-w-md text-sm text-white/40">
               {prompts.length === 0
                 ? "Paste a prompt to extract media, mirror it to Supabase, and showcase it."
                 : "Try another category or clear the search."}
@@ -158,7 +171,7 @@ export function VaultApp() {
               <button
                 type="button"
                 onClick={() => setPasteOpen(true)}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#0A0A0B] hover:bg-zinc-200"
+                className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-zinc-200"
               >
                 <Plus className="size-4" />
                 Add your first prompt
@@ -166,7 +179,7 @@ export function VaultApp() {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((p) => (
               <PromptCard
                 key={p.id}
@@ -192,7 +205,12 @@ export function VaultApp() {
       <PreviewModal
         prompt={selected}
         onClose={() => setSelected(null)}
-        onCopied={() => showToast("Prompt copied!")}
+        onCopied={() => showToast("Copied!")}
+        onUpdated={(p) => {
+          setPrompts((prev) => prev.map((x) => (x.id === p.id ? p : x)));
+          setSelected(p);
+          showToast("HTML saved");
+        }}
       />
 
       <Toast

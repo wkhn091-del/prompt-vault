@@ -9,6 +9,13 @@ export const CATEGORIES = [
   "Animations",
   "Creative",
   "AI",
+  "Agency",
+  "Dashboard",
+  "Travel",
+  "Fashion",
+  "Interactive",
+  "Fintech",
+  "Technology",
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number];
@@ -71,6 +78,34 @@ const RULES: { category: FilterCategory; patterns: RegExp[] }[] = [
   {
     category: "AI",
     patterns: [/\bai\b/i, /\bgenerative\b/i, /\bllm\b/i, /\bprompt\b/i, /\bhiggs\b/i],
+  },
+  {
+    category: "Agency",
+    patterns: [/\bagency\b/i, /\bstudio\b/i, /\bclients?\b/i],
+  },
+  {
+    category: "Dashboard",
+    patterns: [/\bdashboard\b/i, /\banalytics\b/i, /\bmetrics\b/i],
+  },
+  {
+    category: "Travel",
+    patterns: [/\btravel\b/i, /\bhotel\b/i, /\bresort\b/i, /\bflight\b/i],
+  },
+  {
+    category: "Fashion",
+    patterns: [/\bfashion\b/i, /\blookbook\b/i, /\brunway\b/i, /\boutfit\b/i],
+  },
+  {
+    category: "Interactive",
+    patterns: [/\binteractive\b/i, /\bscroll[- ]?driven\b/i, /\bwebgl\b/i],
+  },
+  {
+    category: "Fintech",
+    patterns: [/\bfintech\b/i, /\bbanking\b/i, /\bfinance\b/i, /\bpayment\b/i],
+  },
+  {
+    category: "Technology",
+    patterns: [/\btechnology\b/i, /\btech\b/i, /\bdeveloper\b/i, /\bapi\b/i],
   },
 ];
 

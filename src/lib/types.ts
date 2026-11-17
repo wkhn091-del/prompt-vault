@@ -1,3 +1,5 @@
+export type MediaType = "video" | "image" | "live_preview";
+
 export type PromptDTO = {
   id: string;
   title: string;
@@ -6,7 +8,9 @@ export type PromptDTO = {
   /** Present for clipboard copy only — never render in the UI. */
   promptText: string;
   mediaUrl: string | null;
-  mediaType: "video" | "image" | null;
+  mediaType: MediaType | null;
+  previewHtml: string | null;
+  backdropColor: string | null;
   isPremium: boolean;
   price: number;
   createdAt: string;

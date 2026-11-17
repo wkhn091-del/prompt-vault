@@ -1,0 +1,488 @@
+[
+  {
+    "id": "aaa-ui-ux",
+    "number": "09",
+    "title": "AAA · עיצוב UX/UI",
+    "blurb": "סקילים מאושרים מ־aaas.solutions — ממשקים, אנימציה, RTL ונגישות.",
+    "tools": [
+      {
+        "id": "aaa-ui-ux-pro-max",
+        "title": "UI/UX Pro Max",
+        "summary": "מאגר ידע עיצובי שלם בתוך הסוכן: עשרות סגנונות, פלטות צבע, זוגות פונטים וכללי נגישות. הסוכן בוחר כיוון עיצובי מתאים לפרויקט במקום ממשק גנרי.",
+        "href": "https://aaas.solutions/skills/ui-ux-pro-max"
+      },
+      {
+        "id": "aaa-frontend-design",
+        "title": "עיצוב Frontend",
+        "summary": "הסקיל של Anthropic לעיצוב ממשקים שלא נראים כמו תבנית: כיוון אסתטי ברור, טיפוגרפיה מכוונת והחלטות עיצוב עם אופי.",
+        "href": "https://aaas.solutions/skills/frontend-design"
+      },
+      {
+        "id": "aaa-design-taste-frontend",
+        "title": "טעם עיצובי לאתרים",
+        "summary": "נגד \"עיצוב AI\" גנרי. קורא את הבריף, מבין את הכיוון הנכון ובונה דפי נחיתה ותיקי עבודות שנראים מעוצבים באמת. כולל בדיקה לפני מסירה.",
+        "href": "https://aaas.solutions/skills/design-taste-frontend"
+      },
+      {
+        "id": "aaa-redesign-existing-projects",
+        "title": "שדרוג עיצוב קיים",
+        "summary": "לוקח אתר או אפליקציה קיימים, מאתר דפוסים גנריים ומשדרג לרמה פרימיום, בלי לשבור את מה שעובד. מתאים לכל ספריית CSS.",
+        "href": "https://aaas.solutions/skills/redesign-existing-projects"
+      },
+      {
+        "id": "aaa-minimalist-ui",
+        "title": "ממשק מינימליסטי",
+        "summary": "ממשקים נקיים בסגנון מגזיני: פלטה מונוכרומטית חמה, ניגודיות טיפוגרפית וגריד בנטו שטוח. בלי גרדיאנטים ובלי צללים כבדים.",
+        "href": "https://aaas.solutions/skills/minimalist-ui"
+      },
+      {
+        "id": "aaa-emil-design-eng",
+        "title": "ליטוש ממשק ואנימציה",
+        "summary": "הפילוסופיה של Emil Kowalski (Vercel, Sonner) לליטוש UI: איך מחליטים על אנימציה, ואיך הפרטים הקטנים גורמים לתוכנה להרגיש מעולה.",
+        "href": "https://aaas.solutions/skills/emil-design-eng"
+      },
+      {
+        "id": "aaa-apple-design",
+        "title": "עיצוב בסגנון Apple",
+        "summary": "הגישה של Apple לממשק ולתנועה פיזיקלית, מתורגמת לווב: מחוות, אנימציות קפיץ, גרירה וסוויפ, שקיפויות ועומק, וטיפוגרפיה מדויקת.",
+        "href": "https://aaas.solutions/skills/apple-design"
+      },
+      {
+        "id": "aaa-israeli-ui-design-system",
+        "title": "מערכת עיצוב ישראלית",
+        "summary": "בניית ספריית קומפוננטות ומערכת עיצוב RTL-first לאפליקציות בעברית: טיפוגרפיה עברית, זוגות פונטים ודפוסי gov.il.",
+        "href": "https://aaas.solutions/skills/israeli-ui-design-system"
+      },
+      {
+        "id": "aaa-hebrew-rtl-best-practices",
+        "title": "RTL ועברית נכון",
+        "summary": "כל מה שצריך כדי שממשק בעברית ייראה נכון: מאפיינים לוגיים ב-CSS, Tailwind RTL, הגדרת React/Next.js, היפוך אייקונים ובחירת פונטים.",
+        "href": "https://aaas.solutions/skills/hebrew-rtl-best-practices"
+      },
+      {
+        "id": "aaa-high-end-visual-design",
+        "title": "עיצוב ברמת סוכנות",
+        "summary": "מלמד את ה-AI לעצב כמו סוכנות יוקרה: פונטים, ריווחים, צללים, כרטיסים ואנימציות שגורמים לאתר להיראות יקר. חוסם את ברירות המחדל שנראות זולות.",
+        "href": "https://aaas.solutions/skills/high-end-visual-design"
+      },
+      {
+        "id": "aaa-industrial-brutalist-ui",
+        "title": "ממשק ברוטליסטי",
+        "summary": "ממשקים גולמיים ומכניים: טיפוגרפיה שוויצרית, אסתטיקה של טרמינל, גרידים נוקשים וניגודיות קיצונית. מתאים לדשבורדים עמוסי מידע ולתיקי עבודות.",
+        "href": "https://aaas.solutions/skills/industrial-brutalist-ui"
+      },
+      {
+        "id": "aaa-stitch-design-taste",
+        "title": "Google Stitch בטעם טוב",
+        "summary": "מייצר קובץ DESIGN.md שמכתיב ל-Google Stitch עיצוב פרימיום ולא גנרי: טיפוגרפיה מדויקת, צבעים מכוילים, פריסות א-סימטריות ותנועה עדינה.",
+        "href": "https://aaas.solutions/skills/stitch-design-taste"
+      },
+      {
+        "id": "aaa-image-to-code",
+        "title": "מתמונה לקוד",
+        "summary": "קודם מייצר תמונת עיצוב לאתר, מנתח אותה לעומק, ואז בונה את האתר כך שייראה כמה שיותר קרוב אליה. נבנה במיוחד ל-Codex.",
+        "href": "https://aaas.solutions/skills/image-to-code"
+      },
+      {
+        "id": "aaa-design-system",
+        "title": "מערכת עיצוב וטוקנים",
+        "summary": "ארכיטקטורת טוקנים בשלוש שכבות, משתני CSS, סולמות ריווח וטיפוגרפיה ומפרטי קומפוננטות. הבסיס למערכת עיצוב שלא מתפרקת.",
+        "href": "https://aaas.solutions/skills/design-system"
+      },
+      {
+        "id": "aaa-ui-styling",
+        "title": "עיצוב ממשק עם shadcn ו-Tailwind",
+        "summary": "ממשקים יפים ונגישים עם קומפוננטות shadcn/ui ו-Tailwind, כולל ערכות נושא, מצב כהה ועיצוב רספונסיבי.",
+        "href": "https://aaas.solutions/skills/ui-styling"
+      },
+      {
+        "id": "aaa-hebrew-tailwind-preset",
+        "title": "Tailwind לעברית",
+        "summary": "הגדרת Tailwind v4 לאפליקציות בעברית: וריאנטים לפי כיוון, פונטים עבריים ומחלקות לוגיות. ה-RTL עובד נכון מהרגע הראשון.",
+        "href": "https://aaas.solutions/skills/hebrew-tailwind-preset"
+      },
+      {
+        "id": "aaa-animate",
+        "title": "בניית אנימציה מאפס",
+        "summary": "בונה אנימציה לפי הסדר הנכון: האם בכלל להנפיש, למה, באיזה כלי, איזה עקומה ומשך, ואיך היא נקטעת ויוצאת. מאת Emil Kowalski.",
+        "href": "https://aaas.solutions/skills/animate"
+      },
+      {
+        "id": "aaa-improve-animations",
+        "title": "ביקורת אנימציות",
+        "summary": "סוקר את כל האנימציות בפרויקט כמו יועץ מושן בכיר, ומפיק דוח מתועדף ותוכניות תיקון מוכנות לביצוע. לא נוגע בקוד בעצמו.",
+        "href": "https://aaas.solutions/skills/improve-animations"
+      },
+      {
+        "id": "aaa-review-animations",
+        "title": "בודק אנימציות",
+        "summary": "בודק קוד אנימציה לפי רף איכות גבוה בגישה של Emil Kowalski. מסמן כל מה שלא מספיק טוב, ואישור צריך להרוויח.",
+        "href": "https://aaas.solutions/skills/review-animations"
+      },
+      {
+        "id": "aaa-animation-vocabulary",
+        "title": "מילון אנימציות",
+        "summary": "מתארים במילים שלכם (\"הדבר הקופצני כשפופאפ נפתח\") ומקבלים את השם המקצועי של האפקט, כדי לבקש בדיוק את מה שרוצים.",
+        "href": "https://aaas.solutions/skills/animation-vocabulary"
+      },
+      {
+        "id": "aaa-break-ui",
+        "title": "לשבור את הממשק",
+        "summary": "מזין לממשק נתונים קיצוניים - שמות ארוכים, שדות חסרים, אימוג'י, עברית, מספרים ענקיים - ומראה איפה הוא נשבר לפני שמשתמשים אמיתיים יגלו.",
+        "href": "https://aaas.solutions/skills/break-ui"
+      },
+      {
+        "id": "aaa-prototype",
+        "title": "כמה גרסאות לעיצוב",
+        "summary": "בונה כמה גרסאות שונות באמת לאותו רכיב, עם בורר חי שמאפשר לדפדף ביניהן ולבחור את זו שמרגישה נכון.",
+        "href": "https://aaas.solutions/skills/prototype"
+      },
+      {
+        "id": "aaa-pick-ui-library",
+        "title": "איזו ספרייה לבחור",
+        "summary": "בחירת ספריית Frontend מתוך רשימה מוקפדת: גרפים, OTP, תפריטי פקודות, גרירה, הודעות טוסט, ניהול state ועוד.",
+        "href": "https://aaas.solutions/skills/pick-ui-library"
+      },
+      {
+        "id": "aaa-accessibility",
+        "title": "נגישות לפי WCAG",
+        "summary": "בודק ומשפר נגישות באתר לפי WCAG 2.2: קוראי מסך, ניווט במקלדת, ניגודיות וטפסים. הסוכן מתקן את הקוד ולא רק מצביע על בעיות.",
+        "href": "https://aaas.solutions/skills/accessibility"
+      }
+    ]
+  },
+  {
+    "id": "aaa-graphic",
+    "number": "10",
+    "title": "AAA · עיצוב גרפי ומיתוג",
+    "blurb": "מיתוג, באנרים, פוסטרים וערכות עיצוב מהספרייה של AAA.",
+    "tools": [
+      {
+        "id": "aaa-canvas-design",
+        "title": "פוסטרים ואמנות",
+        "summary": "יוצר פוסטרים ויצירות גרפיות כקובץ PNG או PDF, לפי פילוסופיה עיצובית מוגדרת. מגיע עם עשרות פונטים מוכנים.",
+        "href": "https://aaas.solutions/skills/canvas-design"
+      },
+      {
+        "id": "aaa-brandkit",
+        "title": "ערכת מיתוג",
+        "summary": "מייצר לוחות מיתוג ברמה גבוהה: מערכות לוגו, ספרי מותג ומצגות עולם חזותי. מותאם לסגנונות מינימליסטי, קולנועי, דארק-טק ויוקרה.",
+        "href": "https://aaas.solutions/skills/brandkit"
+      },
+      {
+        "id": "aaa-theme-factory",
+        "title": "מפעל ערכות עיצוב",
+        "summary": "10 ערכות צבע ופונטים מוכנות שאפשר להלביש על מצגת, מסמך או דף נחיתה, או ליצור ערכה חדשה תוך כדי עבודה.",
+        "href": "https://aaas.solutions/skills/theme-factory"
+      },
+      {
+        "id": "aaa-banner-design",
+        "title": "עיצוב באנרים",
+        "summary": "באנרים לרשתות, למודעות, לראש אתר ולדפוס, בכמה כיווני ארט שונים. מותאם למידות של פייסבוק, LinkedIn, X ועוד.",
+        "href": "https://aaas.solutions/skills/banner-design"
+      },
+      {
+        "id": "aaa-brand",
+        "title": "קול ומיתוג",
+        "summary": "קול מותג, זהות חזותית, מסרים ועקביות. שומר שכל תוכן שיוצא - פוסט, דף או מודעה - נשמע ונראה כמו המותג.",
+        "href": "https://aaas.solutions/skills/brand"
+      },
+      {
+        "id": "aaa-imagegen-frontend-web",
+        "title": "רפרנסים עיצוביים לאתר",
+        "summary": "מייצר תמונת רפרנס פרימיום לכל אזור בדף הנחיתה, כדי שיהיה כיוון עיצובי ברור לפני שכותבים שורת קוד.",
+        "href": "https://aaas.solutions/skills/imagegen-frontend-web"
+      },
+      {
+        "id": "aaa-algorithmic-art",
+        "title": "אמנות גנרטיבית",
+        "summary": "יצירות אמנות מקוד עם p5.js: שדות זרימה, מערכות חלקיקים ואקראיות מבוקרת, עם פרמטרים שאפשר לשחק בהם בזמן אמת.",
+        "href": "https://aaas.solutions/skills/algorithmic-art"
+      },
+      {
+        "id": "aaa-slack-gif-creator",
+        "title": "יוצר GIF",
+        "summary": "יוצר GIF מונפשים במידות ובמגבלות הנכונות לסלאק ולצ'אטים, עם כלי בדיקה.",
+        "href": "https://aaas.solutions/skills/slack-gif-creator"
+      }
+    ]
+  },
+  {
+    "id": "aaa-app-dev",
+    "number": "11",
+    "title": "AAA · פיתוח ו־Vibe Coding",
+    "blurb": "Supabase, shadcn, בדיקות, דיבאג ובוטים — סקילים מאושרים.",
+    "tools": [
+      {
+        "id": "aaa-shadcn",
+        "title": "shadcn/ui",
+        "summary": "הסקיל הרשמי של shadcn: הוספה, חיפוש, תיקון ועיצוב של קומפוננטות, כולל ממשקי צ'אט. הסוכן מכיר את הפרויקט ואת הדוקומנטציה.",
+        "href": "https://aaas.solutions/skills/shadcn"
+      },
+      {
+        "id": "aaa-supabase",
+        "title": "Supabase",
+        "summary": "הסקיל הרשמי של Supabase לכל משימה: מסד נתונים, התחברות, Edge Functions, Storage ו-Realtime. כולל פתרון בעיות התחברות נפוצות.",
+        "href": "https://aaas.solutions/skills/supabase"
+      },
+      {
+        "id": "aaa-supabase-postgres-best-practices",
+        "title": "Postgres בלי טעויות",
+        "summary": "הכללים של Supabase לפני שנוגעים במסד: תכנון טבלאות, מיגרציות, הרשאות RLS ואינדקסים. חוסך באגים ובעיות אבטחה שמתגלות מאוחר מדי.",
+        "href": "https://aaas.solutions/skills/supabase-postgres-best-practices"
+      },
+      {
+        "id": "aaa-web-artifacts-builder",
+        "title": "בונה Artifacts מתקדמים",
+        "summary": "בניית Artifacts מורכבים ב-claude.ai עם React, Tailwind ו-shadcn/ui, כולל ניהול state וניווט בין מסכים.",
+        "href": "https://aaas.solutions/skills/web-artifacts-builder"
+      },
+      {
+        "id": "aaa-telegram-bot-builder",
+        "title": "בונה בוטים לטלגרם",
+        "summary": "בניית בוטים לטלגרם עם grammY, Telegraf או python-telegram-bot: מקלדות, פקודות, תשלומים, Mini Apps והודעות בעברית.",
+        "href": "https://aaas.solutions/skills/telegram-bot-builder"
+      },
+      {
+        "id": "aaa-systematic-debugging",
+        "title": "דיבאג שיטתי",
+        "summary": "כשיש באג, בדיקה שנכשלת או התנהגות מוזרה: מאתר את שורש הבעיה בשיטה, לפני שמציע תיקון. סוף לניחושים.",
+        "href": "https://aaas.solutions/skills/systematic-debugging"
+      },
+      {
+        "id": "aaa-test-driven-development",
+        "title": "פיתוח מונחה בדיקות",
+        "summary": "כותב קודם את הבדיקה ורק אחר כך את הקוד, בכל פיצ'ר ובכל תיקון באג. פחות רגרסיות, יותר ביטחון.",
+        "href": "https://aaas.solutions/skills/test-driven-development"
+      },
+      {
+        "id": "aaa-full-output-enforcement",
+        "title": "קוד מלא בלי קיצורים",
+        "summary": "מונע מה-AI לקצר: בלי \"// ...שאר הקוד\" ובלי placeholders. מקבלים קוד שלם, וכשהוא ארוך מדי - חלוקה מסודרת.",
+        "href": "https://aaas.solutions/skills/full-output-enforcement"
+      },
+      {
+        "id": "aaa-core-web-vitals",
+        "title": "Core Web Vitals",
+        "summary": "משפר את מדדי המהירות של גוגל - LCP, INP ו-CLS - לפי נתונים אמיתיים. האתר נטען מהר יותר ולא קופץ בזמן הטעינה.",
+        "href": "https://aaas.solutions/skills/core-web-vitals"
+      },
+      {
+        "id": "aaa-best-practices",
+        "title": "בריאות קוד לאתר",
+        "summary": "בודק את האתר לפי פרקטיקות עדכניות: אבטחה, תאימות לדפדפנים ואיכות קוד, ומתקן את מה שמצא.",
+        "href": "https://aaas.solutions/skills/best-practices"
+      },
+      {
+        "id": "aaa-webapp-testing",
+        "title": "בדיקת אפליקציית ווב",
+        "summary": "הסוכן מפעיל את האתר שלכם מקומית ובודק אותו בדפדפן עם Playwright: לוחץ, ממלא טפסים, מצלם מסך וקורא שגיאות קונסול.",
+        "href": "https://aaas.solutions/skills/webapp-testing"
+      },
+      {
+        "id": "aaa-requesting-code-review",
+        "title": "בקשת סקירת קוד",
+        "summary": "לפני שמסיימים פיצ'ר או ממזגים: הסוכן שולח את השינויים לסוכן סוקר נפרד עם הקשר נקי, ומקבל רשימת בעיות לתקן לפני שהן מתגלגלות הלאה.",
+        "href": "https://aaas.solutions/skills/requesting-code-review"
+      }
+    ]
+  },
+  {
+    "id": "aaa-video",
+    "number": "12",
+    "title": "AAA · וידאו ומושן",
+    "blurb": "Remotion, HyperFrames, מצגות ועריכת וידאו בעברית.",
+    "tools": [
+      {
+        "id": "aaa-remotion-best-practices",
+        "title": "Remotion בעברית",
+        "summary": "יצירת וידאו מקוד ב-React עם Remotion, כולל כתוביות RTL, אנימציות טקסט בעברית ותוכן לרשתות.",
+        "href": "https://aaas.solutions/skills/remotion-best-practices"
+      },
+      {
+        "id": "aaa-hyperframes-best-practices",
+        "title": "HyperFrames בעברית",
+        "summary": "וידאו מקוד עם HyperFrames: קומפוזיציות HTML ואנימציות GSAP שמרונדרות ל-MP4, עם תמיכה מלאה בעברית וב-RTL. מסמך ידע בלבד.",
+        "href": "https://aaas.solutions/skills/hyperframes-best-practices"
+      },
+      {
+        "id": "aaa-video-use-best-practices",
+        "title": "עריכת וידאו בעברית עם AI",
+        "summary": "עריכת סרטונים בעברית מקצה לקצה עם Claude Code ו-video-use: כתוביות עבריות שעובדות, פונטים נכונים ודגימת פריימים לבדיקה.",
+        "href": "https://aaas.solutions/skills/video-use-best-practices"
+      },
+      {
+        "id": "aaa-hebrew-podcast-postproduction",
+        "title": "פוסט-פרודקשן לפודקאסט",
+        "summary": "חבילת פוסט מלאה לפודקאסט בעברית: הערות פרק עם חותמות זמן, קליפים לחיתוך וכיתובים מותאמים לכל רשת.",
+        "href": "https://aaas.solutions/skills/hebrew-podcast-postproduction"
+      },
+      {
+        "id": "aaa-presentation-generator",
+        "title": "מצגות בעברית",
+        "summary": "מייצר מצגות RTL בעברית: פיץ' למשקיעים, דוח רבעוני או הרצאה, עם פונטים עבריים ופריסה מימין לשמאל.",
+        "href": "https://aaas.solutions/skills/presentation-generator"
+      },
+      {
+        "id": "aaa-open-slide-best-practices",
+        "title": "מצגות ב-React",
+        "summary": "בניית מצגות עם open-slide, ספריית שקפים ב-React על קנבס קבוע של 1920×1080, עם תמיכה מלאה בעברית.",
+        "href": "https://aaas.solutions/skills/open-slide-best-practices"
+      },
+      {
+        "id": "aaa-slides",
+        "title": "מצגות HTML אסטרטגיות",
+        "summary": "מצגות HTML עם גרפים, טוקני עיצוב, פריסה רספונסיבית ונוסחאות קופירייטינג, לפי מטרת השקף.",
+        "href": "https://aaas.solutions/skills/slides"
+      }
+    ]
+  },
+  {
+    "id": "aaa-productivity",
+    "number": "13",
+    "title": "AAA · פרודוקטיביות וחיסכון",
+    "blurb": "תוכניות עבודה, כיווץ טוקנים, מסירה בין שיחות ואימות.",
+    "tools": [
+      {
+        "id": "aaa-grilling",
+        "title": "תחקור את התוכנית שלי",
+        "summary": "ראיון בלתי מתפשר שמחדד תוכנית, החלטה או רעיון. הסוכן שואל את השאלות הקשות בסבבים, עם המלצה לכל שאלה, וחוסך שעות של עבודה בכיוון הלא נכון.",
+        "href": "https://aaas.solutions/skills/grilling"
+      },
+      {
+        "id": "aaa-brainstorming",
+        "title": "סיעור מוחות",
+        "summary": "לפני כל עבודה יצירתית, פיצ'ר חדש או תכנון של משהו חדש: הסוכן חוקר את הרעיון איתכם ומגיע לכיוון ברור לפני שהוא בונה.",
+        "href": "https://aaas.solutions/skills/brainstorming"
+      },
+      {
+        "id": "aaa-writing-plans",
+        "title": "כתיבת תוכנית עבודה",
+        "summary": "הופך דרישות למשימה רב-שלבית לתוכנית עבודה מסודרת לפני שנוגעים בקוד. פחות טעויות, פחות עבודה כפולה.",
+        "href": "https://aaas.solutions/skills/writing-plans"
+      },
+      {
+        "id": "aaa-handoff",
+        "title": "מסירה בין שיחות",
+        "summary": "מכווץ שיחה ארוכה למסמך מסירה, כדי שסוכן או שיחה חדשה ימשיכו בדיוק מאיפה שעצרתם, בלי להסביר הכל מחדש.",
+        "href": "https://aaas.solutions/skills/handoff"
+      },
+      {
+        "id": "aaa-caveman",
+        "title": "מצב קצר (חוסך טוקנים)",
+        "summary": "הסוכן עונה קצר ולעניין: תשובה קודם, בלי מלל, כל העובדות נשארות. פחות טוקנים, כלומר פחות כסף ופחות זמן קריאה.",
+        "href": "https://aaas.solutions/skills/caveman"
+      },
+      {
+        "id": "aaa-verification-before-completion",
+        "title": "לבדוק לפני שאומרים \"סיימתי\"",
+        "summary": "הסוכן חייב להריץ בדיקות ולראות את התוצאה לפני שהוא מכריז שמשהו עובד. ראיות לפני הצהרות.",
+        "href": "https://aaas.solutions/skills/verification-before-completion"
+      },
+      {
+        "id": "aaa-caveman-compress",
+        "title": "כיווץ קובצי זיכרון",
+        "summary": "מכווץ קבצים כמו CLAUDE.md או רשימת משימות לגרסה קצרה, כדי לחסוך טוקנים בכל שיחה. שומר גיבוי קריא.",
+        "href": "https://aaas.solutions/skills/caveman-compress"
+      },
+      {
+        "id": "aaa-caveman-commit",
+        "title": "הודעות commit קצרות",
+        "summary": "כותב הודעת commit בפורמט Conventional Commits, מכווצת לכוונה בלבד.",
+        "href": "https://aaas.solutions/skills/caveman-commit"
+      },
+      {
+        "id": "aaa-israeli-social-content",
+        "title": "תוכן לרשתות בישראל",
+        "summary": "תוכן לפייסבוק, אינסטגרם, טיקטוק ו-LinkedIn שמותאם לקהל הישראלי: שעות פרסום, האשטגים בעברית ותרבות מקומית.",
+        "href": "https://aaas.solutions/skills/israeli-social-content"
+      }
+    ]
+  },
+  {
+    "id": "aaa-marketing",
+    "number": "14",
+    "title": "AAA · שיווק וצמיחה",
+    "blurb": "SEO, CRO, קופי, השקה, מיילים ותוכן לרשתות.",
+    "tools": [
+      {
+        "id": "aaa-copywriting",
+        "title": "קופירייטינג לאתר",
+        "summary": "כותב ומשכתב טקסטים לדף הבית, לדפי נחיתה ולדפי מוצר: כותרות, הנעה לפעולה והצעת ערך. בלי ניסוחים שמסגירים שזה נכתב ב-AI, ועם טענות שאפשר לגבות.",
+        "href": "https://aaas.solutions/skills/copywriting"
+      },
+      {
+        "id": "aaa-seo-audit",
+        "title": "בדיקת SEO לאתר",
+        "summary": "מאבחן למה האתר לא מופיע בגוגל: בעיות טכניות, אינדוקס, מהירות, תגיות מטא ו-SEO מקומי. מקבלים רשימת תיקונים לפי סדר עדיפות.",
+        "href": "https://aaas.solutions/skills/seo-audit"
+      },
+      {
+        "id": "aaa-cro",
+        "title": "שיפור המרות בדף",
+        "summary": "בודק דף נחיתה, דף מחירים או טופס יצירת קשר ומסביר למה הוא לא ממיר. מקבלים תיקונים ממוקדים ורעיונות לבדיקה.",
+        "href": "https://aaas.solutions/skills/cro"
+      },
+      {
+        "id": "aaa-emails",
+        "title": "רצף מיילים אוטומטי",
+        "summary": "מתכנן וכותב רצפי מיילים: ברוכים הבאים, טיפוח לידים, החזרת לקוחות רדומים. כולל תזמון, נושאים ותוכן לכל מייל.",
+        "href": "https://aaas.solutions/skills/emails"
+      },
+      {
+        "id": "aaa-social",
+        "title": "תוכן לרשתות חברתיות",
+        "summary": "פוסטים ל-LinkedIn, אינסטגרם, טיקטוק, פייסבוק ו-X, תסריטים לרילס, לוח תוכן ומיחזור תוכן קיים לפורמטים חדשים.",
+        "href": "https://aaas.solutions/skills/social"
+      },
+      {
+        "id": "aaa-launch",
+        "title": "תוכנית השקה",
+        "summary": "מתכנן השקה של מוצר, פיצ'ר או אתר: מה עושים לפני, ביום ההשקה ואחריו, כולל רשימת בדיקות לפני שעולים לאוויר.",
+        "href": "https://aaas.solutions/skills/launch"
+      },
+      {
+        "id": "aaa-pricing",
+        "title": "תמחור וחבילות",
+        "summary": "עוזר להחליט כמה לגבות ואיך לבנות את החבילות: ניסיון חינם, מנוי חודשי או שנתי, העלאת מחיר ובדיקה של דף המחירים.",
+        "href": "https://aaas.solutions/skills/pricing"
+      },
+      {
+        "id": "aaa-ab-testing",
+        "title": "בדיקות A/B",
+        "summary": "מתכנן ניסוי A/B מסודר: השערה, גרסאות, כמה זמן להריץ ואיך לקרוא את התוצאות. גם לבניית שגרה קבועה של ניסויים.",
+        "href": "https://aaas.solutions/skills/ab-testing"
+      },
+      {
+        "id": "aaa-content-strategy",
+        "title": "אסטרטגיית תוכן",
+        "summary": "עוזר להחליט על מה לכתוב: נושאים מרכזיים, אשכולות תוכן ולוח תוכן לבלוג ולרשתות, לפי מה שהקהל שלכם מחפש.",
+        "href": "https://aaas.solutions/skills/content-strategy"
+      },
+      {
+        "id": "aaa-onboarding",
+        "title": "חוויית משתמש ראשונה",
+        "summary": "משפר את מה שקורה אחרי ההרשמה, כדי שמשתמשים חדשים יגיעו מהר לערך ולא ינטשו. כולל צ'קליסט, מסכים ריקים ומודלים של ניסיון חינם.",
+        "href": "https://aaas.solutions/skills/onboarding"
+      },
+      {
+        "id": "aaa-referrals",
+        "title": "תוכנית הפניות",
+        "summary": "בונה תוכנית חבר-מביא-חבר, שותפים או שגרירים, וגם קמפיין לאיסוף ביקורות. מתאים לכל עסק שרוצה שלקוחות יביאו לקוחות.",
+        "href": "https://aaas.solutions/skills/referrals"
+      },
+      {
+        "id": "aaa-competitors",
+        "title": "דפי השוואה למתחרים",
+        "summary": "כותב דפי \"אנחנו מול המתחרה\" ודפי חלופות, שמביאים תנועה מגוגל ועוזרים ללקוחות להחליט. כולל בדיקה של דפים קיימים.",
+        "href": "https://aaas.solutions/skills/competitors"
+      },
+      {
+        "id": "aaa-free-tools",
+        "title": "כלי חינמי לשיווק",
+        "summary": "מתכנן כלי חינמי כמו מחשבון, מחולל או בודק, שמביא לידים ותנועה מגוגל. עוזר להחליט אם שווה לבנות ואיך לחבר אותו למוצר.",
+        "href": "https://aaas.solutions/skills/free-tools"
+      }
+    ]
+  }
+]

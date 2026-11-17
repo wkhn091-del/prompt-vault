@@ -1,0 +1,817 @@
+Agency Starter Kit — Next.js 14 + Sanity + Tailwind + Framer Motion
+מדריך מלא להקמת תיקיית בסיס לפרויקטים חדשים.
+
+
+________________
+
+
+שלב 1: פקודות CLI
+npx create-next-app@latest my-agency-starter --typescript --tailwind --app --src-dir=false --import-alias "@/*"
+
+
+cd my-agency-starter
+
+
+npm install sanity @sanity/vision next-sanity @sanity/image-url styled-components
+
+
+npm install framer-motion
+
+
+________________
+
+
+שלב 2: קבצי קונפיגורציה
+sanity.config.ts
+import { defineConfig } from 'sanity'
+
+
+import { structureTool } from 'sanity/structure'
+
+
+import { visionTool } from '@sanity/vision'
+
+
+import { schema } from './sanity/schema'
+
+
+export default defineConfig({
+
+
+  basePath: '/studio',
+
+
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+
+
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+
+
+  schema,
+
+
+  plugins: [
+
+
+    structureTool(),
+
+
+    visionTool(),
+
+
+  ],
+
+
+})
+tailwind.config.ts
+import type { Config } from 'tailwindcss'
+
+
+const config: Config = {
+
+
+  content: [
+
+
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+
+
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+
+
+  ],
+
+
+  theme: {
+
+
+    extend: {
+
+
+      fontFamily: {
+
+
+        heebo: ['var(--font-heebo)', 'sans-serif'],
+
+
+      },
+
+
+      colors: {
+
+
+        primary: {
+
+
+          DEFAULT: '#1a1a1a',
+
+
+          light: '#2d2d2d',
+
+
+        },
+
+
+        accent: {
+
+
+          DEFAULT: '#c9a76b',
+
+
+        },
+
+
+      },
+
+
+      screens: {
+
+
+        xs: '375px',
+
+
+      },
+
+
+    },
+
+
+  },
+
+
+  plugins: [],
+
+
+}
+
+
+export default config
+
+
+________________
+
+
+שלב 3: app/layout.tsx
+import type { Metadata } from 'next'
+
+
+import { Heebo } from 'next/font/google'
+
+
+import './globals.css'
+
+
+const heebo = Heebo({
+
+
+  subsets: ['hebrew', 'latin'],
+
+
+  weight: ['300', '400', '500', '600', '700', '800'],
+
+
+  variable: '--font-heebo',
+
+
+  display: 'swap',
+
+
+})
+
+
+export const metadata: Metadata = {
+
+
+  title: {
+
+
+    default: 'שם העסק שלך',
+
+
+    template: '%s | שם העסק שלך',
+
+
+  },
+
+
+  description: 'תיאור קצר ואיכותי של העסק, לטובת מנועי חיפוש ורשתות חברתיות.',
+
+
+  metadataBase: new URL('https://example.com'),
+
+
+  openGraph: {
+
+
+    type: 'website',
+
+
+    locale: 'he_IL',
+
+
+    siteName: 'שם העסק שלך',
+
+
+    images: [
+
+
+      {
+
+
+        url: '/og-image.jpg',
+
+
+        width: 1200,
+
+
+        height: 630,
+
+
+      },
+
+
+    ],
+
+
+  },
+
+
+  twitter: {
+
+
+    card: 'summary_large_image',
+
+
+  },
+
+
+  icons: {
+
+
+    icon: '/favicon.ico',
+
+
+  },
+
+
+}
+
+
+export default function RootLayout({
+
+
+  children,
+
+
+}: {
+
+
+  children: React.ReactNode
+
+
+}) {
+
+
+  return (
+
+
+    <html lang="he" dir="rtl" className={heebo.variable}>
+
+
+      <body className="font-heebo antialiased">
+
+
+        {children}
+
+
+      </body>
+
+
+    </html>
+
+
+  )
+
+
+}
+
+
+________________
+
+
+שלב 4: סכמות Sanity
+sanity/schemas/siteSettings.ts
+import { defineField, defineType } from 'sanity'
+
+
+export default defineType({
+
+
+  name: 'siteSettings',
+
+
+  title: 'הגדרות אתר',
+
+
+  type: 'document',
+
+
+  fields: [
+
+
+    defineField({
+
+
+      name: 'businessName',
+
+
+      title: 'שם העסק',
+
+
+      type: 'string',
+
+
+      validation: (Rule) => Rule.required(),
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'logo',
+
+
+      title: 'לוגו',
+
+
+      type: 'image',
+
+
+      options: { hotspot: true },
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'phone',
+
+
+      title: 'טלפון',
+
+
+      type: 'string',
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'whatsapp',
+
+
+      title: 'מספר וואטסאפ',
+
+
+      type: 'string',
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'email',
+
+
+      title: 'אימייל',
+
+
+      type: 'string',
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'address',
+
+
+      title: 'כתובת',
+
+
+      type: 'string',
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'wazeLink',
+
+
+      title: 'קישור ל-Waze',
+
+
+      type: 'url',
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'socialLinks',
+
+
+      title: 'רשתות חברתיות',
+
+
+      type: 'array',
+
+
+      of: [
+
+
+        {
+
+
+          type: 'object',
+
+
+          fields: [
+
+
+            { name: 'platform', title: 'פלטפורמה', type: 'string' },
+
+
+            { name: 'url', title: 'קישור', type: 'url' },
+
+
+          ],
+
+
+        },
+
+
+      ],
+
+
+    }),
+
+
+  ],
+
+
+})
+sanity/schemas/seo.ts
+import { defineField, defineType } from 'sanity'
+
+
+export default defineType({
+
+
+  name: 'seo',
+
+
+  title: 'SEO',
+
+
+  type: 'object',
+
+
+  fields: [
+
+
+    defineField({
+
+
+      name: 'metaTitle',
+
+
+      title: 'כותרת (Meta Title)',
+
+
+      type: 'string',
+
+
+      validation: (Rule) => Rule.max(60).warning('מומלץ עד 60 תווים'),
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'metaDescription',
+
+
+      title: 'תיאור (Meta Description)',
+
+
+      type: 'text',
+
+
+      rows: 3,
+
+
+      validation: (Rule) => Rule.max(160).warning('מומלץ עד 160 תווים'),
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'shareImage',
+
+
+      title: 'תמונת שיתוף (OG Image)',
+
+
+      type: 'image',
+
+
+      options: { hotspot: true },
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'noIndex',
+
+
+      title: 'הסתר ממנועי חיפוש',
+
+
+      type: 'boolean',
+
+
+      initialValue: false,
+
+
+    }),
+
+
+  ],
+
+
+})
+sanity/schemas/legal.ts
+import { defineField, defineType } from 'sanity'
+
+
+export default defineType({
+
+
+  name: 'legal',
+
+
+  title: 'עמוד משפטי',
+
+
+  type: 'document',
+
+
+  fields: [
+
+
+    defineField({
+
+
+      name: 'title',
+
+
+      title: 'כותרת',
+
+
+      type: 'string',
+
+
+      validation: (Rule) => Rule.required(),
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'slug',
+
+
+      title: 'Slug',
+
+
+      type: 'slug',
+
+
+      options: { source: 'title' },
+
+
+      validation: (Rule) => Rule.required(),
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'content',
+
+
+      title: 'תוכן',
+
+
+      type: 'array',
+
+
+      of: [
+
+
+        {
+
+
+          type: 'block',
+
+
+        },
+
+
+      ],
+
+
+    }),
+
+
+    defineField({
+
+
+      name: 'lastUpdated',
+
+
+      title: 'עודכן לאחרונה',
+
+
+      type: 'date',
+
+
+    }),
+
+
+  ],
+
+
+})
+sanity/schema.ts
+import { type SchemaTypeDefinition } from 'sanity'
+
+
+import siteSettings from './schemas/siteSettings'
+
+
+import seo from './schemas/seo'
+
+
+import legal from './schemas/legal'
+
+
+export const schema: { types: SchemaTypeDefinition[] } = {
+
+
+  types: [siteSettings, seo, legal],
+
+
+}
+
+
+________________
+
+
+שלב 5: .env.local (תבנית)
+# Sanity
+
+
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+
+
+NEXT_PUBLIC_SANITY_DATASET=production
+
+
+NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
+
+
+SANITY_API_READ_TOKEN=
+
+
+SANITY_API_WRITE_TOKEN=
+
+
+# Next.js / Vercel
+
+
+NEXT_PUBLIC_SITE_URL=
+
+
+NEXT_TELEMETRY_DISABLED=1
+
+
+# Vercel (מוזרק אוטומטית ב-deploy, לרפרנס בלבד)
+
+
+VERCEL_ENV=
+
+
+VERCEL_URL=
+
+
+________________
+
+
+שלב 6: נתיב ה-Studio
+app/studio/[[...tool]]/page.tsx
+'use client'
+
+
+import { NextStudio } from 'next-sanity/studio'
+
+
+import config from '../../../sanity.config'
+
+
+export const dynamic = 'force-static'
+
+
+export default function StudioPage() {
+
+
+  return <NextStudio config={config} />
+
+
+}
+app/studio/[[...tool]]/layout.tsx
+export const metadata = {
+
+
+  robots: {
+
+
+    index: false,
+
+
+    follow: false,
+
+
+  },
+
+
+}
+
+
+export default function StudioLayout({
+
+
+  children,
+
+
+}: {
+
+
+  children: React.ReactNode
+
+
+}) {
+
+
+  return children
+
+
+}
+
+
+________________
+
+
+סדר הקמה מהיר
+1. הרץ את פקודות שלב 1.
+2. צור את הקבצים בשלבים 2-6 בנתיבים המצוינים.
+3. npm run dev
+4. האתר הראשי ב-/, ה-Studio ב-/studio (חסום לאינדוקס).

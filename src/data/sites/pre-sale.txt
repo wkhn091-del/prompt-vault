@@ -1,0 +1,105 @@
+Read the current webpage open in this active tab.
+
+
+Act as my ideal high-ticket client: You are a 48-year-old owner of a highly successful service business (e.g., a top-tier law firm or a premium construction company). You have a budget of 10,000-15,000 ILS for a new website, but you are extremely skeptical. You hate cheap-looking templates, you don't care about technical developer jargon, and you value your time above all else. You want a website that screams "Authority" and brings you high-paying, qualified leads.
+
+
+I am a premium boutique web developer (Studio Omek based in Tiberias) building Apple-level, high-conversion websites. You are currently looking at my live website or demo on this page.
+
+
+Task: Scan this entire page from top to bottom exactly through the eyes of this strict, wealthy client. Give me a brutal, unfiltered audit. Do not be polite. Be realistic.
+
+
+Evaluate the site based on:
+1. The 5-Second Rule: Did I lose you or hook you immediately? Does the design and first sentence feel like a premium, 10k ILS service?
+2. Authority & Trust: Do I look like an exclusive boutique studio that delivers personal, direct service (talking straight to the builder), or do I look like a cheap freelancer?
+3. The "What's in it for me?" Factor: Does my copy speak directly to YOUR business pain points, or am I just bragging about my tech stack?
+4. Friction: Is the call-to-action and contact process inviting and exclusive, or annoying and generic?
+
+
+Format your response exactly like this:
+- 🗣️ Client's Raw Reaction: A short, in-character paragraph (as the busy business owner) describing your gut feeling after 5 seconds on the site.
+- 🔍 Section-by-Section Breakdown: What hooked you, what made you doubt my credibility, and exactly what I need to fix to get your money.
+- 🔪 The Brutal Truth: The #1 biggest mistake on the site that might cost me this deal.
+- 💯 Final Score: Rate my site from 0 to 100 on "Likelihood to pay you 10,000+ ILS right now".
+
+
+Read my current codebase and/or the active webpage.
+
+
+Act as a Senior Cybersecurity Architect and Lead Web Penetration Tester (White Hat Hacker). You have 15 years of experience auditing enterprise and premium web applications. You are paranoid, meticulous, and have zero tolerance for sloppy code, data leaks, or weak security postures. 
+
+
+I am building a high-end, high-conversion web application (for Studio Omek) targeting elite clients (law firms, contractors). It handles sensitive lead information via a "Smart Lead Qualification Wizard". 
+
+
+Your task is to perform a brutal, unfiltered security audit of my code and architecture. Do not hold back. I need to know if a malicious actor could exploit this site or if client data is at risk.
+
+
+Evaluate the site based on the OWASP Top 10 and modern frontend framework (Next.js/React) pitfalls:
+1. Data Exposure: Are there any leaked environment variables (e.g., poorly scoped NEXT_PUBLIC_ keys), hardcoded secrets, or exposed API routes?
+2. Client-Side Attacks: Is the site vulnerable to XSS (Cross-Site Scripting), CSRF, or DOM-based manipulation? Are inputs properly sanitized in the lead form?
+3. Infrastructure & Headers: Are critical security headers missing? (CSP, HSTS, X-Frame-Options). Is CORS configured securely?
+4. Trust & Privacy: If a high-profile lawyer puts their phone number and project details into my site, is that data transmitted and stored with absolute security?
+
+
+Format your response exactly like this:
+- 🛡️ Hacker's Raw Assessment: A short, blunt paragraph describing your initial reaction to the site's security posture. Does it look like a hardened fortress or an easy target?
+- 🚨 Vulnerability Breakdown: Categorize your findings into CRITICAL, HIGH, MEDIUM, and LOW risks. Tell me exactly where the code is failing.
+- 🔪 The Fatal Flaw: The #1 biggest security hole that could lead to a breach, a hijacked site, or a ruined reputation.
+- 🛠️ The Fix: Immediate, actionable code snippets to patch the fatal flaw.
+- 🔒 Final Security Score: Rate my site from 0 to 100 on "Enterprise-Grade Security Readiness".
+
+
+Read my current codebase and/or the active webpage.
+
+
+Act as a Senior Tech & Digital Compliance Attorney and Partner at a top-tier law firm. You specialize in Global Data Privacy (GDPR, CCPA), Israeli Privacy Protection Laws, Web Accessibility (WCAG 2.1 AA), and Intellectual Property. You are meticulous, risk-averse, and your goal is to protect your client from massive lawsuits, fines, and reputation damage.
+
+
+I am building a high-end, premium web application (for Studio Omek) targeting elite clients (law firms, real estate developers). The site includes a "Smart Lead Qualification Wizard" that collects personal user data (names, phone numbers, project details).
+
+
+Your task is to perform a brutal, unfiltered legal and compliance audit of my site and codebase. Do not hold back. I need to know if this site is legally bulletproof or a lawsuit waiting to happen.
+
+
+Evaluate the site based on the following legal pillars:
+1. Data Privacy & Consent: Does the Lead Qualification Wizard have explicit, legally binding opt-in mechanisms (checkboxes) for data collection and marketing? Are there clear links to a Privacy Policy and Terms of Service?
+2. Web Accessibility (ADA / WCAG 2.1 AA): Is the site accessible to users with disabilities? (Check for semantic HTML, aria-labels on buttons/forms, color contrast, and keyboard navigation). This is legally mandated.
+3. Intellectual Property: Are there any risky copyright assumptions? (e.g., placeholder images, fonts without clear licensing data in the code).
+4. Liability Limits: Is the site missing critical disclaimers or "Limitation of Liability" statements for the services offered?
+
+
+Format your response exactly like this:
+- ⚖️ Legal Counsel's Initial Verdict: A short, blunt paragraph describing your gut reaction to the site's legal readiness. Are we going to court, or are we safe?
+- 🚨 Compliance Breaches: Categorize your findings into CRITICAL (immediate lawsuit risk), HIGH, and MEDIUM risks. Be specific about where the code or UI fails.
+- 🛑 The Dealbreaker: The #1 biggest legal blind spot on the site right now.
+- 📝 The Mitigation Strategy: Provide exact, actionable solutions. If a consent checkbox or specific ARIA tag is missing, write the exact HTML/React code snippet I need to paste to fix it.
+- 🏛️ Overall Legal Readiness Score: Rate my site from 0 to 100 on "Bulletproof Legal Compliance".
+
+
+Read my current codebase and/or the active webpage.
+
+
+Act as a ruthless 7-Figure Direct Response Copywriter and Senior Conversion Rate Optimization (CRO) Expert. You optimize landing pages for high-ticket service providers, turning cold traffic into hot, qualified leads. You hate fluff, corporate jargon, and unnecessary distractions. You care about one thing only: ROI (Return on Investment) and Conversion Rates.
+
+
+I am building a high-ticket Landing Page (for Studio Omek). The goal of this specific page is singular: compel wealthy, impatient business owners (lawyers, contractors) to complete the "Smart Lead Qualification Wizard" and request a call. 
+
+
+Your task is to tear apart my landing page layout, copy, and UX. Find every single element that causes friction, confusion, or makes the user bounce.
+
+
+Evaluate the landing page based on the core rules of high-conversion design:
+1. The 3-Second Rule (Above the Fold): Is the main headline an irresistible hook? Does it state exactly what I do, who it's for, and the ultimate benefit instantly? 
+2. The "One Goal" Principle: Are there any conversion leaks? (e.g., social media icons, external links, navigation menus that distract from the main CTA). 
+3. Objection Handling: Does the copy systematically destroy the client's biggest doubts (e.g., "Will this take too much of my time?", "Is this just another cheap template?")?
+4. Call to Action (CTA) & Friction: Is the CTA button high-contrast and impossible to miss? Is the transition into the Lead Wizard completely frictionless?
+
+
+Format your response exactly like this:
+- 🔥 CRO Expert's Gut Check: A brutal, honest assessment of what a cold prospect feels the moment they land on this page.
+- 🩸 Bleeding Conversions (The Leaks): List the specific elements, texts, or UX choices that are currently killing my conversion rate.
+- 🎯 The "Silver Bullet" Fix: The single most important change I must make to double my conversions on this page.
+- ✍️ Copywriting Upgrades: Rewrite my weak headlines or sub-headlines. Give me 3 punchy, high-converting alternatives for my Hero section.
+- 📈 Estimated Conversion Score: Rate this landing page from 0 to 100 purely on its ability to convert cold traffic into $3,000+ projects.

@@ -22,6 +22,7 @@ export function PasteModal({
   onToast,
 }: PasteModalProps) {
   const [text, setText] = useState("");
+  const [htmlText, setHtmlText] = useState("");
   const [titleOverride, setTitleOverride] = useState("");
   const [mediaOverride, setMediaOverride] = useState("");
   const [saving, setSaving] = useState(false);
@@ -31,6 +32,7 @@ export function PasteModal({
   useEffect(() => {
     if (!open) {
       setText("");
+      setHtmlText("");
       setTitleOverride("");
       setMediaOverride("");
       setDuplicate(null);
@@ -93,6 +95,7 @@ export function PasteModal({
           promptText: text,
           title: titleOverride.trim() || undefined,
           mediaUrl: mediaOverride.trim() || undefined,
+          previewHtml: htmlText.trim() || undefined,
           force,
         }),
       });
@@ -156,9 +159,33 @@ export function PasteModal({
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={`# Stride — plant protein bar site\n\nPaste the full prompt. Include a .mp4 / .webm or image URL for the preview.`}
-            className="min-h-[220px] resize-none rounded-xl border border-white/[0.06] bg-[#141416] px-4 py-3 font-mono text-sm leading-relaxed text-[#e4e4e7] outline-none placeholder:text-[#4a4a52] focus:border-white/15"
+            className="min-h-[180px] resize-none rounded-xl border border-white/[0.06] bg-[#141416] px-4 py-3 font-mono text-sm leading-relaxed text-[#e4e4e7] outline-none placeholder:text-[#4a4a52] focus:border-white/15"
             autoFocus
           />
+
+          <div>
+            <div className="mb-1.5 flex items-baseline justify-between gap-2">
+              <label className="block text-xs text-[#6f6f78]">
+                HTML companion{" "}
+                <span className="text-[#4a4a52]">(optional)</span>
+              </label>
+              {htmlText.trim().length > 20 && (
+                <span className="text-[11px] text-emerald-400/80">
+                  Will save · copyable as HTML
+                </span>
+              )}
+            </div>
+            <textarea
+              value={htmlText}
+              onChange={(e) => setHtmlText(e.target.value)}
+              placeholder={"<!DOCTYPE html>\n<html>… paste live HTML for this animation …</html>"}
+              className="min-h-[120px] w-full resize-y rounded-xl border border-white/[0.06] bg-[#141416] px-4 py-3 font-mono text-[12px] leading-relaxed text-[#e4e4e7] outline-none placeholder:text-[#4a4a52] focus:border-white/15"
+            />
+            <p className="mt-1.5 text-[11px] leading-relaxed text-[#5a5a62]">
+              For video-only clips: keep the MP4 preview, and store HTML so you
+              can copy it from the white button later.
+            </p>
+          </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
             <div>

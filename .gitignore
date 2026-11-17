@@ -42,3 +42,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+
+.tmp-aaas*
+.tmp-aaas-skills/
+
+# local media / supabase temp
+scripts/data/**/*.mp4
+scripts/data/**/harborlux-frames/
+supabase/.temp/
+.tmp-aaas*
+haldoren.html

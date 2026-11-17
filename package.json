@@ -7,11 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed": "tsx --env-file=.env.local scripts/seed.ts"
+    "seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "ingest:blendy": "tsx --env-file=.env.local scripts/ingest-blendy.ts"
   },
   "dependencies": {
+    "@modelcontextprotocol/server": "^2.4.0",
     "@supabase/supabase-js": "^2.119.0",
     "lucide-react": "^1.74.0",
+    "mcp-handler": "^2.4.0",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",

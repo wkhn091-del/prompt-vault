@@ -37,39 +37,44 @@ export function PromptCard({ prompt, onOpen, onCopied }: PromptCardProps) {
           onOpen(prompt);
         }
       }}
-      className="group cursor-pointer overflow-hidden rounded-xl border border-white/[0.06] bg-[#141416] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/30"
+      className="group cursor-pointer overflow-hidden rounded-[22px] border border-white/[0.06] bg-[#0c0c0e] shadow-[0_0_0_1px_rgba(255,255,255,0.02)] transition-[transform,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.22,0.8,0.24,1)] hover:-translate-y-1 hover:border-white/[0.12] hover:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/30"
     >
-      <div className="relative aspect-[16/10] overflow-hidden bg-[#0d0d10]">
+      <div className="relative aspect-[16/10] overflow-hidden bg-black">
         <MediaPreview
           mediaUrl={prompt.mediaUrl}
           mediaType={prompt.mediaType}
+          previewHtml={prompt.previewHtml}
+          backdropColor={prompt.backdropColor}
           title={prompt.title}
-          className="transition-transform duration-500 group-hover:scale-[1.02]"
+          slug={prompt.slug}
+          className="transition-transform duration-700 ease-[cubic-bezier(0.22,0.8,0.24,1)] group-hover:scale-[1.03]"
         />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       </div>
 
-      <div className="flex items-center justify-between gap-3 px-3.5 py-3">
-        <div className="min-w-0 flex items-baseline gap-2">
-          <h3 className="truncate text-[15px] font-medium tracking-tight text-white">
+      <div className="flex items-center justify-between gap-3 px-4 py-3.5">
+        <div className="min-w-0">
+          <h3 className="truncate text-[15px] font-semibold tracking-[-0.02em] text-white">
             {prompt.title}
           </h3>
-          <span className="shrink-0 truncate text-[13px] text-[#6f6f78]">
+          <p className="mt-0.5 truncate text-[12px] font-medium tracking-wide text-white/40">
             {prompt.category}
-          </span>
+          </p>
         </div>
 
         <button
           type="button"
           onClick={copyPrompt}
-          className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-[#8b8b96] transition-colors hover:bg-white/[0.06] hover:text-white"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[12px] font-semibold tracking-tight text-white/70 transition hover:border-white/20 hover:bg-white hover:text-black"
           aria-label="Copy prompt"
           title="Copy prompt"
         >
           {copied ? (
-            <Check className="size-4 text-emerald-400" />
+            <Check className="size-3.5 text-emerald-400 group-hover:text-emerald-600" />
           ) : (
-            <Copy className="size-4" />
+            <Copy className="size-3.5" />
           )}
+          <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
         </button>
       </div>
     </article>
