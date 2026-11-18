@@ -56,11 +56,8 @@ export function ScaledLivePreview({
         <iframe
           title={title}
           srcDoc={html}
-          sandbox={
-            interactive
-              ? "allow-scripts allow-same-origin allow-popups allow-forms"
-              : "allow-scripts allow-same-origin allow-popups allow-forms"
-          }
+          // Never combine allow-scripts with allow-same-origin (stored XSS escape).
+          sandbox="allow-scripts"
           referrerPolicy="no-referrer"
           style={{
             position: "absolute",

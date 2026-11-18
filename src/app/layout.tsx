@@ -30,6 +30,8 @@ export const metadata: Metadata = {
   title: "Prompt Vault — Motion Showcase",
   description:
     "Paste AI website prompts. Auto-extract previews, titles, and categories. One-click copy.",
+  // TODO(launch): remove robots noindex when going public.
+  robots: { index: false, follow: false },
   icons: {
     icon: [
       { url: "/logo-m.svg", type: "image/svg+xml" },
@@ -46,6 +48,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${display.variable} ${heebo.variable} ${mono.variable} ${syne.variable} h-full antialiased`}
     >
+      {/* TODO(launch): remove noindex meta when going public */}
+      <head>
+        <meta name="robots" content="noindex" />
+      </head>
       <body className="min-h-full bg-black text-white">{children}</body>
     </html>
   );

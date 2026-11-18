@@ -5,69 +5,104 @@ import {
   buildGenericLivePreviewHtml,
   extractBackdropColor,
 } from "@/lib/live-preview";
-import { toPromptDTO, uniqueSlug } from "@/lib/prompts";
+import { toPromptDTO, toPublicPromptDTO, uniqueSlug } from "@/lib/prompts";
 import {
   DUPLICATE_THRESHOLD,
   similarityPercent,
 } from "@/lib/similarity";
 import { createServiceClient, hasSupabaseEnv, type PromptRow } from "@/lib/supabase";
+import { requireAdmin } from "@/lib/supabase-server";
 import { mirrorToSupabase } from "@/lib/storage";
 import type { DuplicateMatch, MediaType } from "@/lib/types";
 
-const createSchema = z.object({
-  promptText: z.string().min(20, "Prompt is too short"),
-  title: z.string().min(1).max(120).optional(),
-  category: z.string().min(1).max(60).optional(),
-  mediaUrl: z.string().url().nullable().optional(),
-  /** Optional HTML companion — saved even when preview is video/image. */
-  previewHtml: z.string().min(20).max(2_000_000).optional(),
-  force: z.boolean().optional().default(false),
-  isPremium: z.boolean().optional().default(false),
-  price: z.number().nonnegative().optional(),
-});
+export const runtime = "nodejs";
+
+const createSchema = z
+  .object({
+    promptText: z.string().min(20, "Prompt is too short").max(500_000),
+    title: z.string().min(1).max(120).optional(),
+    category: z.string().min(1).max(60).optional(),
+    mediaUrl: z.string().url().max(2000).nullable().optional(),
+    /** Optional HTML companion — saved even when preview is video/image. */
+    previewHtml: z.string().min(20).max(2_000_000).optional(),
+    force: z.boolean().optional().default(false),
+    isPremium: z.boolean().optional().default(false),
+    price: z.number().nonnegative().max(1_000_000).optional(),
+  })
+  .strict();
 
 export async function GET(req: NextRequest) {
-  if (!hasSupabaseEnv()) {
-    return NextResponse.json(
-      {
-        error:
-          "Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, and SUPABASE_SERVICE_ROLE_KEY in .env.local",
-        prompts: [],
-      },
-      { status: 503 },
-    );
+  try {
+    if (!hasSupabaseEnv()) {
+      return NextResponse.json(
+        {
+          error:
+            "Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+          prompts: [],
+        },
+        { status: 503 },
+      );
+    }
+
+    const supabase = createServiceClient();
+    const { searchParams } = req.nextUrl;
+    const q = (searchParams.get("q") ?? "").trim().toLowerCase();
+    const category = (searchParams.get("category") ?? "All").trim();
+
+    // Prefer public_prompts (safe view). Fall back to prompts table.
+    const publicSelect = await supabase
+      .from("public_prompts")
+      .select(
+        "id, title, slug, category, media_url, media_type, preview_html, backdrop_color, is_premium, created_at",
+      )
+      .order("created_at", { ascending: false });
+
+    let rows: PromptRow[] = [];
+
+    if (!publicSelect.error && Array.isArray(publicSelect.data)) {
+      rows = publicSelect.data as PromptRow[];
+    } else {
+      const full = await supabase
+        .from("prompts")
+        .select(
+          "id, title, slug, category, media_url, media_type, preview_html, backdrop_color, is_premium, created_at",
+        )
+        .order("created_at", { ascending: false });
+
+      if (full.error) {
+        return NextResponse.json(
+          {
+            error:
+              full.error.message ||
+              publicSelect.error?.message ||
+              "Failed to load prompts",
+            prompts: [],
+          },
+          { status: 500 },
+        );
+      }
+      rows = (full.data as PromptRow[] | null) ?? [];
+    }
+
+    let filtered = rows.map(toPublicPromptDTO);
+
+    if (category && category !== "All") {
+      filtered = filtered.filter((p) => p.category === category);
+    }
+
+    if (q) {
+      filtered = filtered.filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q),
+      );
+    }
+
+    return NextResponse.json({ prompts: filtered });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : "Failed to load prompts";
+    return NextResponse.json({ error: message, prompts: [] }, { status: 500 });
   }
-
-  const supabase = createServiceClient();
-  const { searchParams } = req.nextUrl;
-  const q = (searchParams.get("q") ?? "").trim().toLowerCase();
-  const category = (searchParams.get("category") ?? "All").trim();
-
-  const { data, error } = await supabase
-    .from("prompts")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    return NextResponse.json({ error: error.message, prompts: [] }, { status: 500 });
-  }
-
-  let filtered = (data as PromptRow[]).map(toPromptDTO);
-
-  if (category && category !== "All") {
-    filtered = filtered.filter((p) => p.category === category);
-  }
-
-  if (q) {
-    // Search title + category only — never expose raw prompt matching in UI filters
-    filtered = filtered.filter(
-      (p) =>
-        p.title.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q),
-    );
-  }
-
-  return NextResponse.json({ prompts: filtered });
 }
 
 export async function POST(req: NextRequest) {
@@ -80,6 +115,9 @@ export async function POST(req: NextRequest) {
       { status: 503 },
     );
   }
+
+  const gate = await requireAdmin(req);
+  if ("response" in gate) return gate.response;
 
   let body: unknown;
   try {
@@ -96,6 +134,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const { sanitizePreviewHtml } = await import("@/lib/sanitize-html");
+
   const input = parsed.data;
   const extracted = extractFromPrompt(input.promptText);
   const title = input.title?.trim() || extracted.title;
@@ -104,7 +144,6 @@ export async function POST(req: NextRequest) {
 
   const supabase = createServiceClient();
 
-  // --- Duplicate detection ---
   const { data: existing, error: listError } = await supabase
     .from("prompts")
     .select("id, title, slug, prompt_text, normalized_hash");
@@ -118,7 +157,6 @@ export async function POST(req: NextRequest) {
   const titleKey = title.trim().toLowerCase();
   const slugKey = extracted.slug.trim().toLowerCase();
 
-  // Same title / slug counts as duplicate (don't insert Blendy twice, etc.)
   const sameIdentity = rows.find(
     (r) =>
       r.title.trim().toLowerCase() === titleKey ||
@@ -171,14 +209,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // --- Extract + mirror media to Supabase Storage ---
   const sourceMediaUrl =
     input.mediaUrl !== undefined
       ? input.mediaUrl
       : extracted.videoUrl ?? extracted.imageUrl;
 
   const backdropColor = extractBackdropColor(input.promptText);
-  // Prefer explicit override → .mp4/.webm from prompt → image fallback
   const prefersVideo =
     Boolean(extracted.videoUrl) ||
     (!!sourceMediaUrl && /\.(mp4|webm|mov)(\?|#|$)/i.test(sourceMediaUrl));
@@ -189,8 +225,9 @@ export async function POST(req: NextRequest) {
     : extracted.imageUrl
       ? "image"
       : null;
-  // User-supplied HTML (e.g. for video-only animations) — keep for copy even if preview stays video
-  let previewHtml: string | null = input.previewHtml?.trim() || null;
+  let previewHtml: string | null = input.previewHtml?.trim()
+    ? sanitizePreviewHtml(input.previewHtml.trim())
+    : null;
 
   if (sourceMediaUrl && /^https?:\/\//i.test(sourceMediaUrl)) {
     const uploaded = await mirrorToSupabase(supabase, sourceMediaUrl);
@@ -200,7 +237,6 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // Auto live_preview only when NO video and user did not supply HTML
   const wantsLive =
     !previewHtml &&
     mediaType !== "video" &&
@@ -215,7 +251,6 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  // Re-assert video when user pasted HTML alongside a video clip
   if (prefersVideo || (mediaUrl && /\.(mp4|webm|mov)(\?|#|$)/i.test(mediaUrl))) {
     mediaType = "video";
   }
@@ -260,7 +295,6 @@ export async function POST(req: NextRequest) {
     insertError = full.error;
   }
 
-  // Schema not migrated yet → fall back without preview_html column
   if (
     !created &&
     (insertError?.message?.includes("preview_html") ||

@@ -1,6 +1,24 @@
 import type { PromptRow } from "./supabase";
 import type { PromptDTO } from "./types";
 
+/** Safe list/card fields — no prompt_text / hash / price leakage. */
+export function toPublicPromptDTO(row: PromptRow): PromptDTO {
+  return {
+    id: row.id,
+    title: row.title,
+    slug: row.slug,
+    category: row.category,
+    promptText: "",
+    mediaUrl: row.media_url,
+    mediaType: row.media_type,
+    previewHtml: row.preview_html ?? null,
+    backdropColor: row.backdrop_color ?? null,
+    isPremium: row.is_premium,
+    price: 0,
+    createdAt: row.created_at,
+  };
+}
+
 export function toPromptDTO(row: PromptRow): PromptDTO {
   return {
     id: row.id,

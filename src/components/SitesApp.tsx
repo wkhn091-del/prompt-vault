@@ -4,14 +4,13 @@ import { useMemo, useState } from "react";
 import {
   ArrowUpRight,
   Check,
+  ChevronDown,
   Copy,
-  ExternalLink,
   Film,
   Search,
 } from "lucide-react";
 import {
   SITE_CATEGORIES,
-  SITES_FOLDER_HREF,
   type SiteItem,
 } from "@/lib/sites-library";
 import { getSiteCopyText, hasSiteBody } from "@/lib/sites-bodies";
@@ -28,6 +27,7 @@ function SiteCard({
   onCopied: () => void;
 }) {
   const [copied, setCopied] = useState(false);
+  const [openMore, setOpenMore] = useState(false);
   const canCopy = hasSiteBody(item.id) || Boolean(item.href);
 
   async function copy() {
@@ -43,23 +43,19 @@ function SiteCard({
 
   return (
     <article
-      className="academy-card lib-reveal group relative flex min-w-0 flex-col overflow-hidden rounded-[26px] border border-white/[0.1] bg-gradient-to-b from-[#16120f] to-[#0c0a09] p-5"
+      className="academy-card lib-reveal group relative flex min-w-0 flex-col overflow-hidden rounded-[20px] border border-white/[0.1] bg-gradient-to-b from-[#16120f] to-[#0c0a09] px-5 py-4"
       style={{ animationDelay: `${Math.min(index, 12) * 45}ms` }}
     >
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff7a45]/60 to-transparent opacity-70"
         aria-hidden
       />
-      <div
-        className="pointer-events-none absolute -left-10 bottom-0 size-36 rounded-full bg-[radial-gradient(circle,rgba(255,122,69,0.18),transparent_70%)] opacity-0 transition group-hover:opacity-100"
-        aria-hidden
-      />
 
       <div className="relative flex min-w-0 items-start gap-3">
         <div className="min-w-0 flex-1" dir="rtl">
-          <div className="mb-2 flex flex-wrap items-center gap-2">
+          <div className="mb-1.5 flex flex-wrap items-center gap-2">
             {item.kind && (
-              <span className="rounded-full border border-[#ff7a45]/30 bg-[#ff7a45]/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#ffb08a] [direction:ltr]">
+              <span className="rounded-full border border-[#ff7a45]/30 bg-[#ff7a45]/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#ffb08a] [direction:ltr]">
                 {item.kind}
               </span>
             )}
@@ -67,37 +63,56 @@ function SiteCard({
               reel {String(index + 1).padStart(2, "0")}
             </span>
           </div>
-          <h3 className="text-[17px] font-bold leading-snug tracking-tight text-white break-words [font-family:var(--font-heebo),sans-serif]">
+          <h3 className="text-[16px] font-bold leading-snug tracking-tight text-white break-words [font-family:var(--font-heebo),sans-serif]">
             {item.title}
           </h3>
-          <p className="mt-2 text-[13px] leading-relaxed text-white/45 break-words [font-family:var(--font-heebo),sans-serif]">
-            {item.summary}
-          </p>
         </div>
         <a
           href={item.href}
           target="_blank"
           rel="noreferrer"
-          className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#ff7a45]/25 text-[#ff9a6c] transition hover:border-[#ff7a45]/55 hover:bg-[#ff7a45]/10 hover:text-[#ffc4a8]"
+          className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#ff7a45]/25 text-[#ff9a6c] transition hover:border-[#ff7a45]/55 hover:bg-[#ff7a45]/10 hover:text-[#ffc4a8]"
           aria-label={`Open ${item.title}`}
         >
           <ArrowUpRight className="size-3.5" />
         </a>
       </div>
 
-      <button
-        type="button"
-        disabled={!canCopy}
-        onClick={() => void copy()}
-        className="relative mt-5 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-[#ff7a45] to-[#ffb35c] px-3 py-2.5 text-[12px] font-bold tracking-wide text-[#1a0e08] transition hover:brightness-110 disabled:opacity-40"
-      >
-        {copied ? (
-          <Check className="size-3.5" />
-        ) : (
-          <Copy className="size-3.5" />
-        )}
-        {copied ? "Copied" : hasSiteBody(item.id) ? "Copy script" : "Copy link"}
-      </button>
+      {openMore && (
+        <p
+          className="relative mt-3 text-[13px] leading-relaxed text-white/55 [font-family:var(--font-heebo),sans-serif]"
+          dir="rtl"
+        >
+          {item.summary}
+        </p>
+      )}
+
+      <div className="relative mt-4 flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setOpenMore((v) => !v)}
+          className="inline-flex shrink-0 items-center gap-1 rounded-full border border-white/[0.12] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold text-white/70 transition hover:border-[#ff7a45]/40 hover:text-[#ffb08a]"
+          aria-expanded={openMore}
+        >
+          עוד
+          <ChevronDown
+            className={`size-3.5 transition ${openMore ? "rotate-180" : ""}`}
+          />
+        </button>
+        <button
+          type="button"
+          disabled={!canCopy}
+          onClick={() => void copy()}
+          className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-[#ff7a45] to-[#ffb35c] px-3 py-2 text-[11px] font-bold tracking-wide text-[#1a0e08] transition hover:brightness-110 disabled:opacity-40"
+        >
+          {copied ? (
+            <Check className="size-3.5" />
+          ) : (
+            <Copy className="size-3.5" />
+          )}
+          {copied ? "Copied" : hasSiteBody(item.id) ? "Copy script" : "Copy link"}
+        </button>
+      </div>
     </article>
   );
 }
@@ -212,39 +227,18 @@ export function SitesLibraryApp() {
         </aside>
 
         <main className="min-w-0 px-4 pb-28 pt-8 sm:px-6 lg:px-10 lg:pt-12">
-          <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="min-w-0 max-w-2xl">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-[#ff9a6c]/75">
-                Website build playbooks
-              </p>
-              <h1
-                className="lib-hero-title mt-3 text-[clamp(2.8rem,8.5vw,5.8rem)] font-extrabold text-white"
-                dir="rtl"
-              >
-                <span className="bg-gradient-to-l from-[#ff7a45] via-[#ffb35c] to-[#ffe0a8] bg-clip-text text-transparent">
-                  אקדמיה
-                </span>
-                <span className="mt-2 block text-[0.36em] font-semibold tracking-[-0.02em] text-white/35 [font-family:var(--font-syne),sans-serif] [direction:ltr] [text-align:left]">
-                  SITE-BUILDING FILM SCHOOL
-                </span>
-              </h1>
-              <p
-                className="mt-4 max-w-lg text-[15px] leading-relaxed text-white/50 [font-family:var(--font-heebo),sans-serif]"
-                dir="rtl"
-              >
-                {totalItems} מסמכים מהדרייב · העתקה מלאה או פתיחה ישירה.
-              </p>
-            </div>
-
-            <a
-              href={SITES_FOLDER_HREF}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex shrink-0 items-center gap-1.5 self-start rounded-full bg-white px-4 py-2.5 text-[12px] font-bold text-black transition hover:bg-[#ffb35c] lg:self-auto"
-            >
-              Drive folder
-              <ExternalLink className="size-3.5 opacity-70" />
-            </a>
+          <div className="mb-10 min-w-0 w-full" dir="rtl">
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-[#ff9a6c]/75 [direction:ltr] [text-align:right]">
+              Website build playbooks
+            </p>
+            <h1 className="lib-hero-title mt-3 text-[clamp(3.2rem,9.5vw,6.6rem)] font-extrabold text-white">
+              <span className="bg-gradient-to-l from-[#ff7a45] via-[#ffb35c] to-[#ffe0a8] bg-clip-text text-transparent">
+                אקדמיה
+              </span>
+              <span className="mt-2 block text-[0.34em] font-semibold tracking-[-0.02em] text-white/35 [font-family:var(--font-syne),sans-serif] [direction:ltr] [text-align:right]">
+                SITE-BUILDING FILM SCHOOL
+              </span>
+            </h1>
           </div>
 
           <div className="relative mb-10 min-w-0">
@@ -260,22 +254,17 @@ export function SitesLibraryApp() {
           <div className="space-y-16">
             {filteredCats.map((cat) => (
               <section key={cat.id} id={cat.id} className="scroll-mt-28">
-                <div className="mb-6 flex flex-col gap-2 border-b border-[#ff7a45]/18 pb-5 sm:flex-row sm:items-end sm:justify-between">
-                  <div dir="rtl">
-                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span className="font-mono text-[13px] text-[#ff7a45]/55 [direction:ltr]">
-                        {cat.number}
-                      </span>
-                      <h2 className="text-[26px] font-extrabold tracking-tight text-white [font-family:var(--font-heebo),sans-serif] sm:text-[30px]">
-                        {cat.title}
-                      </h2>
-                    </div>
-                    <p className="mt-1.5 text-[13px] text-white/40 [font-family:var(--font-heebo),sans-serif]">
-                      {cat.blurb}
-                    </p>
+                <div className="mb-4 flex items-end justify-between gap-3 border-b border-[#ff7a45]/18 pb-3">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1" dir="rtl">
+                    <span className="font-mono text-[12px] text-[#ff7a45]/55 [direction:ltr]">
+                      {cat.number}
+                    </span>
+                    <h2 className="text-[22px] font-extrabold tracking-tight text-white [font-family:var(--font-heebo),sans-serif] sm:text-[26px]">
+                      {cat.title}
+                    </h2>
                   </div>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/25">
-                    {cat.items.length} scenes
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/25">
+                    {cat.items.length}
                   </span>
                 </div>
 

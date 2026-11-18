@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Check,
-  ChevronDown,
   ChevronRight,
   Copy,
   Crown,
@@ -13,111 +12,145 @@ import {
 import {
   BG_CATEGORIES,
   BG_SORTS,
+  displayVideoUrl,
   featuredBackgrounds,
   filterBackgrounds,
   type BackgroundItem,
   type BgCategory,
   type BgSort,
 } from "@/lib/backgrounds-catalog";
+import {
+  releaseVideo,
+  requestVideoPlay,
+  unloadVideo,
+} from "@/lib/video-play-budget";
+import { ModeSwitcher } from "./ModeSwitcher";
 import { SiteHeader } from "./SiteHeader";
 
-/** Off-DOM looping video painted to canvas — Motionsites-style wallpaper tiles */
-function BgLoopVideo({ src }: { src: string }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+/**
+ * Fast gallery video:
+ * - attach src only near viewport
+ * - play only with global decoder budget (max 3)
+ * - grid: play on hover, or when clearly visible and a slot is free
+ * - leave view → full unload (frees RAM/GPU)
+ */
+function BgLoopVideo({
+  src,
+  mode,
+  hovered,
+  onBroken,
+}: {
+  src: string;
+  mode: "hero" | "grid";
+  hovered?: boolean;
+  onBroken?: () => void;
+}) {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [near, setNear] = useState(false);
+  const [mostlyVisible, setMostlyVisible] = useState(false);
+  const brokenRef = useRef(false);
+  const reducedMotion = useRef(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    if (typeof window === "undefined") return;
+    reducedMotion.current = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+  }, []);
+
+  useEffect(() => {
     const wrap = wrapRef.current;
-    if (!canvas || !wrap) return;
+    if (!wrap) return;
 
-    const video = document.createElement("video");
-    video.muted = true;
-    video.defaultMuted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "metadata";
-    video.crossOrigin = "anonymous";
-    video.setAttribute("playsinline", "");
-    video.setAttribute("muted", "");
-    video.controls = false;
-    video.src = src;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        setNear(entry.isIntersecting);
+        setMostlyVisible(
+          entry.isIntersecting && entry.intersectionRatio >= 0.45,
+        );
+      },
+      {
+        // Tight margin — don't prefetch a whole page of CloudFront MP4s
+        rootMargin: mode === "hero" ? "40px 0px" : "80px 0px",
+        threshold: [0, 0.25, 0.45, 0.7],
+      },
+    );
+    io.observe(wrap);
+    return () => io.disconnect();
+  }, [mode]);
 
-    const ctx = canvas.getContext("2d", { alpha: false });
-    if (!ctx) return;
+  const shouldAttach = near || Boolean(hovered);
+  const shouldPlay =
+    !reducedMotion.current &&
+    shouldAttach &&
+    (Boolean(hovered) || mostlyVisible || (mode === "hero" && near));
 
-    let raf = 0;
-    let alive = true;
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
 
-    const sizeCanvas = () => {
-      const w = Math.max(1, wrap.clientWidth);
-      const h = Math.max(1, wrap.clientHeight);
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
+    const onError = () => {
+      if (brokenRef.current) return;
+      brokenRef.current = true;
+      onBroken?.();
     };
+    video.addEventListener("error", onError);
 
-    const draw = () => {
-      if (!alive) return;
-      const w = canvas.width;
-      const h = canvas.height;
-      if (video.readyState >= 2 && w > 0 && h > 0) {
-        const vw = video.videoWidth || 1;
-        const vh = video.videoHeight || 1;
-        const scale = Math.max(w / vw, h / vh);
-        const dw = vw * scale;
-        const dh = vh * scale;
-        ctx.drawImage(video, (w - dw) / 2, (h - dh) / 2, dw, dh);
-      }
-      raf = requestAnimationFrame(draw);
-    };
+    if (!shouldAttach) {
+      unloadVideo(video);
+      return () => {
+        video.removeEventListener("error", onError);
+        unloadVideo(video);
+      };
+    }
 
-    const onReady = () => {
-      sizeCanvas();
-      void video.play().catch(() => {});
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(draw);
-    };
+    if (video.getAttribute("src") !== src) {
+      video.setAttribute("src", src);
+      video.load();
+    }
 
-    video.addEventListener("loadeddata", onReady);
-    const ro = new ResizeObserver(sizeCanvas);
-    ro.observe(wrap);
-    sizeCanvas();
+    if (shouldPlay) {
+      const priority = hovered ? 4 : mode === "hero" ? 3 : 2;
+      const play = () => requestVideoPlay(video, priority);
+      video.addEventListener("canplay", play);
+      play();
+      return () => {
+        video.removeEventListener("canplay", play);
+        video.removeEventListener("error", onError);
+        releaseVideo(video);
+      };
+    }
+
+    try {
+      video.pause();
+    } catch {
+      /* ignore */
+    }
+    releaseVideo(video);
 
     return () => {
-      alive = false;
-      cancelAnimationFrame(raf);
-      ro.disconnect();
-      video.pause();
-      video.removeAttribute("src");
-      video.load();
-      video.removeEventListener("loadeddata", onReady);
+      video.removeEventListener("error", onError);
+      unloadVideo(video);
     };
-  }, [src]);
+  }, [shouldAttach, shouldPlay, src, mode, hovered, onBroken]);
 
   return (
-    <div ref={wrapRef} className="absolute inset-0">
-      <canvas ref={canvasRef} className="h-full w-full" />
-    </div>
-  );
-}
-
-function Watermark() {
-  return (
-    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-      <span className="flex items-center gap-1.5 text-[13px] font-medium tracking-tight text-white/55 drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)] sm:text-[15px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo-m.svg"
-          alt=""
-          width={24}
-          height={24}
-          className="size-5 sm:size-6"
+    <div ref={wrapRef} className="absolute inset-0 bg-[#111]">
+      {shouldAttach && (
+        <video
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          preload="none"
+          controls={false}
+          disablePictureInPicture
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+          aria-hidden
         />
-        promptvault
-      </span>
+      )}
+      <div className="absolute inset-0 z-[1]" aria-hidden />
     </div>
   );
 }
@@ -126,13 +159,19 @@ function BgCard({
   item,
   size,
   onCopied,
+  onBroken,
 }: {
   item: BackgroundItem;
   size: "hero" | "grid";
   onCopied: () => void;
+  onBroken: (id: string) => void;
 }) {
   const [copied, setCopied] = useState(false);
   const [hover, setHover] = useState(false);
+  const handleBroken = useCallback(
+    () => onBroken(item.id),
+    [item.id, onBroken],
+  );
 
   async function copyUrl(e: React.MouseEvent) {
     e.stopPropagation();
@@ -148,22 +187,26 @@ function BgCard({
 
   return (
     <article
-      className={`group relative shrink-0 overflow-hidden rounded-[22px] bg-[#111] ${
+      className={`group relative shrink-0 overflow-hidden rounded-[22px] bg-[#111] [content-visibility:auto] [contain-intrinsic-size:320px_200px] ${
         size === "hero"
-          ? "aspect-[16/10] w-[min(72vw,420px)] sm:w-[min(46vw,480px)] lg:w-[440px]"
+          ? "aspect-[16/10] w-[min(82vw,520px)] sm:w-[min(54vw,580px)] lg:w-[540px]"
           : "aspect-[16/10] w-full"
       }`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <BgLoopVideo src={item.videoUrl} />
-      <Watermark />
+      <BgLoopVideo
+        src={displayVideoUrl(item)}
+        mode={size}
+        hovered={hover}
+        onBroken={handleBroken}
+      />
 
       {(hover || copied) && (
         <button
           type="button"
           onClick={copyUrl}
-          className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[12px] font-semibold text-black shadow-lg backdrop-blur transition hover:bg-white"
+          className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[12px] font-semibold text-black shadow-lg"
         >
           {copied ? (
             <Check className="size-3.5 text-emerald-600" />
@@ -181,7 +224,7 @@ function BgCard({
       )}
 
       {typeof item.likes === "number" && item.likes > 0 && hover && (
-        <span className="absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full bg-black/55 px-2 py-1 text-[11px] font-medium text-white backdrop-blur">
+        <span className="absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full bg-black/55 px-2 py-1 text-[11px] font-medium text-white">
           <Heart className="size-3 fill-white/80" />
           {item.likes}
         </span>
@@ -194,13 +237,32 @@ export function BackgroundsApp() {
   const [sort, setSort] = useState<BgSort>("Recent");
   const [category, setCategory] = useState<BgCategory>("All");
   const [toast, setToast] = useState(false);
+  const [gridVisible, setGridVisible] = useState(12);
+  const [brokenIds, setBrokenIds] = useState<Set<string>>(() => new Set());
   const catRailRef = useRef<HTMLDivElement>(null);
 
-  const hero = useMemo(() => featuredBackgrounds(), []);
-  const grid = useMemo(
-    () => filterBackgrounds(sort, category),
-    [sort, category],
+  const onBroken = useCallback((id: string) => {
+    setBrokenIds((prev) => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
+  }, []);
+
+  const hero = useMemo(
+    () => featuredBackgrounds().filter((b) => !brokenIds.has(b.id)),
+    [brokenIds],
   );
+  const grid = useMemo(
+    () => filterBackgrounds(sort, category).filter((b) => !brokenIds.has(b.id)),
+    [sort, category, brokenIds],
+  );
+  const gridSlice = grid.slice(0, gridVisible);
+
+  useEffect(() => {
+    setGridVisible(12);
+  }, [sort, category]);
 
   function onCopied() {
     setToast(true);
@@ -216,43 +278,37 @@ export function BackgroundsApp() {
       <div className="vault-grain" aria-hidden />
       <SiteHeader active="backgrounds" />
 
-      <div className="relative z-10 mx-auto max-w-[1400px] px-4 pb-28 pt-8 sm:px-6 lg:px-8">
-        {/* Hero copy — Motionsites style */}
-        <div className="mb-6 flex flex-col items-center text-center">
-          <p className="max-w-xl text-[15px] font-medium tracking-tight text-white/70 sm:text-[17px]">
-            A huge collection of handcrafted Animated Backgrounds.
-          </p>
-          <a
-            href="https://motionsites.ai/unlimited"
-            target="_blank"
-            rel="noreferrer"
-            className="mt-4 inline-flex h-11 items-center rounded-full bg-gradient-to-b from-white to-zinc-200 px-6 text-[14px] font-semibold text-black shadow-[0_8px_24px_-8px_rgba(255,255,255,0.35)] transition hover:from-zinc-100 hover:to-zinc-300"
-          >
-            Go Unlimited →
-          </a>
+      <div className="relative z-10 border-b border-white/[0.06] bg-black/40 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-end gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
+          <ModeSwitcher active="backgrounds" />
         </div>
+      </div>
 
-        {/* Featured carousel */}
-        <div className="-mx-4 mb-8 flex gap-3 overflow-x-auto px-4 pb-2 scrollbar-none sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-          {hero.map((item) => (
-            <BgCard
-              key={`hero-${item.id}`}
-              item={item}
-              size="hero"
-              onCopied={onCopied}
-            />
-          ))}
-        </div>
+      <div className="relative z-10 mx-auto max-w-[1400px] px-4 pb-28 pt-6 sm:px-6 lg:px-8">
+        {hero.length > 0 && (
+          <div className="-mx-4 mb-6 overflow-x-auto scrollbar-none sm:-mx-6 lg:-mx-8">
+            <div className="flex gap-4 px-4 sm:gap-5 sm:px-6 lg:px-8">
+              {hero.slice(0, 4).map((item) => (
+                <BgCard
+                  key={`hero-${item.id}`}
+                  item={item}
+                  size="hero"
+                  onCopied={onCopied}
+                  onBroken={onBroken}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
-        {/* Filter bar */}
-        <div className="mb-6 flex flex-wrap items-center gap-2 border-y border-white/[0.06] py-3">
+        <div className="mb-5 flex flex-wrap items-center gap-2 border-y border-white/[0.06] py-2.5">
           <div className="flex items-center gap-1.5">
             {BG_SORTS.map((s) => (
               <button
                 key={s}
                 type="button"
                 onClick={() => setSort(s)}
-                className={`rounded-full px-3.5 py-1.5 text-[13px] font-medium transition ${
+                className={`rounded-full px-3 py-1.5 text-[12px] font-medium transition ${
                   sort === s
                     ? "bg-white/[0.12] text-white ring-1 ring-white/25"
                     : "text-white/45 hover:bg-white/[0.06] hover:text-white/80"
@@ -275,7 +331,7 @@ export function BackgroundsApp() {
                   key={c}
                   type="button"
                   onClick={() => setCategory(c)}
-                  className={`shrink-0 rounded-full px-3 py-1.5 text-[13px] font-medium transition ${
+                  className={`shrink-0 rounded-full px-2.5 py-1.5 text-[12px] font-medium transition ${
                     category === c
                       ? "bg-white/[0.12] text-white"
                       : "text-white/45 hover:bg-white/[0.06] hover:text-white/80"
@@ -295,26 +351,34 @@ export function BackgroundsApp() {
             </button>
           </div>
 
-          <button
-            type="button"
-            className="ml-auto inline-flex items-center gap-1 rounded-full border border-white/[0.1] px-3 py-1.5 text-[13px] font-medium text-white/55 transition hover:border-white/20 hover:text-white"
-          >
-            Pricing
-            <ChevronDown className="size-3.5 opacity-60" />
-          </button>
+          <span className="ml-auto rounded-full border border-emerald-400/25 bg-emerald-400/10 px-2.5 py-1 text-[11px] font-medium text-emerald-200/90">
+            Free
+          </span>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {grid.map((item) => (
+          {gridSlice.map((item) => (
             <BgCard
               key={item.id}
               item={item}
               size="grid"
               onCopied={onCopied}
+              onBroken={onBroken}
             />
           ))}
         </div>
+
+        {gridVisible < grid.length && (
+          <div className="mt-7 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setGridVisible((n) => n + 12)}
+              className="rounded-full border border-white/[0.12] bg-white/[0.04] px-5 py-2 text-[12px] font-semibold text-white/80 transition hover:bg-white/[0.08] hover:text-white"
+            >
+              Load more ({grid.length - gridVisible} left)
+            </button>
+          </div>
+        )}
 
         {grid.length === 0 && (
           <div className="rounded-2xl border border-dashed border-white/[0.1] px-6 py-20 text-center">
@@ -337,7 +401,7 @@ export function BackgroundsApp() {
         <div className="animate-toast-in fixed bottom-20 left-1/2 z-50 -translate-x-1/2 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-black shadow-lg">
           <span className="inline-flex items-center gap-1.5">
             <Copy className="size-3.5" />
-            URL copied
+            Clean URL copied
           </span>
         </div>
       )}

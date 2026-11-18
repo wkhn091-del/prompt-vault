@@ -1,7 +1,8 @@
 "use client";
 
-import { Check, Copy } from "lucide-react";
+import { Check, Copy, Film, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { copyAnimationVideo } from "@/lib/copy-screenshot";
 import type { PromptDTO } from "@/lib/types";
 import { MediaPreview } from "./MediaPreview";
 
@@ -9,20 +10,60 @@ type PromptCardProps = {
   prompt: PromptDTO;
   onOpen: (prompt: PromptDTO) => void;
   onCopied: () => void;
+  onVideoCopied?: (ok: boolean, error?: string) => void;
 };
 
-export function PromptCard({ prompt, onOpen, onCopied }: PromptCardProps) {
+export function PromptCard({
+  prompt,
+  onOpen,
+  onCopied,
+  onVideoCopied,
+}: PromptCardProps) {
   const [copied, setCopied] = useState(false);
+  const [videoBusy, setVideoBusy] = useState(false);
+  const [videoOk, setVideoOk] = useState(false);
+
+  const hasVideo = Boolean(
+    prompt.mediaUrl &&
+      (prompt.mediaType === "video" ||
+        /\.(mp4|webm|mov)(\?|#|$)/i.test(prompt.mediaUrl)),
+  );
 
   async function copyPrompt(e: React.MouseEvent) {
     e.stopPropagation();
     try {
-      await navigator.clipboard.writeText(prompt.promptText);
+      let text = prompt.promptText;
+      if (!text) {
+        const { authFetch } = await import("@/lib/auth-fetch");
+        const res = await authFetch(`/api/prompts/${prompt.id}`);
+        const data = await res.json();
+        text = (data.prompt?.promptText as string | undefined) || "";
+        if (!text) return;
+      }
+      await navigator.clipboard.writeText(text);
       setCopied(true);
       onCopied();
       setTimeout(() => setCopied(false), 1600);
     } catch {
       /* toast handled by parent if needed */
+    }
+  }
+
+  async function copyVideo(e: React.MouseEvent) {
+    e.stopPropagation();
+    if (videoBusy) return;
+    setVideoBusy(true);
+    const result = await copyAnimationVideo({
+      mediaUrl: prompt.mediaUrl,
+      mediaType: prompt.mediaType,
+    });
+    setVideoBusy(false);
+    if (result.ok) {
+      setVideoOk(true);
+      onVideoCopied?.(true);
+      setTimeout(() => setVideoOk(false), 1600);
+    } else {
+      onVideoCopied?.(false, result.error);
     }
   }
 
@@ -62,20 +103,44 @@ export function PromptCard({ prompt, onOpen, onCopied }: PromptCardProps) {
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={copyPrompt}
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[12px] font-semibold tracking-tight text-white/70 transition hover:border-white/20 hover:bg-white hover:text-black"
-          aria-label="Copy prompt"
-          title="Copy prompt"
-        >
-          {copied ? (
-            <Check className="size-3.5 text-emerald-400 group-hover:text-emerald-600" />
-          ) : (
-            <Copy className="size-3.5" />
+        <div className="flex shrink-0 items-center gap-1.5">
+          {hasVideo && (
+            <button
+              type="button"
+              onClick={(e) => void copyVideo(e)}
+              disabled={videoBusy}
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[12px] font-semibold tracking-tight text-white/70 transition hover:border-white/20 hover:bg-white hover:text-black disabled:opacity-50"
+              aria-label="Copy video link"
+              title="Copy the animation video URL"
+            >
+              {videoBusy ? (
+                <Loader2 className="size-3.5 animate-spin" />
+              ) : videoOk ? (
+                <Check className="size-3.5 text-emerald-400" />
+              ) : (
+                <Film className="size-3.5" />
+              )}
+              <span className="hidden sm:inline">
+                {videoOk ? "Copied" : "Video"}
+              </span>
+            </button>
           )}
-          <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
-        </button>
+
+          <button
+            type="button"
+            onClick={(e) => void copyPrompt(e)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[12px] font-semibold tracking-tight text-white/70 transition hover:border-white/20 hover:bg-white hover:text-black"
+            aria-label="Copy prompt"
+            title="Copy prompt"
+          >
+            {copied ? (
+              <Check className="size-3.5 text-emerald-400" />
+            ) : (
+              <Copy className="size-3.5" />
+            )}
+            <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
+          </button>
+        </div>
       </div>
     </article>
   );

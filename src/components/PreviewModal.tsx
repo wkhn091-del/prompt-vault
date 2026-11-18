@@ -1,7 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Heart, Loader2, X } from "lucide-react";
+import {
+  Check,
+  Code2,
+  ExternalLink,
+  Film,
+  Heart,
+  Loader2,
+  X,
+} from "lucide-react";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { copyAnimationVideo } from "@/lib/copy-screenshot";
+import { localLivePreviewHtml } from "@/lib/live-registry";
 import type { PromptDTO } from "@/lib/types";
 import { CopyPromptMenu } from "./CopyPromptMenu";
 import { MediaPreview } from "./MediaPreview";
@@ -11,6 +22,9 @@ type PreviewModalProps = {
   onClose: () => void;
   onCopied: () => void;
   onUpdated?: (prompt: PromptDTO) => void;
+  onVideoCopied?: (ok: boolean, error?: string) => void;
+  /** Open on live HTML when companion HTML exists (Animations column). */
+  preferHtml?: boolean;
 };
 
 export function PreviewModal({
@@ -18,18 +32,29 @@ export function PreviewModal({
   onClose,
   onCopied,
   onUpdated,
+  onVideoCopied,
+  preferHtml = false,
 }: PreviewModalProps) {
   const [htmlDraft, setHtmlDraft] = useState("");
   const [showHtmlEditor, setShowHtmlEditor] = useState(false);
   const [savingHtml, setSavingHtml] = useState(false);
   const [htmlError, setHtmlError] = useState<string | null>(null);
+  const [videoBusy, setVideoBusy] = useState(false);
+  const [videoOk, setVideoOk] = useState(false);
+  const [htmlCopied, setHtmlCopied] = useState(false);
+  const [view, setView] = useState<"video" | "html">("video");
+  const { isAdmin } = useIsAdmin();
 
   useEffect(() => {
     setHtmlDraft("");
     setShowHtmlEditor(false);
     setHtmlError(null);
     setSavingHtml(false);
-  }, [prompt?.id]);
+    setVideoBusy(false);
+    setVideoOk(false);
+    setHtmlCopied(false);
+    setView(preferHtml ? "html" : "video");
+  }, [prompt?.id, preferHtml]);
 
   useEffect(() => {
     if (!prompt) return;
@@ -42,10 +67,58 @@ export function PreviewModal({
 
   if (!prompt) return null;
 
-  const hasHtml = Boolean(
-    prompt.previewHtml && prompt.previewHtml.trim().length > 20,
-  );
+  const resolvedHtml =
+    (prompt.previewHtml && prompt.previewHtml.trim().length > 20
+      ? prompt.previewHtml
+      : null) || localLivePreviewHtml(prompt.slug);
+  const hasHtml = Boolean(resolvedHtml && resolvedHtml.trim().length > 20);
   const editingHtml = showHtmlEditor && !hasHtml;
+
+  const hasVideo = Boolean(
+    prompt.mediaUrl &&
+      (prompt.mediaType === "video" ||
+        /\.(mp4|webm|mov)(\?|#|$)/i.test(prompt.mediaUrl)),
+  );
+  const showHtmlView = hasHtml && (view === "html" || !hasVideo);
+
+  async function copyHtml() {
+    if (!resolvedHtml) return;
+    try {
+      await navigator.clipboard.writeText(resolvedHtml);
+      setHtmlCopied(true);
+      onCopied();
+      setTimeout(() => setHtmlCopied(false), 1600);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function browseHtml() {
+    if (!resolvedHtml) return;
+    const blob = new Blob([resolvedHtml], {
+      type: "text/html;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    window.open(url, "_blank", "noopener,noreferrer");
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  }
+
+  async function copyVideo() {
+    if (!prompt || videoBusy) return;
+    setVideoBusy(true);
+    const result = await copyAnimationVideo({
+      mediaUrl: prompt.mediaUrl,
+      mediaType: prompt.mediaType,
+    });
+    setVideoBusy(false);
+    if (result.ok) {
+      setVideoOk(true);
+      onVideoCopied?.(true);
+      setTimeout(() => setVideoOk(false), 1600);
+    } else {
+      onVideoCopied?.(false, result.error);
+    }
+  }
 
   async function saveHtml() {
     if (!prompt || htmlDraft.trim().length < 20) {
@@ -55,22 +128,38 @@ export function PreviewModal({
     setSavingHtml(true);
     setHtmlError(null);
     try {
-      const res = await fetch(`/api/prompts/${prompt.id}`, {
+      const { authFetch } = await import("@/lib/auth-fetch");
+      const res = await authFetch(`/api/prompts/${prompt.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ previewHtml: htmlDraft }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        setHtmlError(data.error ?? "Failed to save HTML");
+      const raw = await res.text();
+      let data: { error?: string; prompt?: PromptDTO } = {};
+      try {
+        data = raw ? (JSON.parse(raw) as typeof data) : {};
+      } catch {
+        setHtmlError(
+          `Save failed (${res.status}). Server returned a non-JSON response.`,
+        );
         return;
       }
-      onUpdated?.(data.prompt as PromptDTO);
+      if (!res.ok) {
+        setHtmlError(data.error ?? `Failed to save HTML (${res.status})`);
+        return;
+      }
+      if (!data.prompt) {
+        setHtmlError("Save succeeded but no prompt returned.");
+        return;
+      }
+      onUpdated?.(data.prompt);
       setShowHtmlEditor(false);
       setHtmlDraft("");
       onCopied();
-    } catch {
-      setHtmlError("Network error");
+    } catch (e) {
+      setHtmlError(
+        e instanceof Error ? e.message : "Network error while saving HTML",
+      );
     } finally {
       setSavingHtml(false);
     }
@@ -89,14 +178,41 @@ export function PreviewModal({
       <div className="relative z-10 flex h-[100dvh] w-full max-w-[1280px] flex-col overflow-hidden bg-black sm:h-[min(86vh,820px)] sm:flex-row sm:rounded-[24px] sm:border sm:border-white/[0.08] sm:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)]">
         {/* LEFT — video / live preview (~70%) */}
         <div className="relative min-h-[42vh] min-w-0 flex-1 bg-black sm:min-h-0 sm:flex-[1.65]">
+          {hasHtml && hasVideo && (
+            <div className="absolute left-3 top-3 z-20 flex gap-1 rounded-full border border-white/15 bg-black/70 p-1 backdrop-blur-md">
+              <button
+                type="button"
+                onClick={() => setView("video")}
+                className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition ${
+                  !showHtmlView
+                    ? "bg-white text-black"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                Video
+              </button>
+              <button
+                type="button"
+                onClick={() => setView("html")}
+                className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition ${
+                  showHtmlView
+                    ? "bg-white text-black"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                HTML
+              </button>
+            </div>
+          )}
           <MediaPreview
             mediaUrl={prompt.mediaUrl}
             mediaType={prompt.mediaType}
-            previewHtml={prompt.previewHtml}
+            previewHtml={resolvedHtml}
             backdropColor={prompt.backdropColor}
             title={prompt.title}
             slug={prompt.slug}
             liveMode="modal"
+            preferHtml={showHtmlView}
           />
         </div>
 
@@ -125,10 +241,54 @@ export function PreviewModal({
               </p>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 space-y-3">
+              {hasHtml && (
+                <>
+                  <button
+                    type="button"
+                    onClick={browseHtml}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.04] px-5 py-3.5 text-[13px] font-semibold text-white/85 transition hover:border-white/25 hover:bg-white/[0.08]"
+                  >
+                    <ExternalLink className="size-4" />
+                    Browse HTML
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void copyHtml()}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3.5 text-[13px] font-bold text-black transition hover:bg-zinc-200"
+                  >
+                    {htmlCopied ? (
+                      <Check className="size-4 text-emerald-600" />
+                    ) : (
+                      <Code2 className="size-4" />
+                    )}
+                    {htmlCopied ? "HTML copied" : "Copy HTML"}
+                  </button>
+                </>
+              )}
+
+              {hasVideo && (
+                <button
+                  type="button"
+                  onClick={() => void copyVideo()}
+                  disabled={videoBusy}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.04] px-5 py-3.5 text-[13px] font-semibold text-white/85 transition hover:border-white/25 hover:bg-white/[0.08] disabled:opacity-50"
+                  title="Copy the animation video URL"
+                >
+                  {videoBusy ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : videoOk ? (
+                    <Check className="size-4 text-emerald-400" />
+                  ) : (
+                    <Film className="size-4" />
+                  )}
+                  {videoOk ? "Video link copied" : "Copy video"}
+                </button>
+              )}
+
               <CopyPromptMenu
                 promptText={prompt.promptText}
-                html={prompt.previewHtml}
+                html={resolvedHtml}
                 onCopied={() => onCopied()}
                 className="w-full"
                 fullWidth
@@ -136,7 +296,7 @@ export function PreviewModal({
               />
             </div>
 
-            {!hasHtml && !editingHtml && (
+            {isAdmin && !hasHtml && !editingHtml && (
               <button
                 type="button"
                 onClick={() => setShowHtmlEditor(true)}
@@ -146,7 +306,7 @@ export function PreviewModal({
               </button>
             )}
 
-            {editingHtml && (
+            {isAdmin && editingHtml && (
               <div className="mt-5 flex min-h-0 flex-1 flex-col">
                 <label className="mb-2 block text-[12px] font-medium text-white/40">
                   Paste companion HTML
@@ -190,7 +350,8 @@ export function PreviewModal({
 
             {hasHtml && (
               <p className="mt-5 text-[12px] leading-relaxed text-white/30">
-                Use the chevron on Copy prompt to copy HTML as well.
+                Switch to HTML to scroll inside the live site, or Browse / Copy
+                the full file.
               </p>
             )}
           </div>

@@ -4,16 +4,13 @@ import { useMemo, useState } from "react";
 import {
   ArrowUpRight,
   Check,
+  ChevronDown,
   Copy,
-  ExternalLink,
   Search,
   Zap,
 } from "lucide-react";
 import {
-  AAA_SKILLS_HREF,
   TOOL_CATEGORIES,
-  TOOLS_FOLDER_HREF,
-  TOOLS_MAP_HREF,
   type ToolItem,
 } from "@/lib/tools-arsenal";
 import { getToolCopyText, hasToolBody } from "@/lib/tools-bodies";
@@ -30,6 +27,7 @@ function ToolCard({
   onCopied: () => void;
 }) {
   const [copied, setCopied] = useState(false);
+  const [openMore, setOpenMore] = useState(false);
   const canCopy = hasToolBody(tool.id) || Boolean(tool.href);
 
   async function copy() {
@@ -45,17 +43,13 @@ function ToolCard({
 
   return (
     <article
-      className="arsenal-card lib-reveal group relative flex min-w-0 flex-col overflow-hidden rounded-[22px] border border-white/[0.09] bg-[#0b0c0a] p-5"
+      className="arsenal-card lib-reveal group relative flex min-w-0 flex-col overflow-hidden rounded-[20px] border border-white/[0.09] bg-[#0b0c0a] px-5 py-4"
       style={{ animationDelay: `${Math.min(index, 12) * 40}ms` }}
     >
-      <div
-        className="pointer-events-none absolute -right-8 -top-8 size-28 rounded-full bg-[radial-gradient(circle,rgba(200,245,66,0.16),transparent_70%)] opacity-0 transition group-hover:opacity-100"
-        aria-hidden
-      />
       <div className="relative flex min-w-0 items-start gap-3">
         <div className="min-w-0 flex-1" dir="rtl">
-          <div className="mb-2 flex items-center gap-2" dir="ltr">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#c8f542]/60">
+          <div className="mb-1.5 flex items-center gap-2" dir="ltr">
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#c8f542]/60">
               skill
             </span>
             <span className="h-px flex-1 bg-gradient-to-r from-[#c8f542]/35 to-transparent" />
@@ -63,23 +57,29 @@ function ToolCard({
           <h3 className="text-[16px] font-semibold leading-snug tracking-tight text-white break-words [font-family:var(--font-heebo),sans-serif]">
             {tool.title}
           </h3>
-          <p className="mt-2 text-[13px] leading-relaxed text-white/45 break-words [font-family:var(--font-heebo),sans-serif]">
-            {tool.summary}
-          </p>
         </div>
         <a
           href={tool.href}
           target="_blank"
           rel="noreferrer"
-          className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#c8f542]/25 text-[#c8f542]/70 transition hover:border-[#c8f542]/60 hover:bg-[#c8f542]/10 hover:text-[#c8f542]"
+          className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#c8f542]/25 text-[#c8f542]/70 transition hover:border-[#c8f542]/60 hover:bg-[#c8f542]/10 hover:text-[#c8f542]"
           aria-label={`Open ${tool.title}`}
         >
           <ArrowUpRight className="size-3.5" />
         </a>
       </div>
 
+      {openMore && (
+        <p
+          className="relative mt-3 text-[13px] leading-relaxed text-white/55 [font-family:var(--font-heebo),sans-serif]"
+          dir="rtl"
+        >
+          {tool.summary}
+        </p>
+      )}
+
       {tool.parts && tool.parts.length > 1 && (
-        <div className="relative mt-4 flex flex-wrap gap-1.5" dir="rtl">
+        <div className="relative mt-3 flex flex-wrap gap-1.5" dir="rtl">
           {tool.parts.map((part) => (
             <a
               key={part.href}
@@ -94,19 +94,32 @@ function ToolCard({
         </div>
       )}
 
-      <button
-        type="button"
-        disabled={!canCopy}
-        onClick={() => void copy()}
-        className="relative mt-5 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-[#c8f542] px-3 py-2.5 text-[12px] font-bold tracking-wide text-black transition hover:bg-[#d6ff6a] disabled:opacity-40"
-      >
-        {copied ? (
-          <Check className="size-3.5" />
-        ) : (
-          <Copy className="size-3.5" />
-        )}
-        {copied ? "Copied" : "Copy"}
-      </button>
+      <div className="relative mt-4 flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setOpenMore((v) => !v)}
+          className="inline-flex shrink-0 items-center gap-1 rounded-full border border-white/[0.12] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold text-white/70 transition hover:border-[#c8f542]/35 hover:text-[#c8f542]"
+          aria-expanded={openMore}
+        >
+          עוד
+          <ChevronDown
+            className={`size-3.5 transition ${openMore ? "rotate-180" : ""}`}
+          />
+        </button>
+        <button
+          type="button"
+          disabled={!canCopy}
+          onClick={() => void copy()}
+          className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-full bg-[#c8f542] px-3 py-2 text-[11px] font-bold tracking-wide text-black transition hover:bg-[#d6ff6a] disabled:opacity-40"
+        >
+          {copied ? (
+            <Check className="size-3.5" />
+          ) : (
+            <Copy className="size-3.5" />
+          )}
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
     </article>
   );
 }
@@ -215,57 +228,16 @@ export function ToolsApp() {
         </aside>
 
         <main className="min-w-0 px-4 pb-28 pt-8 sm:px-6 lg:px-10 lg:pt-12">
-          <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="min-w-0 max-w-2xl">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-[#c8f542]/70">
-                Cursor skills arsenal
-              </p>
-              <h1
-                className="lib-hero-title mt-3 text-[clamp(3rem,9vw,6.5rem)] font-extrabold text-white"
-                dir="rtl"
-              >
-                <span className="text-[#c8f542]">כלים</span>
-                <span className="mt-1 block text-[0.38em] font-semibold tracking-[-0.03em] text-white/35 [font-family:var(--font-syne),sans-serif] [direction:ltr] [text-align:left]">
-                  WEAPONS-GRADE PROMPTS
-                </span>
-              </h1>
-              <p
-                className="mt-4 max-w-lg text-[15px] leading-relaxed text-white/50 [font-family:var(--font-heebo),sans-serif]"
-                dir="rtl"
-              >
-                {totalTools} מדריכים טעונים · Cursor + AAA · העתקה ישירה לסוכן.
-              </p>
-            </div>
-
-            <div className="flex shrink-0 flex-wrap items-center gap-2">
-              <a
-                href={TOOLS_MAP_HREF}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-[#c8f542]/25 bg-[#c8f542]/05 px-3.5 py-2 text-[12px] font-medium text-[#c8f542]/90 transition hover:bg-[#c8f542]/12"
-              >
-                Map
-                <ExternalLink className="size-3 opacity-60" />
-              </a>
-              <a
-                href={AAA_SKILLS_HREF}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.03] px-3.5 py-2 text-[12px] font-medium text-white/70 transition hover:bg-white/[0.08] hover:text-white"
-              >
-                AAA skills
-                <ExternalLink className="size-3 opacity-60" />
-              </a>
-              <a
-                href={TOOLS_FOLDER_HREF}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-[12px] font-bold text-black transition hover:bg-[#c8f542]"
-              >
-                Drive folder
-                <ArrowUpRight className="size-3.5" />
-              </a>
-            </div>
+          <div className="mb-10 min-w-0 w-full" dir="rtl">
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-[#c8f542]/70 [direction:ltr] [text-align:right]">
+              Cursor skills arsenal
+            </p>
+            <h1 className="lib-hero-title mt-3 text-[clamp(3.4rem,10vw,7.4rem)] font-extrabold text-white">
+              <span className="text-[#c8f542]">כלים</span>
+              <span className="mt-1 block text-[0.34em] font-semibold tracking-[-0.03em] text-white/35 [font-family:var(--font-syne),sans-serif] [direction:ltr] [text-align:right]">
+                WEAPONS-GRADE PROMPTS
+              </span>
+            </h1>
           </div>
 
           <div className="relative mb-10 min-w-0">
@@ -281,22 +253,17 @@ export function ToolsApp() {
           <div className="space-y-16">
             {filteredCats.map((cat) => (
               <section key={cat.id} id={cat.id} className="scroll-mt-28">
-                <div className="mb-6 flex flex-col gap-2 border-b border-[#c8f542]/15 pb-5 sm:flex-row sm:items-end sm:justify-between">
-                  <div dir="rtl">
-                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span className="font-mono text-[13px] text-[#c8f542]/55 [direction:ltr]">
-                        {cat.number}
-                      </span>
-                      <h2 className="text-[26px] font-extrabold tracking-tight text-white [font-family:var(--font-heebo),sans-serif] sm:text-[30px]">
-                        {cat.title}
-                      </h2>
-                    </div>
-                    <p className="mt-1.5 text-[13px] text-white/40 [font-family:var(--font-heebo),sans-serif]">
-                      {cat.blurb}
-                    </p>
+                <div className="mb-4 flex items-end justify-between gap-3 border-b border-[#c8f542]/15 pb-3">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1" dir="rtl">
+                    <span className="font-mono text-[12px] text-[#c8f542]/55 [direction:ltr]">
+                      {cat.number}
+                    </span>
+                    <h2 className="text-[22px] font-extrabold tracking-tight text-white [font-family:var(--font-heebo),sans-serif] sm:text-[26px]">
+                      {cat.title}
+                    </h2>
                   </div>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/25">
-                    {cat.tools.length} units
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/25">
+                    {cat.tools.length}
                   </span>
                 </div>
 

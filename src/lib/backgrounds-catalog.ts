@@ -3,7 +3,10 @@ import data from "@/data/backgrounds.json";
 export type BackgroundItem = {
   id: string;
   title: string;
+  /** Clean full video — used for Copy URL */
   videoUrl: string;
+  /** Lightweight preview for on-page playback (fast) */
+  previewUrl?: string;
   category: string;
   featured?: boolean;
   popular?: boolean;
@@ -33,6 +36,12 @@ export type BgCategory = (typeof BG_CATEGORIES)[number];
 
 export const BACKGROUNDS = data as BackgroundItem[];
 
+export function displayVideoUrl(item: BackgroundItem): string {
+  // Free clips: always clean CloudFront. Motionsites previewUrls bake in their logo.
+  if (!item.premium) return item.videoUrl;
+  return item.previewUrl || item.videoUrl;
+}
+
 export function filterBackgrounds(
   sort: BgSort,
   category: BgCategory,
@@ -53,5 +62,6 @@ export function filterBackgrounds(
 
 export function featuredBackgrounds(): BackgroundItem[] {
   const featured = BACKGROUNDS.filter((b) => b.featured);
-  return featured.length >= 3 ? featured.slice(0, 8) : BACKGROUNDS.slice(0, 6);
+  if (featured.length >= 4) return featured.slice(0, 5);
+  return BACKGROUNDS.slice(0, 5);
 }

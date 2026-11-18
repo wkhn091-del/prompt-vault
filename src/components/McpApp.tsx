@@ -6,8 +6,8 @@ import {
   ArrowUpRight,
   Check,
   Copy,
-  Link2,
   Plug,
+  Radio,
   X,
 } from "lucide-react";
 import { getSavedEmail } from "@/lib/auth-local";
@@ -17,21 +17,49 @@ import {
   type McpClientAction,
   type McpTool,
 } from "@/lib/mcp-catalog";
+import {
+  MCP_GROUP_LABELS,
+  type McpClientGroup,
+  type McpClientId,
+} from "@/lib/mcp-install";
 import { ModeSwitcher } from "./ModeSwitcher";
 import { SiteHeader } from "./SiteHeader";
 
-const CONNECTED_KEY = "pv_mcp_connected";
+const GROUP_ORDER: McpClientGroup[] = ["cloud", "ide", "cli", "copy"];
+
+const AI_CLIENTS: {
+  id: McpClientId;
+  label: string;
+  tone: string;
+}[] = [
+  { id: "claude", label: "Claude", tone: "from-[#d4a574] to-[#c4894a]" },
+  { id: "gemini", label: "Gemini", tone: "from-[#6ea8fe] to-[#4285f4]" },
+  { id: "chatgpt", label: "ChatGPT", tone: "from-[#74e0a8] to-[#10a37f]" },
+  { id: "cursor", label: "Cursor", tone: "from-[#a78bfa] to-[#7c3aed]" },
+  { id: "vscode", label: "VS Code", tone: "from-[#6cb6ff] to-[#0078d4]" },
+  { id: "claude-code", label: "Claude Code", tone: "from-[#e8b98a] to-[#b87333]" },
+  { id: "codex", label: "Codex", tone: "from-[#9ae6b4] to-[#38a169]" },
+  { id: "windsurf", label: "Windsurf", tone: "from-[#7dd3fc] to-[#0ea5e9]" },
+  { id: "jetbrains", label: "JetBrains", tone: "from-[#f9a8d4] to-[#db2777]" },
+  { id: "cline", label: "Cline", tone: "from-[#fcd34d] to-[#d97706]" },
+  { id: "zed", label: "Zed", tone: "from-[#c4b5fd] to-[#8b5cf6]" },
+  { id: "opencode", label: "OpenCode", tone: "from-[#94a3b8] to-[#64748b]" },
+  { id: "continue", label: "Continue", tone: "from-[#86efac] to-[#22c55e]" },
+  { id: "goose", label: "Goose", tone: "from-[#fdba74] to-[#ea580c]" },
+  { id: "claude-desktop", label: "Claude Desktop", tone: "from-[#f0c9a0] to-[#a67c52]" },
+  { id: "antigravity", label: "Antigravity", tone: "from-[#93c5fd] to-[#2563eb]" },
+];
 
 function ConnectModal({
   tool,
   actions,
+  highlightId,
   onClose,
-  onConnected,
 }: {
   tool: McpTool;
   actions: McpClientAction[];
+  highlightId?: McpClientId | null;
   onClose: () => void;
-  onConnected: () => void;
 }) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -40,7 +68,6 @@ function ConnectModal({
       try {
         await navigator.clipboard.writeText(action.copyText);
         setCopiedId(action.id);
-        onConnected();
         setTimeout(() => setCopiedId(null), 1600);
       } catch {
         /* ignore */
@@ -49,81 +76,115 @@ function ConnectModal({
     }
     if (action.href) {
       window.open(action.href, "_blank", "noopener,noreferrer");
-      onConnected();
     }
   }
 
+  useEffect(() => {
+    if (!highlightId) return;
+    const match = actions.find((a) => a.id === highlightId);
+    if (!match) return;
+    let cancelled = false;
+    const t = window.setTimeout(() => {
+      if (!cancelled) void run(match);
+    }, 80);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(t);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [highlightId, tool.id]);
+
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-4 backdrop-blur-sm sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/75 p-4 backdrop-blur-md sm:items-center"
       role="dialog"
       aria-modal="true"
       aria-labelledby="mcp-connect-title"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg overflow-hidden rounded-[28px] border border-white/[0.1] bg-[#0c0c0e] shadow-2xl"
+        className="relative w-full max-w-lg overflow-hidden rounded-[24px] border border-[#38e5ff]/25 bg-[#070b0e] shadow-[0_0_60px_rgba(56,229,255,0.15)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-3 border-b border-white/[0.06] px-5 py-4">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#38e5ff] to-transparent" />
+        <div className="flex items-start justify-between gap-3 border-b border-[#38e5ff]/12 px-5 py-3.5">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/35">
-              Connect anywhere
+            <p className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-[#38e5ff]/60">
+              Route signal
             </p>
             <h2
               id="mcp-connect-title"
-              className="mt-1 text-[18px] font-semibold tracking-tight text-white"
+              className="mt-1 text-[17px] font-semibold tracking-tight text-white"
             >
               {tool.name}
             </h2>
-            <p className="mt-1 text-[13px] text-white/45">
-              Pick your AI — Cursor, Claude, VS Code, Gemini, ChatGPT, or copy
-              the cloud URL for any MCP client.
-            </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="flex size-9 shrink-0 items-center justify-center rounded-full border border-white/[0.1] text-white/50 hover:text-white"
+            className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#38e5ff]/20 text-white/50 hover:border-[#38e5ff]/40 hover:text-[#38e5ff]"
             aria-label="Close"
           >
             <X className="size-4" />
           </button>
         </div>
 
-        <div className="max-h-[min(60vh,420px)] space-y-2 overflow-y-auto p-4">
-          {actions.map((action) => {
-            const done = copiedId === action.id;
+        <div className="max-h-[min(62vh,480px)] space-y-4 overflow-y-auto p-4">
+          {GROUP_ORDER.map((group) => {
+            const items = actions.filter((a) => a.group === group);
+            if (items.length === 0) return null;
             return (
-              <button
-                key={action.id}
-                type="button"
-                onClick={() => void run(action)}
-                className="flex w-full items-center gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-left transition hover:border-white/[0.16] hover:bg-white/[0.06]"
-              >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/[0.08] text-white/70">
-                  {action.kind === "copy" ? (
-                    done ? (
-                      <Check className="size-3.5 text-emerald-300" />
-                    ) : (
-                      <Copy className="size-3.5" />
-                    )
-                  ) : (
-                    <Plug className="size-3.5" />
-                  )}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[14px] font-semibold text-white">
-                    {done ? "Copied" : action.label}
-                  </span>
-                  <span className="mt-0.5 block text-[12px] text-white/40">
-                    {action.blurb}
-                  </span>
-                </span>
-                <ArrowUpRight className="size-3.5 shrink-0 text-white/25" />
-              </button>
+              <div key={group}>
+                <p className="mb-2 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-[#38e5ff]/50">
+                  {MCP_GROUP_LABELS[group]}
+                </p>
+                <div className="space-y-1.5">
+                  {items.map((action) => {
+                    const done = copiedId === action.id;
+                    const hot = highlightId === action.id;
+                    return (
+                      <button
+                        key={action.id}
+                        type="button"
+                        onClick={() => void run(action)}
+                        className={`flex w-full items-center gap-3 rounded-xl border px-3.5 py-2.5 text-left transition ${
+                          hot
+                            ? "border-[#38e5ff]/50 bg-[rgba(56,229,255,0.1)]"
+                            : "border-white/[0.08] bg-white/[0.03] hover:border-[#38e5ff]/35 hover:bg-[rgba(56,229,255,0.06)]"
+                        }`}
+                      >
+                        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#38e5ff]/10 text-[#38e5ff]/80">
+                          {action.kind === "copy" ? (
+                            done ? (
+                              <Check className="size-3.5 text-emerald-300" />
+                            ) : (
+                              <Copy className="size-3.5" />
+                            )
+                          ) : (
+                            <Plug className="size-3.5" />
+                          )}
+                        </span>
+                        <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-white">
+                          {done ? "Copied" : action.label}
+                        </span>
+                        {action.kind === "link" ? (
+                          <ArrowUpRight className="size-3.5 shrink-0 text-[#38e5ff]/35" />
+                        ) : (
+                          <Copy className="size-3.5 shrink-0 text-[#38e5ff]/35" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             );
           })}
+        </div>
+
+        <div className="border-t border-[#38e5ff]/12 p-4">
+          <p className="text-center text-[12px] text-white/40">
+            Install in your AI client — status there is the real connection.
+          </p>
         </div>
       </div>
     </div>
@@ -132,20 +193,27 @@ function ConnectModal({
 
 export function McpApp() {
   const [email, setEmail] = useState<string | null>(null);
-  const [connected, setConnected] = useState<Record<string, boolean>>({});
   const [origin, setOrigin] = useState("");
   const [activeId, setActiveId] = useState<string | null>(null);
-
+  const [highlightClient, setHighlightClient] = useState<McpClientId | null>(
+    null,
+  );
   useEffect(() => {
     setEmail(getSavedEmail());
     setOrigin(window.location.origin);
     try {
-      const raw = localStorage.getItem(CONNECTED_KEY);
-      if (raw) setConnected(JSON.parse(raw) as Record<string, boolean>);
+      localStorage.removeItem("pv_mcp_connected");
+      localStorage.removeItem("pv_mcp_connected_v2");
     } catch {
       /* ignore */
     }
   }, []);
+
+  const vaultTool = useMemo(
+    () =>
+      MCP_TOOLS.find((t) => t.installKind === "prompt-vault") ?? MCP_TOOLS[0],
+    [],
+  );
 
   const activeTool = useMemo(
     () => MCP_TOOLS.find((t) => t.id === activeId) ?? null,
@@ -157,160 +225,158 @@ export function McpApp() {
     return clientActionsForTool(activeTool, origin || undefined);
   }, [activeTool, origin]);
 
-  function markConnected(id: string) {
-    setConnected((prev) => {
-      const next = { ...prev, [id]: true };
-      localStorage.setItem(CONNECTED_KEY, JSON.stringify(next));
-      return next;
-    });
+  function openAiClient(clientId: McpClientId) {
+    setHighlightClient(clientId);
+    setActiveId(vaultTool.id);
   }
 
-  const connectedCount = Object.values(connected).filter(Boolean).length;
+  function openServer(id: string) {
+    setHighlightClient(null);
+    setActiveId(id);
+  }
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-black text-white">
+    <div className="relative min-h-screen overflow-x-hidden bg-[#040608] text-white">
       <div className="vault-grain" aria-hidden />
-      <div
-        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(255,255,255,0.06),transparent_55%)]"
-        aria-hidden
-      />
+      <div className="pointer-events-none fixed inset-0 z-0 dashboard-orb" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 z-0 lib-mesh opacity-60" aria-hidden />
 
       <SiteHeader active="mcp" />
 
-      <div className="relative z-10 border-b border-white/[0.05] bg-black/50">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-4 py-3.5 sm:px-6 lg:px-8">
-          <p className="text-[13px] text-white/40">
-            MCP · Cursor · Claude · Gemini · Copilot · ChatGPT
+      <div className="relative z-10 border-b border-[#38e5ff]/12 bg-black/40 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
+          <p className="hidden items-center gap-2 text-[12px] text-[#38e5ff]/65 sm:flex">
+            <span className="dash-live-dot size-1.5 rounded-full bg-[#38e5ff]" />
+            <Radio className="size-3.5" />
+            {AI_CLIENTS.length} AI · {MCP_TOOLS.length} MCP
           </p>
-          <ModeSwitcher active="tools" />
+          <ModeSwitcher active="stats" />
         </div>
       </div>
 
-      <main className="relative z-10 mx-auto max-w-[1100px] px-4 pb-24 pt-10 sm:px-6 lg:px-8">
-        <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-xl">
-            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-white/35">
+      <main className="relative z-10 mx-auto max-w-[1200px] px-4 pb-28 pt-10 sm:px-6 lg:px-10 lg:pt-12">
+        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="min-w-0">
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-[#38e5ff]/70">
               Model Context Protocol
             </p>
-            <h1 className="mt-2 text-[32px] font-semibold tracking-[-0.04em] text-white sm:text-[40px]">
-              Connect AI tools
+            <h1 className="lib-hero-title mt-2 text-[clamp(2.6rem,8vw,5.2rem)] font-extrabold text-white">
+              <span className="bg-gradient-to-r from-[#38e5ff] via-[#7af0ff] to-[#b8fff0] bg-clip-text text-transparent">
+                Dashboards
+              </span>
             </h1>
-            <p className="mt-3 text-[14px] leading-relaxed text-white/45">
-              Remote MCP in the cloud — connect each server to Cursor, Claude,
-              VS Code, Gemini, ChatGPT, or paste the URL into any MCP client.
-            </p>
           </div>
 
-          <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-[13px]">
+          <div className="rounded-2xl border border-[#38e5ff]/20 bg-[rgba(56,229,255,0.04)] px-3.5 py-2.5 text-[12px]">
             {email ? (
               <p className="text-white/70">
-                Signed in ·{" "}
-                <span className="text-white">{email}</span>
-                <span className="mt-1 block text-white/35">
-                  {connectedCount} connected
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#38e5ff]/55">
+                  Operator
                 </span>
+                <span className="mt-0.5 block text-white">{email}</span>
               </p>
             ) : (
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <p className="text-white/45">Sign in to save connectors</p>
-                <Link
-                  href="/login"
-                  className="inline-flex items-center justify-center rounded-full bg-white px-3.5 py-2 text-[12px] font-semibold text-black hover:bg-zinc-200"
-                >
-                  Email login
-                </Link>
-              </div>
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-full bg-[#38e5ff] px-3.5 py-2 text-[12px] font-bold text-black hover:bg-[#7af0ff]"
+              >
+                Email login
+              </Link>
             )}
           </div>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
-          {MCP_TOOLS.map((tool) => {
-            const isOn = Boolean(connected[tool.id]);
-            return (
+        <section className="mb-10">
+          <div className="mb-3 flex items-end justify-between gap-3 border-b border-[#38e5ff]/15 pb-2.5">
+            <h2 className="text-[18px] font-bold tracking-tight text-white sm:text-[20px]">
+              AI clients
+            </h2>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#38e5ff]/45">
+              {AI_CLIENTS.length}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+            {AI_CLIENTS.map((client) => (
+              <button
+                key={client.id}
+                type="button"
+                onClick={() => openAiClient(client.id)}
+                className="group flex items-center gap-2.5 rounded-xl border border-white/[0.09] bg-[#0a1218] px-3 py-2.5 text-left transition hover:border-[#38e5ff]/40 hover:bg-[rgba(56,229,255,0.06)]"
+              >
+                <span
+                  className={`size-2 shrink-0 rounded-full bg-gradient-to-br ${client.tone}`}
+                  aria-hidden
+                />
+                <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-white">
+                  {client.label}
+                </span>
+                <Plug className="size-3 shrink-0 text-[#38e5ff]/40 transition group-hover:text-[#7af0ff]" />
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-3 flex items-end justify-between gap-3 border-b border-[#38e5ff]/15 pb-2.5">
+            <h2 className="text-[18px] font-bold tracking-tight text-white sm:text-[20px]">
+              MCP channels
+            </h2>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#38e5ff]/45">
+              {MCP_TOOLS.length}
+            </span>
+          </div>
+
+          <div className="grid gap-2 sm:grid-cols-2">
+            {MCP_TOOLS.map((tool, index) => (
               <article
                 key={tool.id}
-                className="flex min-w-0 flex-col rounded-2xl border border-white/[0.08] bg-[#0c0c0e] p-5 transition hover:border-white/[0.14]"
+                className="dashboard-card lib-reveal group relative flex min-w-0 items-center gap-3 overflow-hidden rounded-[16px] border border-white/[0.09] bg-gradient-to-b from-[#0a1218] to-[#070b0e] px-3.5 py-3"
+                style={{ animationDelay: `${Math.min(index, 12) * 30}ms` }}
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <span className="inline-flex rounded-full border border-white/[0.08] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-white/40">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex rounded-full border border-[#38e5ff]/25 bg-[#38e5ff]/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7af0ff]">
                       {tool.tag}
                     </span>
-                    <h2 className="mt-2 text-[16px] font-semibold tracking-tight text-white">
-                      {tool.name}
-                    </h2>
-                    <p
-                      className="mt-2 text-[13px] leading-relaxed text-white/45 [font-family:var(--font-heebo),sans-serif]"
-                      dir="rtl"
-                    >
-                      {tool.blurb}
-                    </p>
                   </div>
-                  <a
-                    href={tool.href}
-                    target={tool.href.startsWith("http") ? "_blank" : undefined}
-                    rel="noreferrer"
-                    className="flex size-9 shrink-0 items-center justify-center rounded-full border border-white/[0.1] text-white/40 transition hover:border-white/25 hover:text-white"
-                    aria-label={`Open ${tool.name}`}
-                  >
-                    <ArrowUpRight className="size-3.5" />
-                  </a>
+                  <h3 className="mt-1 text-[14px] font-bold tracking-tight text-white">
+                    {tool.name}
+                  </h3>
                 </div>
+
+                <a
+                  href={tool.href}
+                  target={tool.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#38e5ff]/25 text-[#38e5ff]/70 transition hover:border-[#38e5ff]/55 hover:bg-[#38e5ff]/10 hover:text-[#7af0ff]"
+                  aria-label={`Open ${tool.name}`}
+                >
+                  <ArrowUpRight className="size-3.5" />
+                </a>
 
                 <button
                   type="button"
-                  onClick={() => setActiveId(tool.id)}
-                  className={`mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full px-4 py-2.5 text-[12px] font-semibold transition ${
-                    isOn
-                      ? "bg-emerald-400/15 text-emerald-200 ring-1 ring-emerald-400/30"
-                      : "bg-white text-black hover:bg-zinc-200"
-                  }`}
+                  onClick={() => openServer(tool.id)}
+                  className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#38e5ff] px-3 py-1.5 text-[11px] font-bold text-black transition hover:bg-[#7af0ff]"
                 >
-                  {isOn ? (
-                    <>
-                      <Check className="size-3.5" />
-                      Connected · Add again
-                    </>
-                  ) : (
-                    <>
-                      <Plug className="size-3.5" />
-                      Connect
-                    </>
-                  )}
+                  <Plug className="size-3" />
+                  Connect
                 </button>
               </article>
-            );
-          })}
-        </div>
-
-        <div className="mt-12 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
-          <div className="flex items-start gap-3">
-            <Link2 className="mt-0.5 size-4 shrink-0 text-white/40" />
-            <div>
-              <h3 className="text-[15px] font-semibold text-white">
-                How multi-client MCP works
-              </h3>
-              <p className="mt-2 text-[13px] leading-relaxed text-white/45">
-                Each connector is a <span className="text-white/80">public HTTPS</span>{" "}
-                MCP URL. Connect opens a picker: Cursor / Claude / VS Code install
-                links, Gemini & Claude Code CLI commands, or copy URL /{" "}
-                <code className="text-white/70">mcp.json</code> for Windsurf,
-                OpenCode, Antigravity, ChatGPT, and more. Prompt Vault itself
-                serves tools at{" "}
-                <code className="text-white/70">/api/mcp</code>.
-              </p>
-            </div>
+            ))}
           </div>
-        </div>
+        </section>
       </main>
 
       {activeTool && (
         <ConnectModal
           tool={activeTool}
           actions={activeActions}
-          onClose={() => setActiveId(null)}
-          onConnected={() => markConnected(activeTool.id)}
+          highlightId={highlightClient}
+          onClose={() => {
+            setActiveId(null);
+            setHighlightClient(null);
+          }}
         />
       )}
     </div>

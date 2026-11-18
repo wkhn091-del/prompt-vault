@@ -1,4 +1,4 @@
-/** Multi-client MCP install helpers — Cursor, Claude, VS Code, Gemini, ChatGPT, etc. */
+/** Multi-client MCP install — Claude, Cursor, ChatGPT, Gemini, Windsurf, JetBrains, … */
 
 export type McpServerConfig = {
   url?: string;
@@ -7,25 +7,43 @@ export type McpServerConfig = {
   args?: string[];
   headers?: Record<string, string>;
   env?: Record<string, string>;
+  /** Windsurf remote key */
+  serverUrl?: string;
 };
 
 export type McpClientId =
   | "cursor"
+  | "cursor-deeplink"
   | "claude"
-  | "vscode"
-  | "chatgpt"
-  | "gemini"
+  | "claude-desktop"
   | "claude-code"
+  | "chatgpt"
+  | "codex"
+  | "vscode"
+  | "copilot-studio"
+  | "gemini"
+  | "antigravity"
+  | "windsurf"
+  | "jetbrains"
+  | "zed"
+  | "opencode"
+  | "cline"
+  | "roo"
+  | "continue"
+  | "goose"
   | "json"
+  | "json-windsurf"
+  | "json-claude-desktop"
   | "url";
+
+export type McpClientGroup = "cloud" | "ide" | "cli" | "copy";
 
 export type McpClientAction = {
   id: McpClientId;
   label: string;
   blurb: string;
-  /** Open in new tab / deeplink */
+  group: McpClientGroup;
   href?: string;
-  /** Copy to clipboard instead of navigating */
   copyText?: string;
   kind: "link" | "copy";
 };
@@ -54,12 +72,10 @@ export function cursorInstallDeeplink(
   return `cursor://anysphere.cursor-deeplink/mcp/install?name=${encodeURIComponent(name)}&config=${encoded}`;
 }
 
-/** Claude.ai custom connector (cloud — needs public HTTPS MCP URL). */
 export function claudeConnectorLink(name: string, url: string): string {
   return `https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=${encodeURIComponent(name)}&connectorUrl=${encodeURIComponent(url)}`;
 }
 
-/** VS Code / Copilot HTTP MCP install (web handoff → app). */
 export function vscodeInstallLink(name: string, url: string): string {
   const config = JSON.stringify({ type: "http", url });
   return `https://vscode.dev/redirect/mcp/install?name=${encodeURIComponent(name)}&config=${encodeURIComponent(config)}`;
@@ -72,6 +88,33 @@ export function mcpJsonSnippet(
   return JSON.stringify({ mcpServers: { [serverName]: config } }, null, 2);
 }
 
+export function windsurfJsonSnippet(serverName: string, url: string): string {
+  return JSON.stringify(
+    { mcpServers: { [serverName]: { serverUrl: url } } },
+    null,
+    2,
+  );
+}
+
+/** Claude Desktop remote HTTP via mcp-remote proxy */
+export function claudeDesktopJsonSnippet(
+  serverName: string,
+  url: string,
+): string {
+  return JSON.stringify(
+    {
+      mcpServers: {
+        [serverName]: {
+          command: "npx",
+          args: ["-y", "mcp-remote@latest", url],
+        },
+      },
+    },
+    null,
+    2,
+  );
+}
+
 export function geminiCliCommand(serverName: string, url: string): string {
   return `gemini mcp add --transport http -s user ${serverName} ${url}`;
 }
@@ -80,7 +123,15 @@ export function claudeCodeCommand(serverName: string, url: string): string {
   return `claude mcp add --transport http ${serverName} ${url}`;
 }
 
+export function codexCliCommand(serverName: string, url: string): string {
+  return `codex mcp add ${serverName} --url ${url}`;
+}
+
 export function chatgptHelpUrl(): string {
+  return "https://chatgpt.com/#settings";
+}
+
+export function chatgptDocsUrl(): string {
   return "https://platform.openai.com/docs/guides/tools-connectors-mcp";
 }
 
@@ -92,7 +143,24 @@ export function promptVaultMcpUrl(origin?: string): string {
   return `${base}/api/mcp`;
 }
 
-/** Build one-click / copy actions for every major AI client. */
+const GROUP_ORDER: McpClientGroup[] = ["cloud", "ide", "cli", "copy"];
+
+export function sortActionsByGroup(
+  actions: McpClientAction[],
+): McpClientAction[] {
+  return [...actions].sort(
+    (a, b) => GROUP_ORDER.indexOf(a.group) - GROUP_ORDER.indexOf(b.group),
+  );
+}
+
+export const MCP_GROUP_LABELS: Record<McpClientGroup, string> = {
+  cloud: "Cloud AI",
+  ide: "IDE / editors",
+  cli: "CLI agents",
+  copy: "Copy config",
+};
+
+/** One-click / copy actions for every major AI client. */
 export function clientActionsForServer(
   serverName: string,
   displayName: string,
@@ -104,61 +172,180 @@ export function clientActionsForServer(
   if (url) {
     actions.push(
       {
-        id: "cursor",
-        label: "Cursor",
-        blurb: "One-click install into Cursor Agent",
-        kind: "link",
-        href: cursorInstallHttpsLink(serverName, { url }),
-      },
-      {
         id: "claude",
-        label: "Claude",
-        blurb: "Add as custom connector on claude.ai (cloud)",
+        label: "Claude.ai",
+        blurb: "Custom connector on claude.ai (Pro / Max / Team)",
+        group: "cloud",
         kind: "link",
         href: claudeConnectorLink(displayName, url),
       },
       {
-        id: "vscode",
-        label: "VS Code / Copilot",
-        blurb: "Install remote HTTP MCP in VS Code",
-        kind: "link",
-        href: vscodeInstallLink(serverName, url),
-      },
-      {
         id: "chatgpt",
         label: "ChatGPT",
-        blurb: "Open docs — paste the MCP URL in custom connectors",
+        blurb: "Settings → Apps & Connectors → Developer mode → paste URL",
+        group: "cloud",
         kind: "link",
         href: chatgptHelpUrl(),
       },
       {
-        id: "gemini",
-        label: "Gemini CLI",
-        blurb: "Copy CLI command to add remote MCP",
+        id: "cursor",
+        label: "Cursor (web)",
+        blurb: "One-click install into Cursor Agent",
+        group: "ide",
+        kind: "link",
+        href: cursorInstallHttpsLink(serverName, { url }),
+      },
+      {
+        id: "cursor-deeplink",
+        label: "Cursor (app)",
+        blurb: "Open Cursor desktop install prompt",
+        group: "ide",
+        kind: "link",
+        href: cursorInstallDeeplink(serverName, { url }),
+      },
+      {
+        id: "vscode",
+        label: "VS Code / Copilot",
+        blurb: "Install remote HTTP MCP (Agent mode)",
+        group: "ide",
+        kind: "link",
+        href: vscodeInstallLink(serverName, url),
+      },
+      {
+        id: "windsurf",
+        label: "Windsurf",
+        blurb: "Copy Cascade mcp_config.json (serverUrl)",
+        group: "ide",
         kind: "copy",
-        copyText: geminiCliCommand(serverName, url),
+        copyText: windsurfJsonSnippet(serverName, url),
+      },
+      {
+        id: "jetbrains",
+        label: "JetBrains AI",
+        blurb: "Copy for Settings → AI Assistant → MCP",
+        group: "ide",
+        kind: "copy",
+        copyText: mcpJsonSnippet(serverName, { url }),
+      },
+      {
+        id: "zed",
+        label: "Zed",
+        blurb: "Copy for Zed Assistant MCP settings",
+        group: "ide",
+        kind: "copy",
+        copyText: mcpJsonSnippet(serverName, { url }),
+      },
+      {
+        id: "antigravity",
+        label: "Antigravity",
+        blurb: "Copy mcp.json for Google Antigravity IDE / CLI",
+        group: "ide",
+        kind: "copy",
+        copyText: mcpJsonSnippet(serverName, { url }),
+      },
+      {
+        id: "cline",
+        label: "Cline",
+        blurb: "Paste into Cline MCP settings (VS Code)",
+        group: "ide",
+        kind: "copy",
+        copyText: mcpJsonSnippet(serverName, { url }),
+      },
+      {
+        id: "roo",
+        label: "Roo Code",
+        blurb: "Paste into Roo Code MCP panel",
+        group: "ide",
+        kind: "copy",
+        copyText: mcpJsonSnippet(serverName, { url }),
+      },
+      {
+        id: "continue",
+        label: "Continue.dev",
+        blurb: "Paste into Continue MCP / config.yaml servers",
+        group: "ide",
+        kind: "copy",
+        copyText: mcpJsonSnippet(serverName, { url }),
       },
       {
         id: "claude-code",
         label: "Claude Code",
-        blurb: "Copy CLI command for Claude Code",
+        blurb: "CLI: add remote HTTP MCP",
+        group: "cli",
         kind: "copy",
         copyText: claudeCodeCommand(serverName, url),
       },
       {
+        id: "codex",
+        label: "Codex CLI",
+        blurb: "OpenAI Codex terminal agent",
+        group: "cli",
+        kind: "copy",
+        copyText: codexCliCommand(serverName, url),
+      },
+      {
+        id: "gemini",
+        label: "Gemini CLI",
+        blurb: "Google Gemini CLI remote MCP",
+        group: "cli",
+        kind: "copy",
+        copyText: geminiCliCommand(serverName, url),
+      },
+      {
+        id: "opencode",
+        label: "OpenCode",
+        blurb: "Copy mcp.json for OpenCode agent",
+        group: "cli",
+        kind: "copy",
+        copyText: mcpJsonSnippet(serverName, { url }),
+      },
+      {
+        id: "goose",
+        label: "Goose",
+        blurb: "Block Goose — paste URL / mcpServers JSON",
+        group: "cli",
+        kind: "copy",
+        copyText: mcpJsonSnippet(serverName, { url }),
+      },
+      {
+        id: "claude-desktop",
+        label: "Claude Desktop",
+        blurb: "Copy claude_desktop_config.json (mcp-remote)",
+        group: "copy",
+        kind: "copy",
+        copyText: claudeDesktopJsonSnippet(serverName, url),
+      },
+      {
+        id: "json-windsurf",
+        label: "Windsurf JSON",
+        blurb: "~/.codeium/windsurf/mcp_config.json",
+        group: "copy",
+        kind: "copy",
+        copyText: windsurfJsonSnippet(serverName, url),
+      },
+      {
         id: "url",
-        label: "Copy URL",
-        blurb: "Raw Streamable HTTP endpoint — any MCP client",
+        label: "Copy MCP URL",
+        blurb: "Raw Streamable HTTP — any client",
+        group: "copy",
         kind: "copy",
         copyText: url,
       },
+      {
+        id: "copilot-studio",
+        label: "ChatGPT docs",
+        blurb: "Official MCP connectors guide",
+        group: "cloud",
+        kind: "link",
+        href: chatgptDocsUrl(),
+      },
     );
   } else {
-    // stdio / command-based — Cursor + JSON paste
     actions.push({
       id: "cursor",
       label: "Cursor",
       blurb: "One-click install into Cursor",
+      group: "ide",
       kind: "link",
       href: cursorInstallHttpsLink(serverName, config),
     });
@@ -167,10 +354,11 @@ export function clientActionsForServer(
   actions.push({
     id: "json",
     label: "Copy mcp.json",
-    blurb: "Paste into Cursor, Windsurf, OpenCode, Antigravity…",
+    blurb: "Universal paste — Cursor, Windsurf, Cline, OpenCode…",
+    group: "copy",
     kind: "copy",
     copyText: mcpJsonSnippet(serverName, config),
   });
 
-  return actions;
+  return sortActionsByGroup(actions);
 }

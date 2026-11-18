@@ -1,14 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
-import { getSavedEmail, initialsFromEmail, saveEmail } from "@/lib/auth-local";
-import { createBrowserClient, hasSupabaseEnv } from "@/lib/supabase";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { AccountMenu } from "./AccountMenu";
 import { BrandLogo } from "./BrandLogo";
 
 type SiteHeaderProps = {
-  active?: "sites" | "tools" | "websites" | "backgrounds" | "mcp" | "login";
+  active?:
+    | "sites"
+    | "tools"
+    | "websites"
+    | "backgrounds"
+    | "animations"
+    | "mcp"
+    | "login";
   showSearch?: boolean;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
@@ -17,10 +23,11 @@ type SiteHeaderProps = {
 
 const RIGHT_LINKS = [
   { href: "/mcp", label: "MCP" },
+  { href: "/animations", label: "Animations" },
   { href: "/backgrounds", label: "Backgrounds" },
   { href: "/websites", label: "Academy" },
   { href: "/?category=3D%20%2F%20WebGL", label: "3D" },
-  { href: "/#add", label: "Submit" },
+  { href: "/#add", label: "Submit", adminOnly: true },
   { href: "/login", label: "Contact" },
 ] as const;
 
@@ -31,36 +38,10 @@ export function SiteHeader({
   onSearchChange,
   rightAction,
 }: SiteHeaderProps) {
-  const [initials, setInitials] = useState("WK");
-  const [signedIn, setSignedIn] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function hydrate() {
-      let email = getSavedEmail();
-      if (!email && hasSupabaseEnv()) {
-        try {
-          const { data } = await createBrowserClient().auth.getSession();
-          const sessionEmail = data.session?.user?.email;
-          if (sessionEmail) {
-            saveEmail(sessionEmail);
-            email = sessionEmail;
-          }
-        } catch {
-          /* ignore */
-        }
-      }
-      if (cancelled) return;
-      setSignedIn(Boolean(email));
-      setInitials(initialsFromEmail(email));
-    }
-
-    void hydrate();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const { isAdmin } = useIsAdmin();
+  const links = RIGHT_LINKS.filter(
+    (link) => !("adminOnly" in link && link.adminOnly) || isAdmin,
+  );
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-black/85 backdrop-blur-2xl">
@@ -94,6 +75,16 @@ export function SiteHeader({
             Tools
           </Link>
           <Link
+            href="/animations"
+            className={`rounded-full px-3.5 py-2 text-[14px] transition ${
+              active === "animations"
+                ? "font-semibold text-white"
+                : "font-medium text-white/45 hover:text-white/80"
+            }`}
+          >
+            Animations
+          </Link>
+          <Link
             href="/websites"
             className={`rounded-full px-3.5 py-2 text-[14px] transition ${
               active === "websites"
@@ -116,14 +107,15 @@ export function SiteHeader({
         </nav>
 
         <nav className="ml-auto hidden items-center gap-0.5 xl:flex">
-          {RIGHT_LINKS.map((link) => (
+          {links.map((link) => (
             <Link
               key={link.label}
               href={link.href}
               className={`rounded-full px-2.5 py-2 text-[13px] font-medium transition hover:text-white/85 ${
                 (active === "mcp" && link.label === "MCP") ||
                 (active === "websites" && link.label === "Academy") ||
-                (active === "backgrounds" && link.label === "Backgrounds")
+                (active === "backgrounds" && link.label === "Backgrounds") ||
+                (active === "animations" && link.label === "Animations")
                   ? "text-white"
                   : "text-white/45"
               }`}
@@ -165,14 +157,7 @@ export function SiteHeader({
             </Link>
           )}
 
-          <Link
-            href="/login"
-            className="flex size-10 items-center justify-center rounded-full bg-[#1e3a5f] text-[12px] font-semibold tracking-wide text-white transition ring-offset-2 ring-offset-black hover:ring-2 hover:ring-white/20"
-            title={signedIn ? "Account" : "Sign in"}
-            aria-label={signedIn ? "Account" : "Sign in with email"}
-          >
-            {initials}
-          </Link>
+          <AccountMenu />
         </div>
       </div>
     </header>

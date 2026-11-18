@@ -88,9 +88,9 @@ export function PasteModal({
     setDuplicate(null);
 
     try {
-      const res = await fetch("/api/prompts", {
+      const { authFetch } = await import("@/lib/auth-fetch");
+      const res = await authFetch("/api/prompts", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           promptText: text,
           title: titleOverride.trim() || undefined,

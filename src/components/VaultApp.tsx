@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Plus } from "lucide-react";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import type { PromptDTO } from "@/lib/types";
 import { PasteModal } from "./PasteModal";
 import { PreviewModal } from "./PreviewModal";
@@ -11,6 +12,7 @@ import { Toast } from "./Toast";
 import { VaultFilterBar } from "./VaultFilterBar";
 
 export function VaultApp() {
+  const { isAdmin } = useIsAdmin();
   const [prompts, setPrompts] = useState<PromptDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
@@ -39,19 +41,22 @@ export function VaultApp() {
     (async () => {
       try {
         const res = await fetch("/api/prompts");
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
         if (cancelled) return;
 
-        if (res.status === 503) {
-          setConfigError(data.error ?? "Supabase not configured");
+        if (!res.ok) {
+          setConfigError(
+            (data as { error?: string }).error ??
+              `Failed to load prompts (${res.status})`,
+          );
           setPrompts([]);
           return;
         }
 
         setConfigError(null);
-        if (res.ok) setPrompts(data.prompts as PromptDTO[]);
+        setPrompts(((data as { prompts?: PromptDTO[] }).prompts ?? []) as PromptDTO[]);
       } catch {
-        if (!cancelled) setConfigError("Failed to load prompts");
+        if (!cancelled) setConfigError("Failed to load prompts (network)");
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -61,6 +66,16 @@ export function VaultApp() {
       cancelled = true;
     };
   }, []);
+
+  // Submit nav link → /#add opens the paste modal (admin only)
+  useEffect(() => {
+    function openFromHash() {
+      if (isAdmin && window.location.hash === "#add") setPasteOpen(true);
+    }
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [isAdmin]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -87,15 +102,14 @@ export function VaultApp() {
   }, [prompts, query, category, sort]);
 
   function openExisting(id: string) {
-    const found = prompts.find((p) => p.id === id);
-    if (found) {
-      setSelected(found);
-      return;
-    }
-    void fetch(`/api/prompts/${id}`)
+    void import("@/lib/auth-fetch")
+      .then(({ authFetch }) => authFetch(`/api/prompts/${id}`))
       .then((r) => r.json())
       .then((d) => {
         if (d.prompt) setSelected(d.prompt as PromptDTO);
+      })
+      .catch(() => {
+        /* keep card-level selection */
       });
   }
 
@@ -118,16 +132,6 @@ export function VaultApp() {
         showSearch
         searchValue={query}
         onSearchChange={setQuery}
-        rightAction={
-          <button
-            type="button"
-            onClick={() => setPasteOpen(true)}
-            className="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full bg-white/[0.08] px-4 text-[13px] font-medium text-white transition hover:bg-white/[0.12]"
-          >
-            <Plus className="size-3.5" strokeWidth={2.5} />
-            Add
-          </button>
-        }
       />
 
       <VaultFilterBar
@@ -167,7 +171,7 @@ export function VaultApp() {
                 ? "Paste a prompt to extract media, mirror it to Supabase, and showcase it."
                 : "Try another category or clear the search."}
             </p>
-            {prompts.length === 0 && !configError && (
+            {isAdmin && prompts.length === 0 && !configError && (
               <button
                 type="button"
                 onClick={() => setPasteOpen(true)}
@@ -180,32 +184,61 @@ export function VaultApp() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filtered.map((p) => (
+            {filtered
+              .filter(
+                (p) =>
+                  Boolean(p.mediaUrl?.trim()) ||
+                  Boolean(p.previewHtml && p.previewHtml.length > 40) ||
+                  Boolean(p.slug),
+              )
+              .map((p) => (
               <PromptCard
                 key={p.id}
                 prompt={p}
-                onOpen={setSelected}
+                onOpen={(card) => {
+                  setSelected(card);
+                  // Hydrate full promptText from server (not in list payload)
+                  void openExisting(card.id);
+                }}
                 onCopied={() => showToast("Prompt copied!")}
+                onVideoCopied={(ok, error) =>
+                  showToast(
+                    ok
+                      ? "Video link copied — paste into chat"
+                      : error || "Copy video failed",
+                    ok ? "success" : "error",
+                  )
+                }
               />
             ))}
           </div>
         )}
       </main>
 
-      <PasteModal
-        open={pasteOpen}
-        onClose={() => setPasteOpen(false)}
-        onSaved={(p) => {
-          setPrompts((prev) => [p, ...prev.filter((x) => x.id !== p.id)]);
-        }}
-        onViewExisting={openExisting}
-        onToast={showToast}
-      />
+      {isAdmin && (
+        <PasteModal
+          open={pasteOpen}
+          onClose={() => setPasteOpen(false)}
+          onSaved={(p) => {
+            setPrompts((prev) => [p, ...prev.filter((x) => x.id !== p.id)]);
+          }}
+          onViewExisting={openExisting}
+          onToast={showToast}
+        />
+      )}
 
       <PreviewModal
         prompt={selected}
         onClose={() => setSelected(null)}
         onCopied={() => showToast("Copied!")}
+        onVideoCopied={(ok, error) =>
+          showToast(
+            ok
+              ? "Video link copied — paste into chat"
+              : error || "Copy video failed",
+            ok ? "success" : "error",
+          )
+        }
         onUpdated={(p) => {
           setPrompts((prev) => prev.map((x) => (x.id === p.id ? p : x)));
           setSelected(p);
