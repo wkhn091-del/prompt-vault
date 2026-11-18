@@ -2,6 +2,8 @@ import data from "@/data/animation-kits.json";
 
 export type AnimationKit = {
   id: string;
+  /** Folder number from Desktop kits (1, 4, 5… / B1, B2) */
+  number: string;
   title: string;
   category: string;
   slug: string;

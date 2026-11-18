@@ -157,12 +157,12 @@ export function SitesLibraryApp() {
       <SiteHeader active="websites" />
 
       <div className="relative z-10 border-b border-[#ff7a45]/12 bg-black/35 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
-          <p className="hidden items-center gap-2 text-[12px] text-[#ff9a6c]/70 sm:flex">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-start gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
+          <ModeSwitcher active="websites" />
+          <p className="ml-auto hidden items-center gap-2 text-[12px] text-[#ff9a6c]/70 sm:flex">
             <Film className="size-3.5" />
             Academy · {totalItems} playbooks on reel
           </p>
-          <ModeSwitcher active="websites" />
         </div>
       </div>
 

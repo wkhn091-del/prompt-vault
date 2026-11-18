@@ -200,12 +200,12 @@ export function ToolsApp() {
       <SiteHeader active="tools" />
 
       <div className="relative z-10 border-b border-[#c8f542]/10 bg-black/40 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
-          <p className="hidden items-center gap-2 text-[12px] text-[#c8f542]/55 sm:flex">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-start gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
+          <ModeSwitcher active="tools" />
+          <p className="ml-auto hidden items-center gap-2 text-[12px] text-[#c8f542]/55 sm:flex">
             <Zap className="size-3.5" />
             Arsenal live · {totalTools} charged skills
           </p>
-          <ModeSwitcher active="tools" />
         </div>
       </div>
 

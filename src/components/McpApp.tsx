@@ -244,13 +244,13 @@ export function McpApp() {
       <SiteHeader active="mcp" />
 
       <div className="relative z-10 border-b border-[#38e5ff]/12 bg-black/40 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
-          <p className="hidden items-center gap-2 text-[12px] text-[#38e5ff]/65 sm:flex">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-start gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
+          <ModeSwitcher active="stats" />
+          <p className="ml-auto hidden items-center gap-2 text-[12px] text-[#38e5ff]/65 sm:flex">
             <span className="dash-live-dot size-1.5 rounded-full bg-[#38e5ff]" />
             <Radio className="size-3.5" />
             {AI_CLIENTS.length} AI · {MCP_TOOLS.length} MCP
           </p>
-          <ModeSwitcher active="stats" />
         </div>
       </div>
 

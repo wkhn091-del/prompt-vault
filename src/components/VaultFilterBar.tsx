@@ -34,6 +34,17 @@ export function VaultFilterBar({
   return (
     <div className="border-b border-white/[0.05] bg-black/50">
       <div className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-3 px-4 py-3.5 sm:px-6 lg:gap-4 lg:px-8">
+        <div className="flex shrink-0 items-center gap-2">
+          <ModeSwitcher active="stats" />
+          <button
+            type="button"
+            onClick={onClear}
+            className="px-2 py-2 text-[13px] font-medium text-white/40 transition hover:text-white/70"
+          >
+            Clear all
+          </button>
+        </div>
+
         <div className="flex h-10 shrink-0 items-center rounded-full border border-white/[0.1] bg-white/[0.02] p-1">
           {sorts.map((s) => (
             <button
@@ -94,16 +105,6 @@ export function VaultFilterBar({
           </button>
         </div>
 
-        <div className="ml-auto flex shrink-0 items-center gap-2">
-          <ModeSwitcher active="stats" />
-          <button
-            type="button"
-            onClick={onClear}
-            className="px-2 py-2 text-[13px] font-medium text-white/40 transition hover:text-white/70"
-          >
-            Clear all
-          </button>
-        </div>
       </div>
     </div>
   );

@@ -166,6 +166,9 @@ function KitCard({
   return (
     <article className="group flex min-w-0 flex-col overflow-hidden rounded-[22px] border border-white/[0.09] bg-[#0a0a0c] transition hover:border-white/20">
       <div className="relative aspect-[16/10] overflow-hidden bg-[#111]">
+        <span className="absolute left-3 top-3 z-10 inline-flex min-w-9 items-center justify-center rounded-[10px] border border-white/20 bg-black/75 px-2.5 py-1 font-mono text-[13px] font-bold tracking-tight text-white backdrop-blur-md">
+          #{kit.number}
+        </span>
         {kit.htmlUrl ? (
           <LazyHtmlFrame
             id={`kit-${kit.id}`}
@@ -182,7 +185,7 @@ function KitCard({
       <div className="flex flex-col gap-3 px-4 py-3.5">
         <div className="min-w-0">
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/35">
-            {kit.category}
+            #{kit.number} · {kit.category}
           </p>
           <h3 className="mt-1 truncate text-[15px] font-semibold tracking-tight text-white">
             {kit.title}
@@ -392,7 +395,7 @@ export function AnimationsApp() {
       <SiteHeader active="animations" />
 
       <div className="relative z-10 border-b border-white/[0.06] bg-black/40 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-end gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-start gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
           <ModeSwitcher active="animations" />
         </div>
       </div>

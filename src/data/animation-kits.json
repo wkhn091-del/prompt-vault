@@ -1,110 +1,122 @@
 [
-    {
-        "id":  "motion-kit-1",
-        "title":  "Motion Kit 1 — ערכת תנועה לאתרים",
-        "category":  "Animations",
-        "slug":  "motion-kit-1",
-        "htmlUrl":  "/kits/motion-kit-1/index.html",
-        "zipUrl":  "/kits/motion-kit-1/kit.zip",
-        "mdUrl":  null
-    },
-    {
-        "id":  "motion-kit-2",
-        "title":  "Motion Kit 2 — Showcase",
-        "category":  "Animations",
-        "slug":  "motion-kit-2",
-        "htmlUrl":  "/kits/motion-kit-2/index.html",
-        "zipUrl":  "/kits/motion-kit-2/kit.zip",
-        "mdUrl":  null
-    },
-    {
-        "id":  "ocean-live",
-        "title":  "Ocean Live — ים חי",
-        "category":  "Creative",
-        "slug":  "ocean-live",
-        "htmlUrl":  "/kits/ocean-live/index.html",
-        "zipUrl":  "/kits/ocean-live/kit.zip",
-        "mdUrl":  null
-    },
-    {
-        "id":  "motion-kit-3-scenes",
-        "title":  "Motion Kit 3 — סצנות ארוכות",
-        "category":  "Animations",
-        "slug":  "motion-kit-3-scenes",
-        "htmlUrl":  "/kits/motion-kit-3-scenes/index.html",
-        "zipUrl":  "/kits/motion-kit-3-scenes/kit.zip",
-        "mdUrl":  null
-    },
-    {
-        "id":  "maren",
-        "title":  "Maren",
-        "category":  "Hero",
-        "slug":  "maren",
-        "htmlUrl":  "/kits/maren/index.html",
-        "zipUrl":  null,
-        "mdUrl":  null
-    },
-    {
-        "id":  "six-heroes",
-        "title":  "Six Heroes — שישה הירואים",
-        "category":  "Hero",
-        "slug":  "six-heroes",
-        "htmlUrl":  "/kits/six-heroes/index.html",
-        "zipUrl":  "/kits/six-heroes/kit.zip",
-        "mdUrl":  null
-    },
-    {
-        "id":  "premium-heroes",
-        "title":  "Premium Heroes — ארבעה סגנונות",
-        "category":  "Hero",
-        "slug":  "premium-heroes",
-        "htmlUrl":  "/kits/premium-heroes/index.html",
-        "zipUrl":  "/kits/premium-heroes/kit.zip",
-        "mdUrl":  null
-    },
-    {
-        "id":  "premium-sites",
-        "title":  "Premium Sites — ארבעה אתרים",
-        "category":  "Landing Page",
-        "slug":  "premium-sites",
-        "htmlUrl":  null,
-        "zipUrl":  null,
-        "mdUrl":  "/kits/premium-sites/notes.md"
-    },
-    {
-        "id":  "motion-kit-3-showcase",
-        "title":  "Motion Kit 3 — Showcase",
-        "category":  "Animations",
-        "slug":  "motion-kit-3-showcase",
-        "htmlUrl":  "/kits/motion-kit-3-showcase/index.html",
-        "zipUrl":  "/kits/motion-kit-3-showcase/kit.zip",
-        "mdUrl":  null
-    },
-    {
-        "id":  "motion-kit-4",
-        "title":  "Motion Kit 4 — Showcase",
-        "category":  "Animations",
-        "slug":  "motion-kit-4",
-        "htmlUrl":  "/kits/motion-kit-4/index.html",
-        "zipUrl":  "/kits/motion-kit-4/kit.zip",
-        "mdUrl":  null
-    },
-    {
-        "id":  "barber-kit",
-        "title":  "Barber Motion Kit — ערכת מספרות",
-        "category":  "Creative",
-        "slug":  "barber-kit",
-        "htmlUrl":  "/kits/barber-kit/index.html",
-        "zipUrl":  "/kits/barber-kit/kit.zip",
-        "mdUrl":  null
-    },
-    {
-        "id":  "barber-room-3d",
-        "title":  "Barber Room 3D — חדר מספרה בתלת־ממד",
-        "category":  "3D / WebGL",
-        "slug":  "barber-room-3d",
-        "htmlUrl":  "/kits/barber-room-3d/index.html",
-        "zipUrl":  "/kits/barber-room-3d/kit.zip",
-        "mdUrl":  null
-    }
+  {
+    "id": "motion-kit-1",
+    "number": "1",
+    "title": "Motion Kit 1 — ערכת תנועה לאתרים",
+    "category": "Animations",
+    "slug": "motion-kit-1",
+    "htmlUrl": "/kits/motion-kit-1/index.html",
+    "zipUrl": "/kits/motion-kit-1/kit.zip",
+    "mdUrl": null
+  },
+  {
+    "id": "motion-kit-2",
+    "number": "4",
+    "title": "Motion Kit 2 — Showcase",
+    "category": "Animations",
+    "slug": "motion-kit-2",
+    "htmlUrl": "/kits/motion-kit-2/index.html",
+    "zipUrl": "/kits/motion-kit-2/kit.zip",
+    "mdUrl": null
+  },
+  {
+    "id": "ocean-live",
+    "number": "5",
+    "title": "Ocean Live — ים חי",
+    "category": "Creative",
+    "slug": "ocean-live",
+    "htmlUrl": "/kits/ocean-live/index.html",
+    "zipUrl": "/kits/ocean-live/kit.zip",
+    "mdUrl": null
+  },
+  {
+    "id": "motion-kit-3-scenes",
+    "number": "6",
+    "title": "Motion Kit 3 — סצנות ארוכות",
+    "category": "Animations",
+    "slug": "motion-kit-3-scenes",
+    "htmlUrl": "/kits/motion-kit-3-scenes/index.html",
+    "zipUrl": "/kits/motion-kit-3-scenes/kit.zip",
+    "mdUrl": null
+  },
+  {
+    "id": "maren",
+    "number": "7",
+    "title": "Maren",
+    "category": "Hero",
+    "slug": "maren",
+    "htmlUrl": "/kits/maren/index.html",
+    "zipUrl": null,
+    "mdUrl": null
+  },
+  {
+    "id": "six-heroes",
+    "number": "8",
+    "title": "Six Heroes — שישה הירואים",
+    "category": "Hero",
+    "slug": "six-heroes",
+    "htmlUrl": "/kits/six-heroes/index.html",
+    "zipUrl": "/kits/six-heroes/kit.zip",
+    "mdUrl": null
+  },
+  {
+    "id": "premium-heroes",
+    "number": "9",
+    "title": "Premium Heroes — ארבעה סגנונות",
+    "category": "Hero",
+    "slug": "premium-heroes",
+    "htmlUrl": "/kits/premium-heroes/index.html",
+    "zipUrl": "/kits/premium-heroes/kit.zip",
+    "mdUrl": null
+  },
+  {
+    "id": "premium-sites",
+    "number": "10",
+    "title": "Premium Sites — ארבעה אתרים",
+    "category": "Landing Page",
+    "slug": "premium-sites",
+    "htmlUrl": null,
+    "zipUrl": null,
+    "mdUrl": "/kits/premium-sites/notes.md"
+  },
+  {
+    "id": "motion-kit-3-showcase",
+    "number": "11",
+    "title": "Motion Kit 3 — Showcase",
+    "category": "Animations",
+    "slug": "motion-kit-3-showcase",
+    "htmlUrl": "/kits/motion-kit-3-showcase/index.html",
+    "zipUrl": "/kits/motion-kit-3-showcase/kit.zip",
+    "mdUrl": null
+  },
+  {
+    "id": "motion-kit-4",
+    "number": "12",
+    "title": "Motion Kit 4 — Showcase",
+    "category": "Animations",
+    "slug": "motion-kit-4",
+    "htmlUrl": "/kits/motion-kit-4/index.html",
+    "zipUrl": "/kits/motion-kit-4/kit.zip",
+    "mdUrl": null
+  },
+  {
+    "id": "barber-kit",
+    "number": "B1",
+    "title": "Barber Motion Kit — ערכת מספרות",
+    "category": "Creative",
+    "slug": "barber-kit",
+    "htmlUrl": "/kits/barber-kit/index.html",
+    "zipUrl": "/kits/barber-kit/kit.zip",
+    "mdUrl": null
+  },
+  {
+    "id": "barber-room-3d",
+    "number": "B2",
+    "title": "Barber Room 3D — חדר מספרה בתלת־ממד",
+    "category": "3D / WebGL",
+    "slug": "barber-room-3d",
+    "htmlUrl": "/kits/barber-room-3d/index.html",
+    "zipUrl": "/kits/barber-room-3d/kit.zip",
+    "mdUrl": null
+  }
 ]

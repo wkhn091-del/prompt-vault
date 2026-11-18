@@ -279,7 +279,7 @@ export function BackgroundsApp() {
       <SiteHeader active="backgrounds" />
 
       <div className="relative z-10 border-b border-white/[0.06] bg-black/40 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-end gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-[1400px] items-center justify-start gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
           <ModeSwitcher active="backgrounds" />
         </div>
       </div>
