@@ -131,7 +131,7 @@ export function SiteHeader({
                 value={searchValue}
                 onChange={(e) => onSearchChange?.(e.target.value)}
                 placeholder="Search…"
-                className="h-10 w-[180px] rounded-full border border-white/[0.08] bg-white/[0.04] py-2 pl-10 pr-3 text-[13px] text-white outline-none transition placeholder:text-white/30 focus:border-white/20 focus:bg-white/[0.06] xl:w-[220px]"
+                className="h-9 w-[180px] rounded-full border border-white/[0.08] bg-white/[0.04] py-2 pl-10 pr-3 text-[13px] text-white outline-none transition placeholder:text-white/30 focus:border-white/20 focus:bg-white/[0.06] xl:w-[220px]"
               />
             </div>
           )}
@@ -149,7 +149,7 @@ export function SiteHeader({
           {rightAction ?? (
             <Link
               href="/mcp"
-              className="inline-flex h-10 items-center rounded-full bg-white/[0.08] px-4 text-[13px] font-medium text-white transition hover:bg-white/[0.12]"
+              className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full border border-white/[0.12] bg-white/[0.04] px-3 text-[12px] font-medium text-white/85 transition hover:bg-white/[0.08] hover:text-white"
             >
               Connect MCP
             </Link>

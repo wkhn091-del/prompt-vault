@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Check,
+  ChevronDown,
   Code2,
   Copy,
   Download,
@@ -21,6 +22,87 @@ import { ScaledLivePreview } from "./ScaledLivePreview";
 import { Toast } from "./Toast";
 
 type AnimSource = "mine" | "vault";
+
+function SourceMenu({
+  source,
+  mineCount,
+  vaultCount,
+  onChange,
+}: {
+  source: AnimSource;
+  mineCount: number;
+  vaultCount: number;
+  onChange: (s: AnimSource) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const label = source === "mine" ? "Mine" : "Vault";
+
+  useEffect(() => {
+    if (!open) return;
+    function onDoc(e: MouseEvent) {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onDoc);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={rootRef} className="relative shrink-0 self-start sm:self-auto">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        className="inline-flex h-9 items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.04] px-3.5 text-[13px] font-medium text-white/90 transition hover:bg-white/[0.08]"
+      >
+        {label}
+        <ChevronDown
+          className={`size-3 opacity-55 transition ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className="absolute right-0 top-[calc(100%+6px)] z-[80] min-w-[148px] overflow-hidden rounded-xl border border-white/[0.1] bg-[#141416] py-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.9)]"
+        >
+          {(
+            [
+              { id: "mine" as const, label: "Mine", count: mineCount },
+              { id: "vault" as const, label: "Vault", count: vaultCount },
+            ] as const
+          ).map((opt) => (
+            <button
+              key={opt.id}
+              type="button"
+              role="menuitem"
+              onClick={() => {
+                onChange(opt.id);
+                setOpen(false);
+              }}
+              className={`flex w-full items-center justify-between gap-4 px-3.5 py-2.5 text-left text-[13px] font-medium transition hover:bg-white/[0.06] ${
+                opt.id === source ? "text-white" : "text-white/50"
+              }`}
+            >
+              <span>{opt.label}</span>
+              <span className="font-mono text-[11px] text-white/35">
+                {opt.count}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function resolveHtml(p: PromptDTO): string | null {
   if (p.previewHtml && p.previewHtml.trim().length > 40) return p.previewHtml;
@@ -547,54 +629,17 @@ export function AnimationsApp() {
               Animations
             </h1>
             <p className="mt-3 text-[14px] leading-relaxed text-white/45">
-              Click a card to enter and scroll inside. Switch circles to
-              separate your kits from vault HTML.
+              Click a card to enter and scroll inside. Use the source menu to
+              switch between your kits and vault HTML.
             </p>
           </div>
 
-          {/* Circular source switch — Mine vs Vault */}
-          <div
-            className="flex shrink-0 items-center gap-3 self-start sm:self-auto"
-            role="tablist"
-            aria-label="Animation source"
-          >
-            <button
-              type="button"
-              role="tab"
-              aria-selected={source === "mine"}
-              onClick={() => setSource("mine")}
-              className={`flex size-[72px] flex-col items-center justify-center rounded-full border text-center transition ${
-                source === "mine"
-                  ? "border-white bg-white text-black shadow-[0_0_0_4px_rgba(255,255,255,0.12)]"
-                  : "border-white/20 bg-white/[0.04] text-white/55 hover:border-white/40 hover:text-white"
-              }`}
-            >
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.12em]">
-                Mine
-              </span>
-              <span className="mt-0.5 text-[15px] font-extrabold leading-none">
-                {kits.length}
-              </span>
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={source === "vault"}
-              onClick={() => setSource("vault")}
-              className={`flex size-[72px] flex-col items-center justify-center rounded-full border text-center transition ${
-                source === "vault"
-                  ? "border-white bg-white text-black shadow-[0_0_0_4px_rgba(255,255,255,0.12)]"
-                  : "border-white/20 bg-white/[0.04] text-white/55 hover:border-white/40 hover:text-white"
-              }`}
-            >
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.12em]">
-                Vault
-              </span>
-              <span className="mt-0.5 text-[15px] font-extrabold leading-none">
-                {vaultAnimations.length}
-              </span>
-            </button>
-          </div>
+          <SourceMenu
+            source={source}
+            mineCount={kits.length}
+            vaultCount={vaultAnimations.length}
+            onChange={setSource}
+          />
         </div>
 
         <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.18em] text-white/35">
