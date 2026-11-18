@@ -6,6 +6,8 @@ const PUBLIC_PREFIXES = ["/login", "/auth/callback", "/api/mcp", "/robots.txt"];
 function isPublicPath(pathname: string): boolean {
   if (pathname === "/logo-m.svg" || pathname === "/logo-m.png") return true;
   if (pathname === "/favicon-32.png" || pathname === "/favicon.ico") return true;
+  // Motion kits must load in iframes / Browse without auth redirect
+  if (pathname === "/kits" || pathname.startsWith("/kits/")) return true;
   return PUBLIC_PREFIXES.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
@@ -90,6 +92,6 @@ function createMiddlewareClient(
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
+    "/((?!_next/static|_next/image|kits/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|zip|html|md)$).*)",
   ],
 };
