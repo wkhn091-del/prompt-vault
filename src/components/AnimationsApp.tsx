@@ -4,11 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Check,
   ChevronDown,
-  Code2,
   Copy,
   Download,
   ExternalLink,
-  FileText,
   X,
 } from "lucide-react";
 import { ANIMATION_KITS, type AnimationKit } from "@/lib/animation-kits";
@@ -224,17 +222,17 @@ function KitBrowseModal({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  async function copyHtml() {
-    if (!kit.htmlUrl) return;
+  async function copyMd() {
+    if (!kit.mdUrl) return;
     try {
-      const res = await fetch(kit.htmlUrl);
+      const res = await fetch(kit.mdUrl);
       const text = await res.text();
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      onCopied("HTML copied");
+      onCopied("Copied");
       setTimeout(() => setCopied(false), 1600);
     } catch {
-      onCopied("Could not copy HTML");
+      onCopied("Could not copy");
     }
   }
 
@@ -283,29 +281,15 @@ function KitBrowseModal({
           </p>
           <div className="mt-auto flex flex-col gap-2 pt-6">
             {kit.htmlUrl && (
-              <>
-                <a
-                  href={kit.htmlUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-white/[0.12] px-4 py-3 text-[13px] font-semibold text-white/80 hover:bg-white/[0.06]"
-                >
-                  <ExternalLink className="size-3.5" />
-                  Open full tab
-                </a>
-                <button
-                  type="button"
-                  onClick={() => void copyHtml()}
-                  className="inline-flex items-center justify-center gap-2 rounded-[10px] bg-white px-4 py-3 text-[13px] font-bold text-black hover:bg-zinc-200"
-                >
-                  {copied ? (
-                    <Check className="size-3.5 text-emerald-600" />
-                  ) : (
-                    <Code2 className="size-3.5" />
-                  )}
-                  {copied ? "HTML copied" : "Copy HTML"}
-                </button>
-              </>
+              <a
+                href={kit.htmlUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-white/[0.12] px-4 py-3 text-[13px] font-semibold text-white/80 hover:bg-white/[0.06]"
+              >
+                <ExternalLink className="size-3.5" />
+                Open full tab
+              </a>
             )}
             {kit.zipUrl && (
               <a
@@ -316,6 +300,20 @@ function KitBrowseModal({
                 <Download className="size-3.5" />
                 Download ZIP
               </a>
+            )}
+            {kit.mdUrl && (
+              <button
+                type="button"
+                onClick={() => void copyMd()}
+                className="inline-flex items-center justify-center gap-2 rounded-[10px] bg-white px-4 py-3 text-[13px] font-bold text-black hover:bg-zinc-200"
+              >
+                {copied ? (
+                  <Check className="size-3.5 text-emerald-600" />
+                ) : (
+                  <Copy className="size-3.5" />
+                )}
+                {copied ? "Copied" : "Copy"}
+              </button>
             )}
           </div>
         </aside>
@@ -333,22 +331,7 @@ function KitCard({
   onOpen: () => void;
   onCopied: (msg: string) => void;
 }) {
-  const [copied, setCopied] = useState<"html" | "md" | null>(null);
-
-  async function copyHtml(e: React.MouseEvent) {
-    e.stopPropagation();
-    if (!kit.htmlUrl) return;
-    try {
-      const res = await fetch(kit.htmlUrl);
-      const text = await res.text();
-      await navigator.clipboard.writeText(text);
-      setCopied("html");
-      onCopied("HTML copied");
-      setTimeout(() => setCopied(null), 1600);
-    } catch {
-      onCopied("Could not copy HTML");
-    }
-  }
+  const [copied, setCopied] = useState(false);
 
   async function copyMd(e: React.MouseEvent) {
     e.stopPropagation();
@@ -357,11 +340,11 @@ function KitCard({
       const res = await fetch(kit.mdUrl);
       const text = await res.text();
       await navigator.clipboard.writeText(text);
-      setCopied("md");
-      onCopied("MD copied");
-      setTimeout(() => setCopied(null), 1600);
+      setCopied(true);
+      onCopied("Copied");
+      setTimeout(() => setCopied(false), 1600);
     } catch {
-      onCopied("Could not copy MD");
+      onCopied("Could not copy");
     }
   }
 
@@ -407,20 +390,11 @@ function KitCard({
 
         <div className="flex flex-wrap gap-2">
           {kit.htmlUrl && (
-            <>
-              <FormatButton
-                label="Enter"
-                icon={<ExternalLink className="size-3.5" />}
-                onClick={onOpen}
-              />
-              <FormatButton
-                label="Copy HTML"
-                icon={<Code2 className="size-3.5" />}
-                onClick={(e) => void copyHtml(e)}
-                primary
-                done={copied === "html"}
-              />
-            </>
+            <FormatButton
+              label="Enter"
+              icon={<ExternalLink className="size-3.5" />}
+              onClick={onOpen}
+            />
           )}
           {kit.zipUrl && (
             <FormatButton
@@ -431,10 +405,11 @@ function KitCard({
           )}
           {kit.mdUrl && (
             <FormatButton
-              label="MD"
-              icon={<FileText className="size-3.5" />}
+              label="Copy"
+              icon={<Copy className="size-3.5" />}
               onClick={(e) => void copyMd(e)}
-              done={copied === "md"}
+              primary
+              done={copied}
             />
           )}
         </div>
@@ -454,21 +429,9 @@ function PromptAnimationCard({
   html: string;
   number: number;
   onOpen: () => void;
-  onCopied: (kind: "html" | "prompt") => void;
+  onCopied: () => void;
 }) {
-  const [copied, setCopied] = useState<"html" | "prompt" | null>(null);
-
-  async function copyHtml(e: React.MouseEvent) {
-    e.stopPropagation();
-    try {
-      await navigator.clipboard.writeText(html);
-      setCopied("html");
-      onCopied("html");
-      setTimeout(() => setCopied(null), 1600);
-    } catch {
-      /* ignore */
-    }
-  }
+  const [copied, setCopied] = useState(false);
 
   async function copyPrompt(e: React.MouseEvent) {
     e.stopPropagation();
@@ -482,9 +445,9 @@ function PromptAnimationCard({
       }
       if (!text) return;
       await navigator.clipboard.writeText(text);
-      setCopied("prompt");
-      onCopied("prompt");
-      setTimeout(() => setCopied(null), 1600);
+      setCopied(true);
+      onCopied();
+      setTimeout(() => setCopied(false), 1600);
     } catch {
       /* ignore */
     }
@@ -527,17 +490,11 @@ function PromptAnimationCard({
             onClick={onOpen}
           />
           <FormatButton
-            label="Copy HTML"
-            icon={<Code2 className="size-3.5" />}
-            onClick={copyHtml}
-            primary
-            done={copied === "html"}
-          />
-          <FormatButton
-            label="Prompt"
+            label="Copy"
             icon={<Copy className="size-3.5" />}
             onClick={copyPrompt}
-            done={copied === "prompt"}
+            primary
+            done={copied}
           />
         </div>
       </div>
@@ -681,9 +638,7 @@ export function AnimationsApp() {
                   html={html}
                   number={i + 1}
                   onOpen={() => setSelected(prompt)}
-                  onCopied={(kind) =>
-                    showToast(kind === "html" ? "HTML copied" : "Prompt copied")
-                  }
+                  onCopied={() => showToast("Copied")}
                 />
               ))}
             </div>
