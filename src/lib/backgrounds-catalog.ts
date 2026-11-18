@@ -17,6 +17,9 @@ export type BackgroundItem = {
 export const BG_SORTS = ["Featured", "Popular", "Recent"] as const;
 export type BgSort = (typeof BG_SORTS)[number];
 
+export const BG_ACCESS = ["All", "Free", "Paid"] as const;
+export type BgAccess = (typeof BG_ACCESS)[number];
+
 export const BG_CATEGORIES = [
   "All",
   "Dark",
@@ -45,8 +48,14 @@ export function displayVideoUrl(item: BackgroundItem): string {
 export function filterBackgrounds(
   sort: BgSort,
   category: BgCategory,
+  access: BgAccess = "All",
 ): BackgroundItem[] {
   let list = [...BACKGROUNDS];
+  if (access === "Free") {
+    list = list.filter((b) => !b.premium);
+  } else if (access === "Paid") {
+    list = list.filter((b) => Boolean(b.premium));
+  }
   if (category !== "All") {
     list = list.filter((b) => b.category === category);
   }
@@ -60,8 +69,19 @@ export function filterBackgrounds(
   return list;
 }
 
-export function featuredBackgrounds(): BackgroundItem[] {
-  const featured = BACKGROUNDS.filter((b) => b.featured);
-  if (featured.length >= 4) return featured.slice(0, 5);
-  return BACKGROUNDS.slice(0, 5);
+export function featuredBackgrounds(access: BgAccess = "All"): BackgroundItem[] {
+  let pool = BACKGROUNDS;
+  if (access === "Free") pool = pool.filter((b) => !b.premium);
+  if (access === "Paid") pool = pool.filter((b) => Boolean(b.premium));
+  const featured = pool.filter((b) => b.featured);
+  if (featured.length >= 4) return featured.slice(0, 8);
+  return pool.slice(0, 8);
+}
+
+export function accessCounts() {
+  return {
+    all: BACKGROUNDS.length,
+    free: BACKGROUNDS.filter((b) => !b.premium).length,
+    paid: BACKGROUNDS.filter((b) => Boolean(b.premium)).length,
+  };
 }
