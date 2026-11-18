@@ -24,18 +24,36 @@ function ToolCard({
 }: {
   tool: ToolItem;
   index: number;
-  onCopied: () => void;
+  onCopied: (label?: string) => void;
 }) {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<"skill" | "link" | null>(null);
   const [openMore, setOpenMore] = useState(false);
-  const canCopy = hasToolBody(tool.id) || Boolean(tool.href);
+  const hasSkill = hasToolBody(tool.id);
+  const hasLink = Boolean(tool.href);
 
-  async function copy() {
+  async function copySkill() {
     try {
       await navigator.clipboard.writeText(getToolCopyText(tool));
-      setCopied(true);
-      onCopied();
-      setTimeout(() => setCopied(false), 1600);
+      setCopied("skill");
+      onCopied("Skill");
+      setTimeout(() => setCopied(null), 1600);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  async function copyLink() {
+    try {
+      const links = [
+        tool.href,
+        ...(tool.parts?.map((p) => `${p.label}: ${p.href}`) ?? []),
+      ]
+        .filter(Boolean)
+        .join("\n");
+      await navigator.clipboard.writeText(links);
+      setCopied("link");
+      onCopied("Link");
+      setTimeout(() => setCopied(null), 1600);
     } catch {
       /* ignore */
     }
@@ -48,11 +66,18 @@ function ToolCard({
     >
       <div className="relative flex min-w-0 items-start gap-3">
         <div className="min-w-0 flex-1" dir="rtl">
-          <div className="mb-1.5 flex items-center gap-2" dir="ltr">
-            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#c8f542]/60">
-              skill
-            </span>
-            <span className="h-px flex-1 bg-gradient-to-r from-[#c8f542]/35 to-transparent" />
+          <div className="mb-1.5 flex flex-wrap items-center gap-1.5" dir="ltr">
+            {hasSkill && (
+              <span className="rounded-[6px] border border-[#c8f542]/30 bg-[#c8f542]/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[#c8f542]/80">
+                skill
+              </span>
+            )}
+            {hasLink && (
+              <span className="rounded-[6px] border border-white/15 bg-white/[0.04] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-white/45">
+                link
+              </span>
+            )}
+            <span className="h-px min-w-[1rem] flex-1 bg-gradient-to-r from-[#c8f542]/35 to-transparent" />
           </div>
           <h3 className="text-[16px] font-semibold leading-snug tracking-tight text-white break-words [font-family:var(--font-heebo),sans-serif]">
             {tool.title}
@@ -94,11 +119,11 @@ function ToolCard({
         </div>
       )}
 
-      <div className="relative mt-4 flex items-center gap-2">
+      <div className="relative mt-4 flex flex-wrap items-center gap-2">
         <button
           type="button"
           onClick={() => setOpenMore((v) => !v)}
-          className="inline-flex shrink-0 items-center gap-1 rounded-full border border-white/[0.12] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold text-white/70 transition hover:border-[#c8f542]/35 hover:text-[#c8f542]"
+          className="inline-flex shrink-0 items-center gap-1 rounded-[10px] border border-white/[0.12] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold text-white/70 transition hover:border-[#c8f542]/35 hover:text-[#c8f542]"
           aria-expanded={openMore}
         >
           עוד
@@ -106,19 +131,37 @@ function ToolCard({
             className={`size-3.5 transition ${openMore ? "rotate-180" : ""}`}
           />
         </button>
-        <button
-          type="button"
-          disabled={!canCopy}
-          onClick={() => void copy()}
-          className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-full bg-[#c8f542] px-3 py-2 text-[11px] font-bold tracking-wide text-black transition hover:bg-[#d6ff6a] disabled:opacity-40"
-        >
-          {copied ? (
-            <Check className="size-3.5" />
-          ) : (
-            <Copy className="size-3.5" />
-          )}
-          {copied ? "Copied" : "Copy"}
-        </button>
+        {hasSkill && (
+          <button
+            type="button"
+            onClick={() => void copySkill()}
+            className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-[10px] bg-[#c8f542] px-3 py-2 text-[11px] font-bold tracking-wide text-black transition hover:bg-[#d6ff6a]"
+          >
+            {copied === "skill" ? (
+              <Check className="size-3.5" />
+            ) : (
+              <Copy className="size-3.5" />
+            )}
+            {copied === "skill" ? "Copied" : "Copy skill"}
+          </button>
+        )}
+        {hasLink && (
+          <button
+            type="button"
+            onClick={() => void copyLink()}
+            className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[#c8f542]/35 bg-[#c8f542]/10 px-3 py-2 text-[11px] font-bold tracking-wide text-[#c8f542] transition hover:bg-[#c8f542]/18"
+          >
+            {copied === "link" ? (
+              <Check className="size-3.5" />
+            ) : (
+              <Copy className="size-3.5" />
+            )}
+            {copied === "link" ? "Copied" : "Copy link"}
+          </button>
+        )}
+        {!hasSkill && !hasLink && (
+          <span className="text-[11px] text-white/35">No format yet</span>
+        )}
       </div>
     </article>
   );
@@ -275,7 +318,7 @@ export function ToolsApp() {
                       index={i}
                       onCopied={() => {
                         setToast(true);
-                        setTimeout(() => setToast(false), 1600);
+                        window.setTimeout(() => setToast(false), 1600);
                       }}
                     />
                   ))}

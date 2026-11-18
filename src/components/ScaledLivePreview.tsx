@@ -3,7 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 type ScaledLivePreviewProps = {
-  html: string;
+  /** Inline HTML (srcDoc). Prefer `src` for large kit files. */
+  html?: string;
+  /** URL to HTML file — loads on demand, better for big kits. */
+  src?: string;
   title: string;
   /** Card: non-interactive. Modal: interactive. Both scale 1440×900 into the box. */
   mode?: "card" | "modal";
@@ -15,6 +18,7 @@ const DESIGN_H = 900;
 
 export function ScaledLivePreview({
   html,
+  src,
   title,
   mode = "card",
   className = "",
@@ -31,10 +35,8 @@ export function ScaledLivePreview({
       const cardHeight = el.clientHeight;
       if (cardWidth <= 0 || cardHeight <= 0) return;
       if (mode === "card") {
-        // Spec: scale(cardWidth / 1440) — 16:10 cards fill edge-to-edge
         setScale(cardWidth / DESIGN_W);
       } else {
-        // Modal: contain the full desktop design
         setScale(Math.min(cardWidth / DESIGN_W, cardHeight / DESIGN_H));
       }
     };
@@ -43,9 +45,10 @@ export function ScaledLivePreview({
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [html, mode]);
+  }, [html, src, mode]);
 
   const interactive = mode === "modal";
+  if (!html && !src) return null;
 
   return (
     <div
@@ -55,10 +58,11 @@ export function ScaledLivePreview({
       {scale > 0 && (
         <iframe
           title={title}
-          srcDoc={html}
+          {...(src ? { src } : { srcDoc: html })}
           // Never combine allow-scripts with allow-same-origin (stored XSS escape).
           sandbox="allow-scripts"
           referrerPolicy="no-referrer"
+          loading="lazy"
           style={{
             position: "absolute",
             top: 0,

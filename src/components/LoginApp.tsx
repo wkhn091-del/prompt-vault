@@ -1,10 +1,18 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import {
+  FormEvent,
+  useEffect,
+  useMemo,
+  useState,
+  type CSSProperties,
+} from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowRight,
+  Eye,
+  EyeOff,
   Loader2,
   Lock,
   Mail,
@@ -49,6 +57,8 @@ export function LoginApp() {
   const [method, setMethod] = useState<Method>("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   const [saved, setSaved] = useState<string | null>(null);
   const [realSession, setRealSession] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -247,39 +257,66 @@ export function LoginApp() {
 
   const headline = recoveryMode
     ? "Set a new password"
-    : showSignedIn
-      ? "You're in"
-      : mode === "signup"
-        ? "Create your account"
-        : "Welcome back";
+    : method === "reset"
+      ? "Reset password"
+      : method === "magic"
+        ? "Magic link"
+        : showSignedIn
+          ? "You're in"
+          : mode === "signup"
+            ? "Create your account"
+            : "Welcome back";
 
   const subcopy = recoveryMode
     ? "Choose a new password (12+ characters)."
-    : showSignedIn
-      ? "Continue into the vault, or sign out."
-      : mode === "signup"
-        ? "Register with email or Google to enter Prompt Vault."
-        : "Sign in with Google, or email and password.";
+    : method === "reset"
+      ? "Enter your email and we’ll send a reset link."
+      : method === "magic"
+        ? "We’ll email a one-click sign-in link — no password."
+        : showSignedIn
+          ? "Continue into the vault, or sign out."
+          : mode === "signup"
+            ? "Create an account with email, or use a provider below."
+            : "Sign in with email and password.";
+
+  const fieldClass =
+    "h-12 w-full rounded-xl border border-white/[0.1] bg-black/40 py-3 pl-11 pr-4 text-[14px] text-white outline-none transition placeholder:text-white/25 focus:border-[#c4a574]/45 focus:bg-black/55 focus:ring-1 focus:ring-[#c4a574]/20";
+  const passwordFieldClass = `${fieldClass} pr-12`;
 
   return (
-    <div className="relative min-h-dvh overflow-hidden bg-[#050506] text-white">
+    <div
+      className="relative min-h-dvh overflow-hidden text-white"
+      style={
+        {
+          "--login-panel-bg": "#0c0b0a",
+          background:
+            "radial-gradient(120% 80% at 10% 0%, #1a1510 0%, #070706 42%, #050505 100%)",
+        } as CSSProperties
+      }
+    >
       <div className="vault-grain" aria-hidden />
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_15%_20%,rgba(56,229,255,0.12),transparent_55%),radial-gradient(ellipse_70%_50%_at_85%_10%,rgba(255,90,120,0.1),transparent_50%),radial-gradient(ellipse_60%_40%_at_50%_100%,rgba(255,255,255,0.04),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(196,165,116,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(196,165,116,0.04) 1px, transparent 1px)",
+          backgroundSize: "72px 72px",
+          maskImage:
+            "radial-gradient(ellipse at center, black 20%, transparent 75%)",
+        }}
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -left-24 top-1/4 h-[420px] w-[420px] rounded-full bg-[rgba(56,229,255,0.06)] blur-[100px]"
+        className="pointer-events-none absolute -left-32 top-[-10%] h-[520px] w-[520px] rounded-full bg-[#c4a574]/[0.09] blur-[130px]"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -right-16 bottom-0 h-[380px] w-[380px] rounded-full bg-[rgba(255,80,110,0.07)] blur-[110px]"
+        className="pointer-events-none absolute -right-24 bottom-[-5%] h-[460px] w-[460px] rounded-full bg-[#8a6a3e]/[0.08] blur-[120px]"
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto grid min-h-dvh max-w-6xl lg:grid-cols-[1.05fr_0.95fr]">
-        {/* Brand panel */}
-        <section className="relative hidden flex-col justify-between px-10 py-12 lg:flex xl:px-14">
+      <div className="relative z-10 mx-auto grid min-h-dvh max-w-6xl lg:grid-cols-[1.1fr_0.9fr]">
+        <section className="relative hidden flex-col justify-between px-10 py-14 lg:flex xl:px-16">
           <Link href="/login" className="inline-flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo-m.svg" alt="" className="size-10" />
@@ -288,28 +325,28 @@ export function LoginApp() {
             </span>
           </Link>
 
-          <div className="max-w-md">
-            <p className="text-[12px] font-medium uppercase tracking-[0.22em] text-white/40">
-              Motion library
+          <div className="max-w-lg">
+            <p className="font-[family-name:var(--font-mono)] text-[11px] font-medium uppercase tracking-[0.28em] text-[#c4a574]/70">
+              Private motion atelier
             </p>
-            <h1 className="mt-4 font-[family-name:var(--font-syne)] text-[48px] font-bold leading-[1.05] tracking-[-0.05em] text-white">
-              Paste prompts.
-              <br />
-              <span className="text-white/55">Ship motion.</span>
+            <h1 className="mt-5 font-[family-name:var(--font-syne)] text-[clamp(2.6rem,5vw,3.6rem)] font-extrabold leading-[1.02] tracking-[-0.05em] text-white">
+              Prompt Vault
             </h1>
-            <p className="mt-5 text-[16px] leading-relaxed text-white/45">
-              Your private vault of AI website animations — copy prompts, grab
-              the video, and hand it to any model.
+            <p className="mt-3 font-[family-name:var(--font-syne)] text-[clamp(1.35rem,2.4vw,1.85rem)] font-semibold leading-snug tracking-[-0.03em] text-white/50">
+              Paste prompts. Ship motion.
+            </p>
+            <p className="mt-6 max-w-md text-[15px] leading-relaxed text-white/40">
+              A curated vault of AI website animations — copy the prompt, take
+              the clip, hand it to any model.
             </p>
           </div>
 
-          <p className="text-[12px] text-white/30">
-            Secure sign-in · Google, email, or magic link
+          <p className="font-[family-name:var(--font-mono)] text-[11px] tracking-[0.12em] text-white/25">
+            Secure access · email · Google · Apple · GitHub
           </p>
         </section>
 
-        {/* Auth panel */}
-        <section className="flex flex-col justify-center px-4 py-10 sm:px-8 lg:px-10 lg:py-12">
+        <section className="flex flex-col justify-center px-4 py-10 sm:px-8 lg:px-10 lg:py-14">
           <div className="mb-8 flex items-center justify-center gap-2.5 lg:hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo-m.svg" alt="" className="size-8" />
@@ -318,30 +355,39 @@ export function LoginApp() {
             </span>
           </div>
 
-          <div className="login-panel relative mx-auto w-full max-w-[420px] overflow-hidden rounded-[28px] border border-white/[0.1] bg-[#0b0b0d]/90 p-7 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.9)] backdrop-blur-xl sm:p-8">
+          <div
+            className="login-panel relative mx-auto w-full max-w-[420px] overflow-hidden rounded-[24px] border border-[#c4a574]/15 bg-[#0c0b0a]/92 p-7 shadow-[0_50px_120px_-48px_rgba(0,0,0,0.95),0_0_0_1px_rgba(196,165,116,0.06)_inset] backdrop-blur-2xl sm:p-8"
+            style={{ ["--login-panel-bg" as string]: "#0c0b0a" }}
+          >
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"
+              className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#c4a574]/55 to-transparent"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute -right-16 -top-20 h-40 w-40 rounded-full bg-[#c4a574]/10 blur-3xl"
               aria-hidden
             />
 
-            <h2 className="font-[family-name:var(--font-syne)] text-[28px] font-bold tracking-[-0.04em] text-white">
+            <h2 className="font-[family-name:var(--font-syne)] text-[26px] font-bold tracking-[-0.04em] text-white sm:text-[28px]">
               {headline}
             </h2>
-            <p className="mt-2 text-[14px] leading-relaxed text-white/45">
+            <p className="mt-2 text-[13px] leading-relaxed text-white/42">
               {subcopy}
             </p>
 
             {showSignedIn && !recoveryMode ? (
               <div className="mt-8 space-y-4">
-                <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
-                  <p className="text-[12px] text-white/40">Signed in as</p>
-                  <p className="mt-1 text-[15px] font-medium text-white">
+                <div className="rounded-xl border border-[#c4a574]/15 bg-white/[0.03] px-4 py-3.5">
+                  <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.18em] text-[#c4a574]/60">
+                    Signed in as
+                  </p>
+                  <p className="mt-1.5 text-[15px] font-medium text-white">
                     {saved}
                   </p>
                 </div>
                 <Link
                   href={nextPath}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-3.5 text-[13px] font-semibold text-black transition hover:bg-zinc-200"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#e8d5b5] to-[#c4a574] px-4 py-3.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-105"
                 >
                   Enter vault
                   <ArrowRight className="size-3.5" />
@@ -349,7 +395,7 @@ export function LoginApp() {
                 <button
                   type="button"
                   onClick={() => void signOut()}
-                  className="w-full rounded-full border border-white/[0.1] px-4 py-3 text-[13px] font-medium text-white/60 transition hover:bg-white/[0.05] hover:text-white"
+                  className="w-full rounded-full border border-white/[0.1] px-4 py-3 text-[13px] font-medium text-white/55 transition hover:border-white/20 hover:text-white"
                 >
                   Sign out
                 </button>
@@ -357,7 +403,7 @@ export function LoginApp() {
             ) : (
               <>
                 {!recoveryMode && (
-                  <div className="mt-6 grid grid-cols-2 gap-1 rounded-full border border-white/[0.08] bg-black/40 p-1">
+                  <div className="mt-7 grid grid-cols-2 gap-1 rounded-full border border-white/[0.08] bg-black/35 p-1">
                     {(
                       [
                         { id: "signin", label: "Sign in" },
@@ -375,52 +421,8 @@ export function LoginApp() {
                         }}
                         className={`rounded-full py-2.5 text-[13px] font-semibold transition ${
                           mode === item.id
-                            ? "bg-white text-black shadow-sm"
-                            : "text-white/45 hover:text-white/80"
-                        }`}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {!recoveryMode && (
-                  <div className="mt-6">
-                    <OAuthProviders nextPath={nextPath} hideDivider />
-                  </div>
-                )}
-
-                {!recoveryMode && (
-                  <div className="relative my-6 text-center">
-                    <span className="relative z-10 bg-[#0b0b0d] px-3 text-[11px] uppercase tracking-[0.14em] text-white/30">
-                      or with email
-                    </span>
-                    <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-white/[0.08]" />
-                  </div>
-                )}
-
-                {!recoveryMode && (
-                  <div className="mb-4 flex gap-1 overflow-x-auto rounded-full border border-white/[0.06] bg-black/25 p-1 scrollbar-none">
-                    {(
-                      [
-                        { id: "password", label: "Password" },
-                        { id: "magic", label: "Magic link" },
-                        { id: "reset", label: "Reset" },
-                      ] as const
-                    ).map((item) => (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => {
-                          setMethod(item.id);
-                          setError(null);
-                          setInfo(null);
-                        }}
-                        className={`shrink-0 rounded-full px-3 py-1.5 text-[12px] font-medium transition ${
-                          method === item.id
-                            ? "bg-white/15 text-white"
-                            : "text-white/40 hover:text-white/70"
+                            ? "bg-gradient-to-b from-[#e8d5b5] to-[#c4a574] text-[#1a140c] shadow-[0_8px_24px_-12px_rgba(196,165,116,0.7)]"
+                            : "text-white/40 hover:text-white/75"
                         }`}
                       >
                         {item.label}
@@ -431,15 +433,15 @@ export function LoginApp() {
 
                 <form
                   onSubmit={(e) => void onSubmit(e)}
-                  className="space-y-4"
+                  className="mt-5 space-y-4"
                 >
                   {!recoveryMode && (
                     <label className="block">
-                      <span className="mb-1.5 block text-[12px] font-medium text-white/45">
+                      <span className="mb-1.5 block font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/40">
                         Email
                       </span>
                       <div className="relative">
-                        <Mail className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-white/30" />
+                        <Mail className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#c4a574]/45" />
                         <input
                           type="email"
                           autoComplete="email"
@@ -447,7 +449,7 @@ export function LoginApp() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="you@studio.com"
-                          className="h-12 w-full rounded-full border border-white/[0.1] bg-black/50 py-3 pl-11 pr-4 text-[14px] text-white outline-none transition placeholder:text-white/25 focus:border-white/30"
+                          className={fieldClass}
                         />
                       </div>
                     </label>
@@ -455,14 +457,29 @@ export function LoginApp() {
 
                   {method === "password" && !recoveryMode && (
                     <label className="block">
-                      <span className="mb-1.5 block text-[12px] font-medium text-white/45">
-                        Password
-                        {mode === "signup" ? " (12+ chars)" : ""}
-                      </span>
+                      <div className="mb-1.5 flex items-center justify-between gap-3">
+                        <span className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/40">
+                          Password
+                          {mode === "signup" ? " · 12+" : ""}
+                        </span>
+                        {mode === "signin" && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setMethod("reset");
+                              setError(null);
+                              setInfo(null);
+                            }}
+                            className="text-[12px] font-medium text-[#c4a574]/80 transition hover:text-[#e8d5b5]"
+                          >
+                            Forgot password?
+                          </button>
+                        )}
+                      </div>
                       <div className="relative">
-                        <Lock className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-white/30" />
+                        <Lock className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#c4a574]/45" />
                         <input
-                          type="password"
+                          type={showPassword ? "text" : "password"}
                           autoComplete={
                             mode === "signup"
                               ? "new-password"
@@ -473,55 +490,78 @@ export function LoginApp() {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="••••••••••••"
-                          className="h-12 w-full rounded-full border border-white/[0.1] bg-black/50 py-3 pl-11 pr-4 text-[14px] text-white outline-none transition placeholder:text-white/25 focus:border-white/30"
+                          className={passwordFieldClass}
                         />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((v) => !v)}
+                          className="absolute right-2 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-lg text-white/40 transition hover:bg-white/[0.06] hover:text-[#c4a574]"
+                          aria-label={
+                            showPassword ? "Hide password" : "Show password"
+                          }
+                        >
+                          {showPassword ? (
+                            <EyeOff className="size-4" />
+                          ) : (
+                            <Eye className="size-4" />
+                          )}
+                        </button>
                       </div>
                     </label>
                   )}
 
                   {recoveryMode && (
                     <label className="block">
-                      <span className="mb-1.5 block text-[12px] font-medium text-white/45">
-                        New password (12+)
+                      <span className="mb-1.5 block font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/40">
+                        New password · 12+
                       </span>
                       <div className="relative">
-                        <Lock className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-white/30" />
+                        <Lock className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#c4a574]/45" />
                         <input
-                          type="password"
+                          type={showNewPassword ? "text" : "password"}
                           autoComplete="new-password"
                           required
                           minLength={12}
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
                           placeholder="••••••••••••"
-                          className="h-12 w-full rounded-full border border-white/[0.1] bg-black/50 py-3 pl-11 pr-4 text-[14px] text-white outline-none transition placeholder:text-white/25 focus:border-white/30"
+                          className={passwordFieldClass}
                         />
+                        <button
+                          type="button"
+                          onClick={() => setShowNewPassword((v) => !v)}
+                          className="absolute right-2 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-lg text-white/40 transition hover:bg-white/[0.06] hover:text-[#c4a574]"
+                          aria-label={
+                            showNewPassword
+                              ? "Hide password"
+                              : "Show password"
+                          }
+                        >
+                          {showNewPassword ? (
+                            <EyeOff className="size-4" />
+                          ) : (
+                            <Eye className="size-4" />
+                          )}
+                        </button>
                       </div>
                     </label>
                   )}
 
                   {method === "magic" && !recoveryMode && (
                     <p className="flex items-start gap-2 text-[12px] leading-relaxed text-white/40">
-                      <Sparkles className="mt-0.5 size-3.5 shrink-0 text-white/30" />
-                      {mode === "signup"
-                        ? "We’ll email a link to create your account — no password needed."
-                        : "We’ll email a one-click sign-in link."}
-                    </p>
-                  )}
-
-                  {method === "reset" && !recoveryMode && (
-                    <p className="text-[12px] leading-relaxed text-white/40">
-                      We’ll send a reset link to your email.
+                      <Sparkles className="mt-0.5 size-3.5 shrink-0 text-[#c4a574]/50" />
+                      Check your inbox after sending — the link signs you in
+                      instantly.
                     </p>
                   )}
 
                   {error && (
-                    <p className="rounded-2xl border border-amber-400/20 bg-amber-400/10 px-3.5 py-2.5 text-[12px] leading-relaxed text-amber-100/95">
+                    <p className="rounded-xl border border-amber-400/20 bg-amber-400/10 px-3.5 py-2.5 text-[12px] leading-relaxed text-amber-100/95">
                       {error}
                     </p>
                   )}
                   {info && (
-                    <p className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 px-3.5 py-2.5 text-[12px] leading-relaxed text-emerald-100/95">
+                    <p className="rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-3.5 py-2.5 text-[12px] leading-relaxed text-emerald-100/95">
                       {info}
                     </p>
                   )}
@@ -529,7 +569,7 @@ export function LoginApp() {
                   <button
                     type="submit"
                     disabled={busy}
-                    className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white text-[13px] font-semibold text-black transition hover:bg-zinc-200 disabled:opacity-60"
+                    className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#e8d5b5] to-[#c4a574] text-[13px] font-semibold text-[#1a140c] shadow-[0_12px_32px_-14px_rgba(196,165,116,0.85)] transition hover:brightness-105 disabled:opacity-60"
                   >
                     {busy ? (
                       <Loader2 className="size-4 animate-spin" />
@@ -549,16 +589,44 @@ export function LoginApp() {
                               : "Sign in"}
                   </button>
                 </form>
+
+                {!recoveryMode && method !== "password" && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMethod("password");
+                      setError(null);
+                      setInfo(null);
+                    }}
+                    className="mt-4 w-full text-center text-[12px] font-medium text-white/45 transition hover:text-white/75"
+                  >
+                    ← Back to password sign in
+                  </button>
+                )}
+
+                {!recoveryMode && method === "password" && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMethod("magic");
+                      setError(null);
+                      setInfo(null);
+                    }}
+                    className="mt-4 inline-flex w-full items-center justify-center gap-1.5 text-[12px] font-medium text-white/40 transition hover:text-[#c4a574]/90"
+                  >
+                    <Sparkles className="size-3.5" />
+                    Sign in with magic link instead
+                  </button>
+                )}
+
+                {!recoveryMode && (
+                  <div className="mt-7">
+                    <OAuthProviders nextPath={nextPath} />
+                  </div>
+                )}
               </>
             )}
           </div>
-
-          {!showSignedIn && !recoveryMode && (
-            <p className="mx-auto mt-6 max-w-[420px] text-center text-[12px] leading-relaxed text-white/30">
-              Already use Google on this project? Skip the password — hit{" "}
-              <span className="text-white/55">Continue with Google</span>.
-            </p>
-          )}
         </section>
       </div>
     </div>

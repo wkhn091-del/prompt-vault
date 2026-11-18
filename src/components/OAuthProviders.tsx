@@ -46,14 +46,16 @@ function ProviderIcon({ id }: { id: OAuthProviderId }) {
 }
 
 function buttonClass(id: OAuthProviderId): string {
+  // Rectangular — same language as luxury product auth (not pills).
+  const base =
+    "inline-flex h-[48px] w-full items-center justify-center gap-3 rounded-[10px] text-[13px] font-medium tracking-[0.01em] transition disabled:opacity-50";
   if (id === "google") {
-    // Official-style Google button (white surface, dark text)
-    return "inline-flex h-11 w-full items-center justify-center gap-3 rounded-md border border-[#dadce0] bg-white text-[14px] font-medium text-[#3c4043] shadow-sm transition hover:bg-[#f8f9fa] hover:shadow disabled:opacity-50";
+    return `${base} border border-[#e8e4dc] bg-[#faf8f5] text-[#1c1917] hover:bg-white`;
   }
   if (id === "apple") {
-    return "inline-flex h-11 w-full items-center justify-center gap-3 rounded-md bg-black text-[14px] font-medium text-white ring-1 ring-white/20 transition hover:bg-[#111] disabled:opacity-50";
+    return `${base} border border-white/[0.18] bg-[#111110] text-white hover:border-white/30 hover:bg-[#181816]`;
   }
-  return "inline-flex h-11 w-full items-center justify-center gap-3 rounded-md border border-white/[0.12] bg-[#24292f] text-[14px] font-medium text-white transition hover:bg-[#2f363d] disabled:opacity-50";
+  return `${base} border border-white/[0.14] bg-transparent text-white hover:border-white/28 hover:bg-white/[0.04]`;
 }
 
 type OAuthProvidersProps = {
@@ -95,10 +97,10 @@ export function OAuthProviders({
     <div className="space-y-2.5" data-oauth-ready="true">
       {!hideDivider && (
         <div className="relative py-1 text-center">
-          <span className="relative z-10 bg-[#0b0b0d] px-3 text-[11px] uppercase tracking-[0.14em] text-white/30">
+          <span className="relative z-10 bg-[var(--login-panel-bg,#0c0b0a)] px-3 font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[#c4a574]/55">
             or continue with
           </span>
-          <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-white/[0.08]" />
+          <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-[#c4a574]/25 to-transparent" />
         </div>
       )}
       {OAUTH_PROVIDERS.map((provider) => (
@@ -114,7 +116,7 @@ export function OAuthProviders({
         </button>
       ))}
       {error && (
-        <p className="rounded-2xl border border-amber-400/25 bg-amber-400/10 px-3 py-2 text-[12px] leading-relaxed text-amber-100/95">
+        <p className="rounded-2xl border border-[#c4a574]/25 bg-[#c4a574]/10 px-3 py-2 text-[12px] leading-relaxed text-[#f0e6d4]">
           {error}
         </p>
       )}
