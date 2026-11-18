@@ -25,7 +25,6 @@ const RIGHT_LINKS = [
   { href: "/mcp", label: "MCP" },
   { href: "/animations", label: "Animations" },
   { href: "/backgrounds", label: "Backgrounds" },
-  { href: "/websites", label: "Academy" },
   { href: "/?category=3D%20%2F%20WebGL", label: "3D" },
   { href: "/#add", label: "Submit", adminOnly: true },
   { href: "/login", label: "Contact" },
@@ -113,7 +112,6 @@ export function SiteHeader({
               href={link.href}
               className={`rounded-full px-2.5 py-2 text-[13px] font-medium transition hover:text-white/85 ${
                 (active === "mcp" && link.label === "MCP") ||
-                (active === "websites" && link.label === "Academy") ||
                 (active === "backgrounds" && link.label === "Backgrounds") ||
                 (active === "animations" && link.label === "Animations")
                   ? "text-white"
