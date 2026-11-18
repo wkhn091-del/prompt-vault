@@ -8,6 +8,8 @@ import { MediaPreview } from "./MediaPreview";
 
 type PromptCardProps = {
   prompt: PromptDTO;
+  /** 1-based display number so you can say “#7” in chat */
+  number: number;
   onOpen: (prompt: PromptDTO) => void;
   onCopied: () => void;
   onVideoCopied?: (ok: boolean, error?: string) => void;
@@ -15,6 +17,7 @@ type PromptCardProps = {
 
 export function PromptCard({
   prompt,
+  number,
   onOpen,
   onCopied,
   onVideoCopied,
@@ -81,6 +84,9 @@ export function PromptCard({
       className="group cursor-pointer overflow-hidden rounded-[22px] border border-white/[0.06] bg-[#0c0c0e] shadow-[0_0_0_1px_rgba(255,255,255,0.02)] transition-[transform,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.22,0.8,0.24,1)] hover:-translate-y-1 hover:border-white/[0.12] hover:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/30"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-black">
+        <span className="absolute left-3 top-3 z-10 inline-flex min-w-9 items-center justify-center rounded-[10px] border border-white/20 bg-black/75 px-2.5 py-1 font-mono text-[13px] font-bold tracking-tight text-white backdrop-blur-md">
+          #{number}
+        </span>
         <MediaPreview
           mediaUrl={prompt.mediaUrl}
           mediaType={prompt.mediaType}
@@ -96,6 +102,7 @@ export function PromptCard({
       <div className="flex items-center justify-between gap-3 px-4 py-3.5">
         <div className="min-w-0">
           <h3 className="truncate text-[15px] font-semibold tracking-[-0.02em] text-white">
+            <span className="mr-1.5 font-mono text-white/40">#{number}</span>
             {prompt.title}
           </h3>
           <p className="mt-0.5 truncate text-[12px] font-medium tracking-wide text-white/40">

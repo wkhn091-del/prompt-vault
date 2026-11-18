@@ -191,10 +191,11 @@ export function VaultApp() {
                   Boolean(p.previewHtml && p.previewHtml.length > 40) ||
                   Boolean(p.slug),
               )
-              .map((p) => (
+              .map((p, i) => (
               <PromptCard
                 key={p.id}
                 prompt={p}
+                number={i + 1}
                 onOpen={(card) => {
                   setSelected(card);
                   // Hydrate full promptText from server (not in list payload)
