@@ -280,6 +280,35 @@ async function verifyToken(
   };
 }
 
+function mcpCorsHeaders(req: Request): Headers {
+  const headers = new Headers();
+  const origin = req.headers.get("origin");
+  if (origin) {
+    headers.set("Access-Control-Allow-Origin", origin);
+    headers.set("Vary", "Origin");
+  } else {
+    headers.set("Access-Control-Allow-Origin", "*");
+  }
+  headers.set("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
+  headers.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Accept, Mcp-Session-Id, Last-Event-Id, MCP-Protocol-Version",
+  );
+  headers.set("Access-Control-Expose-Headers", "Mcp-Session-Id");
+  headers.set("Access-Control-Max-Age", "86400");
+  return headers;
+}
+
+function withCors(req: Request, res: Response): Response {
+  const headers = new Headers(res.headers);
+  mcpCorsHeaders(req).forEach((v, k) => headers.set(k, v));
+  return new Response(res.body, {
+    status: res.status,
+    statusText: res.statusText,
+    headers,
+  });
+}
+
 function browserStatusPage(req: Request): Response {
   const origin = new URL(req.url).origin;
   const mcpUrl = `${origin}/api/mcp`;
@@ -291,10 +320,20 @@ function browserStatusPage(req: Request): Response {
     name: "Prompt Vault MCP",
     transport: "streamable-http",
     url: mcpUrl,
-    hint: "This URL is for MCP clients (Cursor, Claude, ChatGPT…). Opening it in a browser is not how you connect — paste the URL into the client's MCP settings, or install from /mcp.",
+    hint: "This URL is for MCP clients (Cursor, Claude, ChatGPT, Grok…). Opening it in a browser is not how you connect — paste the URL into the client's MCP settings, or install from /mcp.",
     hint_he:
-      "הכתובת הזו מיועדת ללקוחות MCP (Cursor וכו'). פתיחה בדפדפן לא מחברת — הדביקו את ה-URL בהגדרות MCP או התקינו מ־/mcp.",
+      "הכתובת הזו מיועדת ללקוחות MCP. פתיחה בדפדפן לא מחברת — הדביקו את ה-URL בהגדרות MCP או התקינו מ־/mcp.",
     install: `${origin}/mcp`,
+    grok: {
+      server_url: mcpUrl,
+      client_id: "prompt-vault-grok",
+      client_secret: "",
+      token_endpoint_auth_method: "none",
+      pkce: "S256",
+      authorization_endpoint: `${origin}/api/oauth/authorize`,
+      token_endpoint: `${origin}/api/oauth/token`,
+      scopes: "mcp:read",
+    },
     oauth: {
       authorization_server: `${origin}/.well-known/oauth-authorization-server`,
       protected_resource: `${origin}/.well-known/oauth-protected-resource`,
@@ -302,13 +341,18 @@ function browserStatusPage(req: Request): Response {
   };
 
   if (!wantsHtml) {
-    return Response.json(payload, {
-      headers: { "Cache-Control": "public, max-age=60" },
-    });
+    return withCors(
+      req,
+      Response.json(payload, {
+        headers: { "Cache-Control": "public, max-age=60" },
+      }),
+    );
   }
 
-  return new Response(
-    `<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Prompt Vault MCP</title>
+  return withCors(
+    req,
+    new Response(
+      `<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Prompt Vault MCP</title>
 <style>
 :root{color-scheme:dark}body{margin:0;min-height:100dvh;display:grid;place-items:center;font-family:ui-sans-serif,system-ui,sans-serif;background:#070b0e;color:#e8f7ff;padding:24px}
 .card{width:min(520px,100%);border:1px solid rgba(56,229,255,.28);border-radius:20px;background:linear-gradient(180deg,#0a1218,#070b0e);padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
@@ -317,32 +361,41 @@ code{display:block;margin:14px 0;padding:12px;border-radius:12px;background:rgba
 a{color:#38e5ff}
 </style></head><body><div class="card">
 <h1>Prompt Vault MCP פעיל ✓</h1>
-<p>פתיחת הכתובת בדפדפן לא מחברת את Cursor. צריך להדביק את ה־URL בהגדרות MCP של הלקוח.</p>
+<p>פתיחת הכתובת בדפדפן לא מחברת את Cursor/Grok. צריך להדביק את ה־URL בהגדרות MCP של הלקוח.</p>
 <code>${mcpUrl}</code>
+<p><strong>Grok:</strong> Client ID = <code style="display:inline;padding:2px 6px;margin:0">prompt-vault-grok</code> · Secret ריק · PKCE S256</p>
 <p><a href="/mcp">מסך התקנה לכל הלקוחות</a></p>
 </div></body></html>`,
-    {
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "public, max-age=60",
+      {
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "public, max-age=60",
+        },
       },
-    },
+    ),
   );
+}
+
+export async function OPTIONS(req: Request) {
+  return new Response(null, { status: 204, headers: mcpCorsHeaders(req) });
 }
 
 async function guarded(req: Request) {
   const ip = clientIp(req);
   const limited = rateLimit(`mcp:${ip}`, 60, 60_000);
   if (!limited.ok) {
-    return new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
-      status: 429,
-      headers: {
-        "Content-Type": "application/json",
-        "Retry-After": String(
-          Math.ceil((limited.resetAt - Date.now()) / 1000),
-        ),
-      },
-    });
+    return withCors(
+      req,
+      new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+          "Retry-After": String(
+            Math.ceil((limited.resetAt - Date.now()) / 1000),
+          ),
+        },
+      }),
+    );
   }
 
   // Browser GET (no SSE) → friendly status. MCP streamable HTTP uses POST
@@ -363,7 +416,7 @@ async function guarded(req: Request) {
   });
 
   try {
-    return await handler(req);
+    return withCors(req, await handler(req));
   } finally {
     mcpRequestScopes = [];
   }

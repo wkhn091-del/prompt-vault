@@ -138,6 +138,33 @@ export type RegisteredClient = {
   token_endpoint_auth_method: string;
 };
 
+/** Stable public clients for platforms that ask for a Client ID (not DCR JWT). */
+export const STATIC_OAUTH_CLIENTS: Record<string, RegisteredClient> = {
+  "prompt-vault-grok": {
+    client_id: "prompt-vault-grok",
+    client_name: "Grok",
+    redirect_uris: [
+      "https://grok.com/connectors-oauth-exchange-code/",
+      "https://grok.com/connectors-oauth-exchange-code",
+      "https://www.grok.com/connectors-oauth-exchange-code/",
+      "https://www.grok.com/connectors-oauth-exchange-code",
+    ],
+    token_endpoint_auth_method: "none",
+  },
+  "prompt-vault-grok-bot": {
+    client_id: "prompt-vault-grok-bot",
+    client_name: "Grok Bot",
+    redirect_uris: [
+      "https://www.cursor.com/agents/mcp/oauth/callback",
+      "https://cursor.com/agents/mcp/oauth/callback",
+    ],
+    token_endpoint_auth_method: "none",
+  },
+};
+
+export const GROK_WEB_CLIENT_ID = "prompt-vault-grok";
+export const GROK_BOT_CLIENT_ID = "prompt-vault-grok-bot";
+
 export function registerClient(input: {
   redirect_uris?: string[];
   client_name?: string;
@@ -204,6 +231,8 @@ export function readClient(clientId: string): RegisteredClient | null {
 export async function resolveClient(
   clientId: string,
 ): Promise<RegisteredClient | null> {
+  const staticClient = STATIC_OAUTH_CLIENTS[clientId];
+  if (staticClient) return staticClient;
   const local = readClient(clientId);
   if (local) return local;
   if (!/^https:\/\//i.test(clientId)) return null;

@@ -56,6 +56,7 @@ const AI_CLIENTS: {
   { id: "claude", label: "Claude", tone: "from-[#d4a574] to-[#c4894a]" },
   { id: "gemini", label: "Gemini", tone: "from-[#6ea8fe] to-[#4285f4]" },
   { id: "chatgpt", label: "ChatGPT", tone: "from-[#74e0a8] to-[#10a37f]" },
+  { id: "grok", label: "Grok", tone: "from-[#e5e5e5] to-[#737373]" },
   { id: "cursor", label: "Cursor", tone: "from-[#a78bfa] to-[#7c3aed]" },
   { id: "vscode", label: "VS Code", tone: "from-[#6cb6ff] to-[#0078d4]" },
   { id: "claude-code", label: "Claude Code", tone: "from-[#e8b98a] to-[#b87333]" },

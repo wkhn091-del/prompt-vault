@@ -18,6 +18,7 @@ export type McpClientId =
   | "claude-desktop"
   | "claude-code"
   | "chatgpt"
+  | "grok"
   | "codex"
   | "vscode"
   | "copilot-studio"
@@ -135,6 +136,28 @@ export function chatgptDocsUrl(): string {
   return "https://platform.openai.com/docs/guides/tools-connectors-mcp";
 }
 
+export function grokConnectorsUrl(): string {
+  return "https://grok.com/connectors";
+}
+
+/** Copy-paste block for Grok.com custom MCP connector OAuth dialog. */
+export function grokWebSetupText(mcpUrl: string, origin: string): string {
+  return [
+    "Grok.com → Connectors → New Connector → Custom",
+    "",
+    `Server URL: ${mcpUrl}`,
+    "Client ID: prompt-vault-grok",
+    "Client Secret: (leave empty)",
+    "Token Auth Method: None / PKCE only",
+    "PKCE: S256",
+    `Authorization: ${origin}/api/oauth/authorize`,
+    `Token: ${origin}/api/oauth/token`,
+    "Scopes: mcp:read",
+    "",
+    "Then Save & Connect → Approve on the same computer.",
+  ].join("\n");
+}
+
 export function promptVaultMcpUrl(origin?: string): string {
   const base =
     origin?.replace(/\/$/, "") ||
@@ -186,6 +209,19 @@ export function clientActionsForServer(
         group: "cloud",
         kind: "link",
         href: chatgptHelpUrl(),
+      },
+      {
+        id: "grok",
+        label: "Grok",
+        blurb: "Custom connector — Client ID prompt-vault-grok + PKCE",
+        group: "cloud",
+        kind: "copy",
+        copyText: grokWebSetupText(
+          url,
+          url.replace(/\/api\/mcp\/?$/, "") ||
+            process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ||
+            "https://prompt-vault-tan.vercel.app",
+        ),
       },
       {
         id: "cursor",
