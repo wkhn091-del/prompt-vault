@@ -4,6 +4,8 @@ export type SiteItem = {
   summary: string;
   href: string;
   kind?: "doc" | "pdf" | "zip" | "folder";
+  /** Optional cover thumb (e.g. /academy/{slug}.png) */
+  cover?: string;
 };
 
 /** One Academy course = one Drive playbook, ordered as steps. */
