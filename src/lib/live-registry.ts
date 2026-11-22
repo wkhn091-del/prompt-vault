@@ -19,10 +19,37 @@ export const BLENDY_SHEETS = {
  */
 const BUILDERS: Record<string, () => string> = {
   blendy: () => buildBlendyFullPreviewHtml({ ...BLENDY_SHEETS }),
-  // try-the-look uses the screen-recording .mp4 (demo blocks iframe embed)
+};
+
+/** Same-origin kit HTML (keeps scripts/CDN — better than sanitized srcdoc). */
+const LIVE_SRC: Record<string, string> = {
+  haldoren: "/kits/haldoren/index.html",
+  "kv-freight": "/kits/kv-freight/index.html",
+  "maison-vell": "/kits/maison-vell/index.html",
+  "beit-kodesh": "/kits/beit-kodesh/index.html",
+  virtualfit: "/kits/virtualfit/index.html",
+  "leon-vasari": "/kits/leon-vasari/index.html",
+  mossline: "/kits/mossline/index.html",
+  fernhollow: "/kits/fernhollow/index.html",
+  vell: "/kits/vell/index.html",
+  harborlux: "/kits/harborlux/index.html",
+  "try-the-look": "/kits/try-the-look/index.html",
+  blendy: "/kits/blendy/index.html",
+  stride: "/kits/stride/index.html",
+  jack: "/kits/jack/index.html",
 };
 
 export function localLivePreviewHtml(slug: string): string | null {
   const build = BUILDERS[slug.toLowerCase()];
   return build ? build() : null;
+}
+
+export function localLivePreviewSrc(slug: string): string | null {
+  return LIVE_SRC[slug.toLowerCase()] ?? null;
+}
+
+export function hasLocalLivePreview(slug: string | null | undefined): boolean {
+  if (!slug) return false;
+  const key = slug.toLowerCase();
+  return Boolean(LIVE_SRC[key] || BUILDERS[key]);
 }
