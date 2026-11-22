@@ -1,6 +1,8 @@
-import { createMcpHandler } from "mcp-handler";
+import type { AuthInfo } from "@modelcontextprotocol/server";
+import { createMcpHandler, withMcpAuth } from "mcp-handler";
 import { z } from "zod";
 import backgrounds from "@/data/backgrounds.json";
+import { verifyMcpBearer } from "@/lib/mcp-oauth";
 import { toPromptDTO } from "@/lib/prompts";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import {
@@ -23,21 +25,11 @@ type BackgroundRow = {
   likes?: number;
 };
 
-/** Set per-request in guarded() — premium get_prompt checks this. */
-let mcpRequestAuthorized = false;
-
-function mcpAuthorized(req: Request): boolean {
-  const key = process.env.MCP_API_KEY?.trim();
-  if (!key) return true; // optional key — open when unset
-  const header = req.headers.get("authorization") || "";
-  const token = header.match(/^Bearer\s+(.+)$/i)?.[1]?.trim();
-  return Boolean(token && token === key);
-}
+/** Set per-request in verifyToken — premium get_prompt checks this. */
+let mcpRequestScopes: string[] = [];
 
 function canReadPremium(): boolean {
-  const key = process.env.MCP_API_KEY?.trim();
-  // Premium body only when a key is configured AND this request presented it
-  return Boolean(key) && mcpRequestAuthorized;
+  return mcpRequestScopes.includes("mcp:premium");
 }
 
 async function loadPrompts() {
@@ -82,7 +74,11 @@ const mcpHandler = createMcpHandler(
           content: [
             {
               type: "text" as const,
-              text: JSON.stringify({ count: slice.length, prompts: slice }, null, 2),
+              text: JSON.stringify(
+                { count: slice.length, prompts: slice },
+                null,
+                2,
+              ),
             },
           ],
         };
@@ -118,14 +114,18 @@ const mcpHandler = createMcpHandler(
             slug: p.slug,
             category: p.category,
             snippet: p.isPremium
-              ? "[premium — authorized access required]"
+              ? "[premium — mcp:premium scope or API key required]"
               : p.promptText.slice(0, 180),
           }));
         return {
           content: [
             {
               type: "text" as const,
-              text: JSON.stringify({ query, count: hits.length, prompts: hits }, null, 2),
+              text: JSON.stringify(
+                { query, count: hits.length, prompts: hits },
+                null,
+                2,
+              ),
             },
           ],
         };
@@ -174,7 +174,7 @@ const mcpHandler = createMcpHandler(
                     isPremium: true,
                     promptText: null,
                     error:
-                      "Premium prompt — provide Authorization: Bearer <MCP_API_KEY>",
+                      "Premium prompt — sign in during OAuth (mcp:premium) or use Authorization: Bearer <MCP_API_KEY>",
                   },
                   null,
                   2,
@@ -224,7 +224,11 @@ const mcpHandler = createMcpHandler(
           content: [
             {
               type: "text" as const,
-              text: JSON.stringify({ count: slice.length, backgrounds: slice }, null, 2),
+              text: JSON.stringify(
+                { count: slice.length, backgrounds: slice },
+                null,
+                2,
+              ),
             },
           ],
         };
@@ -234,10 +238,97 @@ const mcpHandler = createMcpHandler(
   {
     serverInfo: {
       name: "prompt-vault",
-      version: "0.1.0",
-    },
+      version: "0.2.0",
+      ...({
+        title: "Prompt Vault MCP",
+        icons: [
+          {
+            src: "https://prompt-vault-tan.vercel.app/mcp-icon.png",
+            mimeType: "image/png",
+            sizes: ["180x180"],
+          },
+          {
+            src: "https://prompt-vault-tan.vercel.app/favicon-32.png",
+            mimeType: "image/png",
+            sizes: ["32x32"],
+          },
+        ],
+      } as object),
+    } as { name: string; version: string },
   },
 );
+
+async function verifyToken(
+  _req: Request,
+  bearerToken?: string,
+): Promise<AuthInfo | undefined> {
+  if (!bearerToken) {
+    mcpRequestScopes = [];
+    return undefined;
+  }
+  const verified = verifyMcpBearer(bearerToken);
+  if (!verified) {
+    mcpRequestScopes = [];
+    return undefined;
+  }
+  mcpRequestScopes = verified.scopes;
+  return {
+    token: verified.token,
+    clientId: verified.clientId,
+    scopes: verified.scopes,
+    extra: { via: verified.via, userId: verified.userId },
+  };
+}
+
+function browserStatusPage(req: Request): Response {
+  const origin = new URL(req.url).origin;
+  const mcpUrl = `${origin}/api/mcp`;
+  const accept = req.headers.get("accept") || "";
+  const wantsHtml = accept.includes("text/html");
+
+  const payload = {
+    ok: true,
+    name: "Prompt Vault MCP",
+    transport: "streamable-http",
+    url: mcpUrl,
+    hint: "This URL is for MCP clients (Cursor, Claude, ChatGPT…). Opening it in a browser is not how you connect — paste the URL into the client's MCP settings, or install from /mcp.",
+    hint_he:
+      "הכתובת הזו מיועדת ללקוחות MCP (Cursor וכו'). פתיחה בדפדפן לא מחברת — הדביקו את ה-URL בהגדרות MCP או התקינו מ־/mcp.",
+    install: `${origin}/mcp`,
+    oauth: {
+      authorization_server: `${origin}/.well-known/oauth-authorization-server`,
+      protected_resource: `${origin}/.well-known/oauth-protected-resource`,
+    },
+  };
+
+  if (!wantsHtml) {
+    return Response.json(payload, {
+      headers: { "Cache-Control": "public, max-age=60" },
+    });
+  }
+
+  return new Response(
+    `<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Prompt Vault MCP</title>
+<style>
+:root{color-scheme:dark}body{margin:0;min-height:100dvh;display:grid;place-items:center;font-family:ui-sans-serif,system-ui,sans-serif;background:#070b0e;color:#e8f7ff;padding:24px}
+.card{width:min(520px,100%);border:1px solid rgba(56,229,255,.28);border-radius:20px;background:linear-gradient(180deg,#0a1218,#070b0e);padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+h1{margin:0 0 8px;font-size:22px}p{margin:0 0 12px;color:rgba(232,247,255,.7);line-height:1.55;font-size:14px}
+code{display:block;margin:14px 0;padding:12px;border-radius:12px;background:rgba(56,229,255,.08);border:1px solid rgba(56,229,255,.18);font-size:12px;word-break:break-all;color:#7af0ff;direction:ltr;text-align:left}
+a{color:#38e5ff}
+</style></head><body><div class="card">
+<h1>Prompt Vault MCP פעיל ✓</h1>
+<p>פתיחת הכתובת בדפדפן לא מחברת את Cursor. צריך להדביק את ה־URL בהגדרות MCP של הלקוח.</p>
+<code>${mcpUrl}</code>
+<p><a href="/mcp">מסך התקנה לכל הלקוחות</a></p>
+</div></body></html>`,
+    {
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "public, max-age=60",
+      },
+    },
+  );
+}
 
 async function guarded(req: Request) {
   const ip = clientIp(req);
@@ -254,21 +345,27 @@ async function guarded(req: Request) {
     });
   }
 
-  const authorized = mcpAuthorized(req);
-  if (!authorized) {
-    return new Response(
-      JSON.stringify({
-        error: "Unauthorized — set Authorization: Bearer <MCP_API_KEY>",
-      }),
-      { status: 401, headers: { "Content-Type": "application/json" } },
-    );
+  // Browser GET (no SSE) → friendly status. MCP streamable HTTP uses POST
+  // (and SSE GET only with Accept: text/event-stream).
+  if (req.method === "GET") {
+    const accept = req.headers.get("accept") || "";
+    if (!accept.includes("text/event-stream")) {
+      return browserStatusPage(req);
+    }
   }
 
-  mcpRequestAuthorized = authorized && Boolean(process.env.MCP_API_KEY?.trim());
+  // Public vault: allow anonymous tool calls (list/search/free prompts).
+  // OAuth still works when a client sends a Bearer token (premium scope).
+  const handler = withMcpAuth(mcpHandler, verifyToken, {
+    required: false,
+    requiredScopes: ["mcp:read"],
+    resourceMetadataPath: "/.well-known/oauth-protected-resource",
+  });
+
   try {
-    return await mcpHandler(req);
+    return await handler(req);
   } finally {
-    mcpRequestAuthorized = false;
+    mcpRequestScopes = [];
   }
 }
 
