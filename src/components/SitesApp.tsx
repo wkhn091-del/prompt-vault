@@ -6,9 +6,7 @@ import {
   ArrowUpRight,
   Check,
   Copy,
-  ExternalLink,
   Film,
-  FolderOpen,
   Search,
 } from "lucide-react";
 import {
@@ -420,31 +418,6 @@ export function SitesLibraryApp() {
                 <p className="mt-2 max-w-xl text-[13px] leading-relaxed text-white/45 break-words [font-family:var(--font-heebo),sans-serif] sm:text-[14px]">
                   {activeCourse.blurb}
                 </p>
-
-                <div className="mt-4 flex flex-wrap gap-2" dir="rtl">
-                  {activeCourse.sourceHref && (
-                    <a
-                      href={activeCourse.sourceHref}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.04] px-3 py-2 text-[12px] font-semibold text-white/70"
-                    >
-                      <ExternalLink className="size-3" />
-                      מסמך מקור
-                    </a>
-                  )}
-                  {activeCourse.folderHref && (
-                    <a
-                      href={activeCourse.folderHref}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.04] px-3 py-2 text-[12px] font-semibold text-white/70"
-                    >
-                      <FolderOpen className="size-3" />
-                      תיקיית דרייב
-                    </a>
-                  )}
-                </div>
               </div>
 
               <div className="relative mb-4 min-w-0">
