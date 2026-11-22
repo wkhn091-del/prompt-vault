@@ -16,7 +16,11 @@ import {
   type AcademyCourse,
   type SiteItem,
 } from "@/lib/sites-library";
-import { getSiteCopyText, hasSiteBody } from "@/lib/sites-bodies";
+import {
+  getSiteBody,
+  getSiteCopyText,
+  hasSiteBody,
+} from "@/lib/sites-bodies";
 import { ModeSwitcher } from "./ModeSwitcher";
 import { SiteHeader } from "./SiteHeader";
 
@@ -24,21 +28,105 @@ function stepCoverSrc(item: SiteItem): string | null {
   return item.cover ?? null;
 }
 
+function FormatReader({
+  item,
+  onClose,
+  onCopied,
+}: {
+  item: SiteItem;
+  onClose: () => void;
+  onCopied: () => void;
+}) {
+  const [copied, setCopied] = useState(false);
+  const body = getSiteBody(item.id) || item.summary;
+
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(getSiteCopyText(item));
+      setCopied(true);
+      onCopied();
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[80] flex items-end justify-center bg-black/70 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-label={item.title}
+      onClick={onClose}
+    >
+      <div
+        className="flex max-h-[92svh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl border border-[#ff7a45]/25 bg-[#0c0a09] shadow-[0_-20px_80px_rgba(0,0,0,0.65)] sm:rounded-3xl"
+        dir="rtl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-start gap-3 border-b border-white/[0.08] px-4 py-3.5 sm:px-5">
+          <div className="min-w-0 flex-1 text-right">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#ff7a45]/60 [direction:ltr] [text-align:right]">
+              בתוך האתר · העתקה מלאה
+            </p>
+            <h2 className="mt-1 text-[17px] font-extrabold leading-snug text-white [font-family:var(--font-heebo),sans-serif] sm:text-[19px]">
+              {item.title}
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex size-9 shrink-0 items-center justify-center rounded-full border border-white/[0.12] text-white/55 hover:text-white"
+            aria-label="סגור"
+          >
+            ×
+          </button>
+        </div>
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-5">
+          <pre
+            className="whitespace-pre-wrap break-words text-[13px] leading-relaxed text-white/80 [font-family:var(--font-heebo),ui-sans-serif,sans-serif]"
+            dir="rtl"
+          >
+            {body}
+          </pre>
+        </div>
+        <div className="border-t border-white/[0.08] p-3 sm:p-4">
+          <button
+            type="button"
+            onClick={() => void copy()}
+            className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ff7a45] to-[#ffb35c] px-4 text-[14px] font-bold text-[#1a0e08]"
+          >
+            {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+            {copied ? "הועתק" : "העתק פורמט"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function StepRow({
   item,
   index,
   onCopied,
+  onOpen,
 }: {
   item: SiteItem;
   index: number;
   onCopied: () => void;
+  onOpen: (item: SiteItem) => void;
 }) {
   const [copied, setCopied] = useState(false);
   const [coverBroken, setCoverBroken] = useState(false);
-  const canCopy = hasSiteBody(item.id) || Boolean(item.href);
+  const hasBody = hasSiteBody(item.id);
+  const canCopy = hasBody;
   const coverSrc = stepCoverSrc(item);
 
   async function copy() {
+    if (!hasBody) {
+      onOpen(item);
+      return;
+    }
     try {
       await navigator.clipboard.writeText(getSiteCopyText(item));
       setCopied(true);
@@ -62,11 +150,16 @@ function StepRow({
       </div>
 
       <div className="mb-2.5 min-w-0 flex-1 rounded-2xl border border-white/[0.08] bg-gradient-to-b from-[#16120f] to-[#0c0a09] px-3.5 py-3 sm:px-4 sm:py-3.5">
-        <div className="flex items-start gap-2.5 sm:gap-3" dir="rtl">
-          <div className="min-w-0 flex-1 text-right">
+        <button
+          type="button"
+          onClick={() => onOpen(item)}
+          className="flex w-full items-start gap-2.5 text-right sm:gap-3"
+          dir="rtl"
+        >
+          <div className="min-w-0 flex-1">
             {item.kind && (
               <span className="mb-1 inline-block rounded-full border border-[#ff7a45]/25 bg-[#ff7a45]/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#ffb08a] [direction:ltr]">
-                {item.kind}
+                {hasBody ? "פורמט" : item.kind}
               </span>
             )}
             <h3 className="text-[14px] font-bold leading-snug text-white break-words [font-family:var(--font-heebo),sans-serif] sm:text-[15px]">
@@ -77,13 +170,7 @@ function StepRow({
             </p>
           </div>
           {coverSrc && !coverBroken && (
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              className="relative block w-[4.5rem] shrink-0 overflow-hidden rounded-lg border border-white/[0.1] bg-black/40 sm:w-[6.25rem]"
-              aria-label={`Open ${item.title}`}
-            >
+            <span className="relative block w-[4.5rem] shrink-0 overflow-hidden rounded-lg border border-white/[0.1] bg-black/40 sm:w-[6.25rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={coverSrc}
@@ -95,18 +182,12 @@ function StepRow({
                 onError={() => setCoverBroken(true)}
                 className="aspect-video w-full object-cover"
               />
-            </a>
+            </span>
           )}
-          <a
-            href={item.href}
-            target="_blank"
-            rel="noreferrer"
-            className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#ff7a45]/25 text-[#ff9a6c]"
-            aria-label={`Open ${item.title}`}
-          >
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#ff7a45]/25 text-[#ff9a6c]">
             <ArrowUpRight className="size-3.5" />
-          </a>
-        </div>
+          </span>
+        </button>
         <button
           type="button"
           disabled={!canCopy}
@@ -114,7 +195,7 @@ function StepRow({
           className="mt-2.5 inline-flex min-h-[40px] w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-[#ff7a45] to-[#ffb35c] px-3 py-2 text-[12px] font-bold text-[#1a0e08] disabled:opacity-40 sm:w-auto sm:min-h-0 sm:py-1.5 sm:text-[11px]"
         >
           {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
-          {copied ? "Copied" : hasSiteBody(item.id) ? "Copy script" : "Copy link"}
+          {copied ? "הועתק" : "העתק פורמט"}
         </button>
       </div>
     </li>
@@ -161,6 +242,7 @@ export function SitesLibraryApp() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [toast, setToast] = useState(false);
+  const [reading, setReading] = useState<SiteItem | null>(null);
 
   const activeCourse = useMemo(
     () => ACADEMY_COURSES.find((c) => c.id === activeId) ?? null,
@@ -383,6 +465,7 @@ export function SitesLibraryApp() {
                     item={step}
                     index={i}
                     onCopied={showToast}
+                    onOpen={setReading}
                   />
                 ))}
               </ol>
@@ -399,8 +482,16 @@ export function SitesLibraryApp() {
 
       {toast && (
         <div className="animate-toast-in fixed bottom-[5.5rem] left-1/2 z-50 -translate-x-1/2 rounded-full bg-gradient-to-r from-[#ff7a45] to-[#ffb35c] px-5 py-2.5 text-[13px] font-bold text-[#1a0e08] md:bottom-6">
-          Copied
+          הועתק
         </div>
+      )}
+
+      {reading && (
+        <FormatReader
+          item={reading}
+          onClose={() => setReading(null)}
+          onCopied={showToast}
+        />
       )}
     </div>
   );
