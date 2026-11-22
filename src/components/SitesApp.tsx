@@ -11,7 +11,10 @@ import {
 } from "lucide-react";
 import {
   ACADEMY_COURSES,
+  getAcademyFormatCards,
+  isFormatPackCourse,
   type AcademyCourse,
+  type AcademyFormatCard,
   type SiteItem,
 } from "@/lib/sites-library";
 import {
@@ -236,6 +239,60 @@ function CourseCard({
   );
 }
 
+function FormatCard({
+  item,
+  onOpen,
+}: {
+  item: AcademyFormatCard;
+  onOpen: () => void;
+}) {
+  const cover = stepCoverSrc(item);
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      dir="rtl"
+      className="academy-card group flex w-full max-w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-gradient-to-b from-[#16120f] to-[#0c0a09] text-right transition hover:border-[#ff7a45]/40 sm:rounded-[22px]"
+    >
+      {cover ? (
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#120e0c]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={cover}
+            alt=""
+            className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0c0a09] via-transparent to-transparent opacity-80" />
+        </div>
+      ) : null}
+      <div className="flex flex-1 flex-col px-3.5 py-3 sm:px-5 sm:py-4">
+        <div className="flex min-w-0 items-center justify-between gap-2">
+          <span className="truncate font-mono text-[10px] uppercase tracking-[0.12em] text-white/35 [direction:ltr]">
+            {item.courseTitle}
+          </span>
+          <span className="shrink-0 font-mono text-[11px] text-[#ff7a45]/70 [direction:ltr]">
+            {item.courseNumber}
+          </span>
+        </div>
+        <h3 className="mt-1.5 min-w-0 w-full text-[16px] font-extrabold leading-snug tracking-tight text-white [font-family:var(--font-heebo),sans-serif] sm:text-[19px]">
+          {item.title}
+        </h3>
+        <p className="mt-1 min-w-0 w-full line-clamp-2 text-[12px] leading-relaxed text-white/50 [font-family:var(--font-heebo),sans-serif] sm:text-[13px]">
+          {item.summary}
+        </p>
+        <span className="mt-2.5 inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#ff9a6c]">
+          פתח פורמט
+          <ArrowUpRight className="size-3.5 rotate-180" />
+        </span>
+      </div>
+    </button>
+  );
+}
+
+const ALL_FORMAT_CARDS = getAcademyFormatCards();
+const CURRICULUM_COURSES = ACADEMY_COURSES.filter((c) => !isFormatPackCourse(c));
+const PACK_COURSES = ACADEMY_COURSES.filter(isFormatPackCourse);
+
 export function SitesLibraryApp() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [query, setQuery] = useState("");
@@ -246,11 +303,12 @@ export function SitesLibraryApp() {
     () => ACADEMY_COURSES.find((c) => c.id === activeId) ?? null,
     [activeId],
   );
+  const activeIsPack = activeCourse ? isFormatPackCourse(activeCourse) : false;
 
-  const indexCourses = useMemo(() => {
+  const indexCurriculum = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return ACADEMY_COURSES;
-    return ACADEMY_COURSES.filter(
+    if (!q) return CURRICULUM_COURSES;
+    return CURRICULUM_COURSES.filter(
       (c) =>
         c.title.toLowerCase().includes(q) ||
         c.blurb.toLowerCase().includes(q) ||
@@ -259,6 +317,17 @@ export function SitesLibraryApp() {
             s.title.toLowerCase().includes(q) ||
             s.summary.toLowerCase().includes(q),
         ),
+    );
+  }, [query]);
+
+  const indexFormats = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return ALL_FORMAT_CARDS;
+    return ALL_FORMAT_CARDS.filter(
+      (f) =>
+        f.title.toLowerCase().includes(q) ||
+        f.summary.toLowerCase().includes(q) ||
+        f.courseTitle.toLowerCase().includes(q),
     );
   }, [query]);
 
@@ -272,6 +341,24 @@ export function SitesLibraryApp() {
         s.summary.toLowerCase().includes(q),
     );
   }, [activeCourse, query]);
+
+  const filteredPackFormats = useMemo((): AcademyFormatCard[] => {
+    if (!activeCourse || !activeIsPack) return [];
+    const q = query.trim().toLowerCase();
+    return activeCourse.steps
+      .filter(
+        (s) =>
+          !q ||
+          s.title.toLowerCase().includes(q) ||
+          s.summary.toLowerCase().includes(q),
+      )
+      .map((step) => ({
+        ...step,
+        courseId: activeCourse.id,
+        courseNumber: activeCourse.number,
+        courseTitle: activeCourse.title,
+      }));
+  }, [activeCourse, activeIsPack, query]);
 
   function showToast() {
     setToast(true);
@@ -291,7 +378,7 @@ export function SitesLibraryApp() {
         <div className="mx-auto flex max-w-[1400px] items-center gap-3 px-3 py-2 sm:px-6 lg:px-8">
           <p className="hidden items-center gap-2 text-[12px] text-[#ff9a6c]/70 sm:flex">
             <Film className="size-3.5" />
-            Academy · {ACADEMY_COURSES.length} courses
+            Academy · {ALL_FORMAT_CARDS.length} formats
           </p>
           <div className="ml-auto min-w-0">
             <ModeSwitcher active="websites" />
@@ -318,9 +405,9 @@ export function SitesLibraryApp() {
                     : "bg-white/[0.04] text-white/60 hover:bg-white/[0.06] hover:text-white"
                 }`}
               >
-                כל הקורסים
+                כל הפורמטים
               </button>
-              {ACADEMY_COURSES.map((c) => (
+              {CURRICULUM_COURSES.map((c) => (
                 <button
                   key={c.id}
                   type="button"
@@ -343,6 +430,37 @@ export function SitesLibraryApp() {
                 </button>
               ))}
             </div>
+            {PACK_COURSES.length > 0 && (
+              <>
+                <p className="mb-2.5 mt-5 font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-[#ff7a45]/55">
+                  Packs
+                </p>
+                <div className="chip-rail scrollbar-none">
+                  {PACK_COURSES.map((c) => (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => {
+                        setActiveId(c.id);
+                        setQuery("");
+                      }}
+                      className={`min-h-[40px] rounded-xl px-3 py-2 text-[13px] font-medium transition lg:w-full lg:text-left ${
+                        activeId === c.id
+                          ? "bg-[#ff7a45]/15 text-[#ffb08a] ring-1 ring-[#ff7a45]/35"
+                          : "bg-white/[0.03] text-white/55 hover:bg-white/[0.06] hover:text-white/85"
+                      }`}
+                    >
+                      <span className="font-mono text-[10px] text-[#ff7a45]/55 [direction:ltr]">
+                        {c.number}
+                      </span>{" "}
+                      <span className="[font-family:var(--font-heebo),sans-serif]">
+                        {c.title}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </aside>
 
@@ -355,7 +473,7 @@ export function SitesLibraryApp() {
             <>
               <div className="mb-5 min-w-0" dir="rtl">
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#ff9a6c]/75 [direction:ltr] [text-align:right] sm:text-[11px]">
-                  Ordered curriculum
+                  One card · one format
                 </p>
                 <h1 className="lib-hero-title mt-2 font-extrabold">
                   <span className="bg-gradient-to-l from-[#ff7a45] via-[#ffb35c] to-[#ffe0a8] bg-clip-text text-transparent">
@@ -363,7 +481,7 @@ export function SitesLibraryApp() {
                   </span>
                 </h1>
                 <p className="mt-2 max-w-lg text-[13px] leading-relaxed text-white/45 [font-family:var(--font-heebo),sans-serif] sm:text-[14px]">
-                  בחר קורס · עבוד שלב־שלב · כל מסמך במקומו.
+                  כל פורמט בכרטיס משלו · פתח · העתק · בלי קישורי Drive.
                 </p>
               </div>
 
@@ -372,23 +490,51 @@ export function SitesLibraryApp() {
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="חיפוש קורס או שלב…"
+                  placeholder="חיפוש פורמט…"
                   className="w-full rounded-2xl border border-[#ff7a45]/25 bg-black/55 py-3 pl-10 pr-3.5 text-[16px] text-white outline-none placeholder:text-white/30 focus:border-[#ff7a45]/50 sm:text-[14px]"
                   dir="rtl"
                 />
               </div>
 
-              <div className="grid w-full min-w-0 grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
-                {indexCourses.map((course) => (
-                  <CourseCard
-                    key={course.id}
-                    course={course}
-                    onOpen={() => setActiveId(course.id)}
-                  />
-                ))}
-              </div>
+              {indexCurriculum.length > 0 && (
+                <section className="mb-8">
+                  <p
+                    className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#ff7a45]/55"
+                    dir="ltr"
+                  >
+                    Curriculum
+                  </p>
+                  <div className="grid w-full min-w-0 grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
+                    {indexCurriculum.map((course) => (
+                      <CourseCard
+                        key={course.id}
+                        course={course}
+                        onOpen={() => setActiveId(course.id)}
+                      />
+                    ))}
+                  </div>
+                </section>
+              )}
 
-              {indexCourses.length === 0 && (
+              <section>
+                <p
+                  className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#ff7a45]/55"
+                  dir="ltr"
+                >
+                  Formats · {indexFormats.length}
+                </p>
+                <div className="grid w-full min-w-0 grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
+                  {indexFormats.map((item) => (
+                    <FormatCard
+                      key={item.id}
+                      item={item}
+                      onOpen={() => setReading(item)}
+                    />
+                  ))}
+                </div>
+              </section>
+
+              {indexCurriculum.length === 0 && indexFormats.length === 0 && (
                 <p className="py-16 text-center text-white/40" dir="rtl">
                   לא נמצא — נסה חיפוש אחר
                 </p>
@@ -405,12 +551,12 @@ export function SitesLibraryApp() {
                 className="mb-4 inline-flex min-h-[40px] items-center gap-2 text-[13px] font-semibold text-white/55 transition hover:text-[#ffb08a]"
               >
                 <ArrowLeft className="size-3.5" />
-                כל הקורסים
+                כל הפורמטים
               </button>
 
               <div className="mb-5 min-w-0" dir="rtl">
                 <p className="font-mono text-[11px] text-[#ff7a45]/60 [direction:ltr] [text-align:right]">
-                  Course {activeCourse.number}
+                  {activeIsPack ? "Pack" : "Course"} {activeCourse.number}
                 </p>
                 <h1 className="mt-1.5 text-[clamp(1.6rem,7vw,2.8rem)] font-extrabold leading-tight tracking-tight text-white break-words [font-family:var(--font-heebo),sans-serif]">
                   {activeCourse.title}
@@ -425,28 +571,48 @@ export function SitesLibraryApp() {
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="סנן שלב…"
+                  placeholder={activeIsPack ? "סנן פורמט…" : "סנן שלב…"}
                   className="w-full rounded-2xl border border-[#ff7a45]/25 bg-black/55 py-3 pl-10 pr-3.5 text-[16px] text-white outline-none placeholder:text-white/30 focus:border-[#ff7a45]/50 sm:text-[14px]"
                   dir="rtl"
                 />
               </div>
 
-              <ol className="w-full min-w-0 max-w-3xl list-none p-0">
-                {filteredSteps.map((step, i) => (
-                  <StepRow
-                    key={step.id}
-                    item={step}
-                    index={i}
-                    onCopied={showToast}
-                    onOpen={setReading}
-                  />
-                ))}
-              </ol>
-
-              {filteredSteps.length === 0 && (
-                <p className="py-12 text-center text-white/40" dir="rtl">
-                  אין שלבים שמתאימים לחיפוש
-                </p>
+              {activeIsPack ? (
+                <>
+                  <div className="grid w-full min-w-0 grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
+                    {filteredPackFormats.map((item) => (
+                      <FormatCard
+                        key={item.id}
+                        item={item}
+                        onOpen={() => setReading(item)}
+                      />
+                    ))}
+                  </div>
+                  {filteredPackFormats.length === 0 && (
+                    <p className="py-12 text-center text-white/40" dir="rtl">
+                      אין פורמטים שמתאימים לחיפוש
+                    </p>
+                  )}
+                </>
+              ) : (
+                <>
+                  <ol className="w-full min-w-0 max-w-3xl list-none p-0">
+                    {filteredSteps.map((step, i) => (
+                      <StepRow
+                        key={step.id}
+                        item={step}
+                        index={i}
+                        onCopied={showToast}
+                        onOpen={setReading}
+                      />
+                    ))}
+                  </ol>
+                  {filteredSteps.length === 0 && (
+                    <p className="py-12 text-center text-white/40" dir="rtl">
+                      אין שלבים שמתאימים לחיפוש
+                    </p>
+                  )}
+                </>
               )}
             </>
           )}

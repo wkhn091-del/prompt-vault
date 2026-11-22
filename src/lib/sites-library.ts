@@ -682,7 +682,7 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
     id: "formats-38",
     number: "19",
     title: "38 פורמטים מעוצבים",
-    blurb: "מדריכים מעוצבים מחדש — שלב־שלב עם שער ותוכן בדרייב.",
+    blurb: "מדריכים מעוצבים מחדש — נפתחים באתר, עם העתקת פורמט מלאה.",
     folderHref:
       "https://drive.google.com/drive/folders/1om64QKfD6-hwuVZKYAomCiX-lLMYjiM7",
     steps: [
@@ -2289,6 +2289,39 @@ export const ACADEMY_COURSES: AcademyCourse[] = [
     ],
   },
 ];
+
+/** Packs imported as copyable formats — each step is shown as its own card. */
+export function isFormatPackCourse(course: AcademyCourse): boolean {
+  return (
+    course.id === "formats-38" ||
+    course.id.startsWith("method-") ||
+    course.id.startsWith("pack-")
+  );
+}
+
+export type AcademyFormatCard = SiteItem & {
+  courseId: string;
+  courseNumber: string;
+  courseTitle: string;
+};
+
+export function getAcademyFormatCards(
+  courses: AcademyCourse[] = ACADEMY_COURSES,
+): AcademyFormatCard[] {
+  const out: AcademyFormatCard[] = [];
+  for (const course of courses) {
+    if (!isFormatPackCourse(course)) continue;
+    for (const step of course.steps) {
+      out.push({
+        ...step,
+        courseId: course.id,
+        courseNumber: course.number,
+        courseTitle: course.title,
+      });
+    }
+  }
+  return out;
+}
 
 /** @deprecated use ACADEMY_COURSES — kept for any stray imports */
 export const SITE_CATEGORIES = ACADEMY_COURSES.map((c) => ({
