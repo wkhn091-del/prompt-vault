@@ -21,10 +21,7 @@ import { ModeSwitcher } from "./ModeSwitcher";
 import { SiteHeader } from "./SiteHeader";
 
 function stepCoverSrc(item: SiteItem): string | null {
-  if (item.cover) return item.cover;
-  // Vault-linked format guides ship covers under /academy/{slug}.png
-  if (item.href.startsWith("/#p=")) return `/academy/${item.id}.png`;
-  return null;
+  return item.cover ?? null;
 }
 
 function StepRow({
@@ -204,6 +201,9 @@ export function SitesLibraryApp() {
   return (
     <div className="relative min-h-svh overflow-x-clip bg-[#070605] text-white">
       <div className="pointer-events-none fixed inset-0 z-0 academy-orb" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 z-0 academy-mesh" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 z-0 academy-grain" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 z-0 academy-vignette" aria-hidden />
 
       <SiteHeader active="websites" />
 
@@ -266,7 +266,11 @@ export function SitesLibraryApp() {
           </div>
         </aside>
 
-        <main className="mobile-dock-clear mobile-pad-x w-full min-w-0 max-w-full pt-5 sm:px-6 sm:pt-8 lg:px-10 lg:pt-10">
+        <main className="relative mobile-dock-clear mobile-pad-x w-full min-w-0 max-w-full overflow-x-clip pt-5 sm:px-6 sm:pt-8 lg:px-10 lg:pt-10">
+          <div
+            className="pointer-events-none absolute inset-x-3 top-2 bottom-4 -z-10 academy-stage sm:inset-x-4 lg:inset-x-6"
+            aria-hidden
+          />
           {!activeCourse ? (
             <>
               <div className="mb-5 min-w-0" dir="rtl">
@@ -372,7 +376,7 @@ export function SitesLibraryApp() {
                 />
               </div>
 
-              <ol className="max-w-2xl list-none p-0">
+              <ol className="w-full min-w-0 max-w-3xl list-none p-0">
                 {filteredSteps.map((step, i) => (
                   <StepRow
                     key={step.id}

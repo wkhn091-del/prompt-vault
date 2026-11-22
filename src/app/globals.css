@@ -24,6 +24,16 @@
 
 html {
   color-scheme: dark;
+  /* Stop iOS rubber-band covering sticky UI oddly */
+  overscroll-behavior-y: none;
+  overflow-x: clip;
+  /* Prevent horizontal jump when scrollbar appears */
+  scrollbar-gutter: stable;
+  /* Header owns notch inset — avoid double padding on body */
+  height: 100%;
+  /* Prefer small viewport — dvh jumps when mobile chrome shows/hides */
+  min-height: 100%;
+  min-height: 100svh;
 }
 
 body {
@@ -31,17 +41,114 @@ body {
   color: var(--foreground);
   font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  text-size-adjust: 100%;
+  overflow-x: clip;
+  min-height: 100%;
+  min-height: 100svh;
 }
 
-/* Soft film grain — Motionsites-adjacent atmosphere */
+/* Phone-friendly touch targets + bottom dock clearance */
+.mobile-pad-x {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+.mobile-dock-clear {
+  padding-bottom: calc(5.25rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  .mobile-dock-clear {
+    padding-bottom: 4rem;
+  }
+}
+
+.lib-hero-title {
+  font-family: var(--font-syne), var(--font-heebo), sans-serif;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+  /* Never split a word mid-letter (was cutting the "s" off Dashboards) */
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+  max-width: 100%;
+}
+
+/* Hero titles that don't blow past iPhone width */
+@media (max-width: 640px) {
+  .lib-hero-title {
+    font-size: clamp(1.4rem, 8.2vw, 2.15rem) !important;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+
+  /* Single English word titles — never wrap a letter onto the next line */
+  .lib-hero-title-nowrap {
+    white-space: nowrap;
+    font-size: clamp(1.35rem, 7.6vw, 2rem) !important;
+  }
+
+  /* iOS zooms inputs under 16px — keep readable without zoom */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Horizontal chip rails — MUST stay within viewport (min-width:0) or
+   the rail grows to content width (~2kpx) and RTL card titles fall off-screen */
+.chip-rail {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  padding-bottom: 0.4rem;
+  padding-inline: 0.15rem;
+  /* Hint that more chips exist off-screen */
+  mask-image: linear-gradient(to right, #000 0%, #000 calc(100% - 1.25rem), transparent 100%);
+}
+
+.chip-rail > * {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  max-width: min(72vw, 18rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  unicode-bidi: isolate;
+}
+
+@media (min-width: 1024px) {
+  .chip-rail {
+    flex-direction: column;
+    align-items: stretch;
+    overflow: visible;
+    padding-bottom: 0;
+    mask-image: none;
+    gap: 0.35rem;
+  }
+
+  .chip-rail > * {
+    max-width: none;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+}
+
+/* Grain disabled — SVG feTurbulence on a fixed layer caused scroll jank / jump */
 .vault-grain {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  display: none;
 }
 
 .scrollbar-none {
@@ -78,7 +185,8 @@ body {
 }
 
 .preview-float {
-  animation: preview-float 4s ease-in-out infinite alternate;
+  /* No infinite translate — caused visible jump while scrolling galleries */
+  animation: none;
 }
 
 /* Loop-only previews — never show native player chrome */
@@ -116,7 +224,8 @@ body {
   .lib-marquee-track,
   .arsenal-card,
   .academy-card,
-  .dashboard-card {
+  .dashboard-card,
+  .academy-orb {
     animation: none !important;
     transition: none !important;
   }
@@ -140,9 +249,55 @@ body {
 
 .academy-orb {
   background:
-    radial-gradient(circle at 20% 15%, rgba(255, 122, 69, 0.28), transparent 40%),
-    radial-gradient(circle at 90% 0%, rgba(255, 214, 120, 0.14), transparent 38%),
-    radial-gradient(circle at 60% 70%, rgba(90, 160, 255, 0.1), transparent 48%);
+    radial-gradient(ellipse 90% 55% at 85% -5%, rgba(255, 122, 69, 0.32), transparent 55%),
+    radial-gradient(ellipse 70% 45% at -10% 30%, rgba(255, 179, 92, 0.14), transparent 50%),
+    radial-gradient(ellipse 55% 40% at 50% 110%, rgba(180, 70, 30, 0.18), transparent 55%),
+    radial-gradient(ellipse 40% 30% at 70% 55%, rgba(255, 214, 120, 0.06), transparent 60%);
+  animation: academy-orb-breathe 14s ease-in-out infinite alternate;
+}
+
+.academy-mesh {
+  background-image:
+    linear-gradient(rgba(255, 122, 69, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 122, 69, 0.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(
+    ellipse 75% 65% at 55% 35%,
+    rgba(0, 0, 0, 0.85) 10%,
+    transparent 72%
+  );
+}
+
+.academy-grain {
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: soft-light;
+}
+
+.academy-vignette {
+  background:
+    linear-gradient(180deg, rgba(7, 6, 5, 0.15) 0%, transparent 18%, transparent 72%, rgba(7, 6, 5, 0.55) 100%),
+    radial-gradient(ellipse 80% 70% at 50% 40%, transparent 35%, rgba(7, 6, 5, 0.65) 100%);
+}
+
+.academy-stage {
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255, 122, 69, 0.07), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 28%);
+  border-radius: 28px;
+  box-shadow: inset 0 1px 0 rgba(255, 179, 92, 0.08);
+}
+
+@keyframes academy-orb-breathe {
+  from {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.04);
+  }
 }
 
 .dashboard-orb {
@@ -152,19 +307,11 @@ body {
     radial-gradient(circle at 55% 85%, rgba(80, 140, 255, 0.12), transparent 48%);
 }
 
-@keyframes lib-reveal {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* No entrance translateY — was making the whole page jump on load */
 .lib-reveal {
-  animation: lib-reveal 0.55s var(--ease) both;
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 
 @keyframes lib-marquee {
@@ -177,41 +324,28 @@ body {
 }
 
 .lib-marquee-track {
-  animation: lib-marquee 28s linear infinite;
+  /* Static strip — infinite transform marquees caused layout thrash */
+  animation: none;
   width: max-content;
+  transform: none;
 }
 
-/* Backgrounds film strip — cards drift to the right */
-@keyframes bg-film-right {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
+/* Backgrounds film strip — static (no continuous translate) */
 .bg-film-track {
-  animation: bg-film-right 55s linear infinite;
+  animation: none;
   width: max-content;
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-.bg-film-track:hover {
-  animation-play-state: paused;
+  transform: none;
+  will-change: auto;
 }
 
 .arsenal-card {
   transition:
-    transform 0.35s var(--ease),
-    border-color 0.35s var(--ease),
-    background-color 0.35s var(--ease),
-    box-shadow 0.35s var(--ease);
+    border-color 0.25s var(--ease),
+    background-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
 }
 
 .arsenal-card:hover {
-  transform: translateY(-4px) rotate(-0.4deg);
   border-color: rgba(200, 245, 66, 0.45);
   background: linear-gradient(145deg, #12140f 0%, #0c0c0e 55%);
   box-shadow:
@@ -221,34 +355,24 @@ body {
 
 .academy-card {
   transition:
-    transform 0.4s var(--ease),
-    border-color 0.35s var(--ease),
-    box-shadow 0.4s var(--ease);
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
 }
 
 .academy-card:hover {
-  transform: translateY(-6px) rotate(0.5deg);
   border-color: rgba(255, 122, 69, 0.5);
   box-shadow:
     0 0 0 1px rgba(255, 122, 69, 0.15),
     0 22px 50px -22px rgba(255, 122, 69, 0.4);
 }
 
-.lib-hero-title {
-  font-family: var(--font-syne), var(--font-heebo), sans-serif;
-  letter-spacing: -0.06em;
-  line-height: 0.92;
-}
-
 .dashboard-card {
   transition:
-    transform 0.35s var(--ease),
-    border-color 0.35s var(--ease),
-    box-shadow 0.35s var(--ease);
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
 }
 
 .dashboard-card:hover {
-  transform: translateY(-5px) rotate(-0.35deg);
   border-color: rgba(56, 229, 255, 0.5);
   box-shadow:
     0 0 0 1px rgba(56, 229, 255, 0.18),
