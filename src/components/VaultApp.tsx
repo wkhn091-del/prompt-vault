@@ -67,15 +67,24 @@ export function VaultApp() {
     };
   }, []);
 
-  // Submit nav link → /#add opens the paste modal (admin only)
+  // /#add → paste modal (admin); /#p=slug → open that prompt
   useEffect(() => {
     function openFromHash() {
-      if (isAdmin && window.location.hash === "#add") setPasteOpen(true);
+      const hash = window.location.hash;
+      if (isAdmin && hash === "#add") {
+        setPasteOpen(true);
+        return;
+      }
+      if (hash.startsWith("#p=")) {
+        const slug = decodeURIComponent(hash.slice(3));
+        const found = prompts.find((p) => p.slug === slug);
+        if (found) setSelected(found);
+      }
     }
     openFromHash();
     window.addEventListener("hashchange", openFromHash);
     return () => window.removeEventListener("hashchange", openFromHash);
-  }, [isAdmin]);
+  }, [isAdmin, prompts]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -120,8 +129,7 @@ export function VaultApp() {
   }
 
   return (
-    <div className="relative min-h-screen bg-black text-white">
-      <div className="vault-grain" aria-hidden />
+    <div className="relative min-h-svh overflow-x-clip bg-black text-white">
       <div
         className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(255,255,255,0.06),transparent_55%)]"
         aria-hidden
@@ -142,7 +150,7 @@ export function VaultApp() {
         onClear={clearFilters}
       />
 
-      <main className="relative z-10 mx-auto max-w-[1400px] px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+      <main className="mobile-dock-clear mobile-pad-x relative z-10 mx-auto max-w-[1400px] pt-5 sm:px-6 sm:pt-8 lg:px-8">
         {configError && (
           <div className="mb-6 rounded-2xl border border-amber-500/25 bg-amber-500/[0.08] px-4 py-3 text-sm text-amber-100">
             {configError}
@@ -150,7 +158,7 @@ export function VaultApp() {
         )}
 
         {loading ? (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
@@ -183,7 +191,7 @@ export function VaultApp() {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
             {filtered
               .filter(
                 (p) =>

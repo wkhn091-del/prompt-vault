@@ -47,6 +47,7 @@ next-env.d.ts
 
 .tmp-aaas*
 .tmp-aaas-skills/
+.tmp-academy-import/
 
 # local media / supabase temp
 scripts/data/**/*.mp4
