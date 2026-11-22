@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leon Vasari — Film Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Noto+Sans+JP:wght@500;800&text=%E6%98%A0%E7%94%BB%E3%81%AE%E8%A8%98%E6%86%B6%E9%9D%99%E3%81%8B%E3%81%AA%E8%B0%B7%E9%9D%92%E3%81%AE%E5%88%BB%E5%A1%A9%E3%81%AE%E5%B7%9D%E6%9C%80%E5%BE%8C%E3%81%AE%E5%A4%8F%E7%B7%91%E3%81%AE%E9%81%93%E7%81%B0%E3%81%AE%E6%AD%A3%E5%8D%88%E8%A6%B3%E5%AF%9F%E8%80%85%E8%90%BD%E3%81%A1%E3%81%9F%E9%B3%A5%E5%B5%90%E3%81%AE%E7%81%AF%E9%95%B7%E3%81%84%E6%BD%AE%E9%9D%99%E3%81%8B%E3%81%AA%E6%88%A6%E4%BA%89%E8%B5%A4%E3%81%84%E6%89%89%E6%88%B8%E6%88%BB%E3%82%8B%E9%96%89%E3%81%98%E3%82%8B%E7%9B%A3%E7%9D%A3%E4%BD%9C%E5%93%81%E6%98%A0%E7%94%BB%E3%82%92%E8%A6%8B%E3%82%8B&display=swap" rel="stylesheet">
+<style>
+@font-face{
+  font-family:"Noto Sans JP Big";font-style:normal;font-weight:800;font-display:block;
+  src:local("Noto Sans JP ExtraBold"),local("NotoSansJP-ExtraBold");
+}
+:root{
+  --paper:#ECE8E0;--sheet:#F3F0EA;--ink:#141414;--muted:#6D6A63;--cobalt:#1F3FB0;
+  --rule:rgba(20,20,20,.9);--ease:cubic-bezier(.2,.8,.2,1);
+  --H:min(47vh,33vw);--cy:41%;--ws:0px;--d:0px;
+  --sans:"Inter Tight","Noto Sans JP",system-ui,sans-serif;
+  --serif:"Newsreader",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--sans);
+  overflow:hidden;user-select:none;-webkit-user-select:none;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+@media (pointer:fine){html,body,button,a{cursor:none}}
+.lbl{font-family:var(--sans);font-weight:600;font-size:10.5px;line-height:1;letter-spacing:.14em;text-transform:uppercase}
+.box{display:inline-flex;align-items:center;height:21px;padding:0 8px;border:1px solid var(--rule)}
+.grain{
+  position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.6;mix-blend-mode:multiply;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .42 0 0 0 0 .38 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.top{
+  position:fixed;inset:0 0 auto;z-index:30;height:76px;padding:0 36px;
+  display:flex;align-items:center;justify-content:space-between;color:var(--cobalt);
+}
+.brand{display:flex;align-items:center;gap:16px}
+.brand .line{width:40px;height:1px;background:currentColor}
+.navr{display:flex;align-items:center;gap:34px}
+.burger{width:26px;height:12px;display:flex;flex-direction:column;justify-content:space-between}
+.burger i{display:block;height:1.5px;background:currentColor}
+.kanji{
+  position:fixed;z-index:1;writing-mode:vertical-rl;
+  font-family:"Noto Sans JP Big","Noto Sans JP",sans-serif;font-weight:800;
+  font-size:min(19vh,12.5vw);line-height:1.02;letter-spacing:.02em;
+  color:transparent;
+  background-image:
+    radial-gradient(circle at 50% 50%,rgba(64,82,138,.55) 0 36%,transparent 40%),
+    linear-gradient(rgba(110,122,160,.26),rgba(110,122,160,.26));
+  background-size:3px 3px,auto;
+  -webkit-background-clip:text;background-clip:text;
+  pointer-events:none;
+}
+.kanji.l{left:2.4vw;top:13vh}
+.kanji.r{right:2.4vw;top:9vh}
+.floor{
+  position:fixed;left:50%;z-index:5;pointer-events:none;
+  top:calc(var(--cy) + var(--H)*.47);transform:translate(-50%,-50%);
+  width:min(96vw,calc(var(--H)*3.6));height:calc(var(--H)*.26);
+  background:radial-gradient(50% 50% at 50% 40%,rgba(40,32,20,.30),rgba(40,32,20,.10) 55%,transparent 72%);
+}
+.shelf{
+  position:fixed;left:0;right:0;z-index:10;
+  top:calc(var(--cy) - var(--H)/2 - 50px);height:calc(var(--H) + 100px);
+  perspective:1400px;perspective-origin:50% 50%;touch-action:none;
+}
+.stage{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;pointer-events:none}
+.tape{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;will-change:transform;pointer-events:none}
+.tape .face{
+  position:absolute;top:calc(var(--H)/-2);height:var(--H);border-radius:2px;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;background-repeat:no-repeat;
+  pointer-events:none;
+}
+.tape .face:after{
+  content:"";position:absolute;inset:0;background:#000;opacity:var(--shade,0);pointer-events:none;border-radius:2px;
+}
+.tape .sp{width:var(--ws);left:calc(var(--ws)/-2);transform:translateZ(calc(var(--d)/2))}
+.tape .cv{
+  width:var(--d);left:calc(var(--d)/-2);
+  transform:rotateY(90deg) translateZ(calc(var(--ws)/2));
+  box-shadow:0 34px 60px -30px rgba(20,16,10,.6);
+}
+.play{
+  position:fixed;z-index:35;width:42px;height:42px;margin:-21px 0 0 -21px;border-radius:50%;
+  border:1px solid var(--cobalt);color:var(--cobalt);background:rgba(236,232,224,.8);
+  display:grid;place-items:center;transform:scale(0);transform-origin:center;
+  pointer-events:auto;
+}
+.play svg{width:12px;height:12px;margin-left:2px;fill:currentColor}
+.cap{
+  position:fixed;left:50%;z-index:20;transform:translateX(-50%);
+  top:calc(var(--cy) + var(--H)/2 + 4.2vh);
+  display:grid;justify-items:center;gap:10px;text-align:center;pointer-events:none;
+  width:min(80vw,640px);
+}
+.cap .mask{overflow:hidden;width:100%;position:relative}
+.cap .t{font-weight:600;font-size:clamp(28px,3.4vw,46px);letter-spacing:-.015em;color:var(--cobalt)}
+.cap .s{color:var(--cobalt);font-size:9.5px;letter-spacing:.24em}
+.cap .rule{width:18px;height:1px;background:var(--cobalt)}
+.cap .y{font-weight:500;font-size:10.5px;letter-spacing:.08em}
+.arr{
+  position:fixed;z-index:35;top:calc(var(--cy) + var(--H)/2 + 4.2vh + 8px);
+  width:44px;height:44px;color:var(--cobalt);display:grid;place-items:center;
+}
+.arr svg{width:24px;height:12px;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.arr.l{left:calc(50% - min(19vw,250px));transform:translateX(-50%)}
+.arr.r{left:calc(50% + min(19vw,250px));transform:translateX(-50%)}
+.tl{
+  position:fixed;left:36px;right:36px;bottom:64px;height:40px;z-index:30;color:var(--cobalt);
+}
+.tl .rail{position:absolute;left:0;right:0;top:12px;height:1px;background:currentColor;opacity:.75}
+.tl .ticks{position:absolute;inset:0}
+.tl .tick{position:absolute;top:12px;width:1px;background:currentColor;transform:translateX(-50%)}
+.tl .tick.maj{height:13px;opacity:.75}
+.tl .tick.min{height:7px;opacity:.4}
+.tl .ylab{
+  position:absolute;top:28px;font-weight:500;font-size:9.5px;transform:translateX(-50%);white-space:nowrap;
+}
+.tl .ylab.first{transform:none;left:0!important}
+.tl .ylab.last{transform:translateX(-100%);right:0;left:auto!important}
+.tl .dot{
+  position:absolute;top:12px;width:9px;height:9px;margin:-4px 0 0 -4.5px;border-radius:50%;
+  background:var(--cobalt);pointer-events:none;
+}
+.tl .hit{position:absolute;inset:0;cursor:pointer}
+.foot{
+  position:fixed;left:36px;right:36px;bottom:24px;z-index:30;color:var(--cobalt);
+  display:flex;justify-content:space-between;
+}
+.cur{
+  position:fixed;left:0;top:0;z-index:10000;width:58px;height:58px;margin:-29px 0 0 -29px;
+  pointer-events:none;visibility:hidden;isolation:isolate;mix-blend-mode:normal;
+  will-change:transform;
+}
+.cur.show{visibility:visible}
+.cur .ring{
+  position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--ink);background:transparent;
+  transition:transform .5s var(--ease),background .4s var(--ease),border-color .4s var(--ease);
+}
+.cur .dot{
+  position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--ink);
+  transition:transform .4s var(--ease);
+}
+.cur .lab{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-weight:600;font-size:10px;line-height:1.25;letter-spacing:.1em;color:#fff;text-align:center;
+  transform:scale(0);transition:transform .45s var(--ease);
+}
+.cur.spine .ring{transform:scale(.72)}
+.cur.btn .ring{transform:scale(.55)}
+.cur.btn .dot{transform:scale(0)}
+.cur.open .ring{transform:scale(1.75);background:var(--cobalt);border-color:var(--cobalt)}
+.cur.open .dot{transform:scale(0)}
+.cur.open .lab{transform:scale(1)}
+.detail{
+  position:fixed;inset:0;z-index:200;background:var(--sheet);visibility:hidden;
+  display:grid;grid-template-columns:1fr 1fr;gap:4vw;padding:110px 6vw 56px 7vw;
+  pointer-events:none;
+}
+.detail.open{pointer-events:auto}
+body.is-detail .top,body.is-detail .foot,body.is-detail .shelf,body.is-detail .arr,
+body.is-detail .play,body.is-detail .tl,body.is-detail .cap,body.is-detail .floor{pointer-events:none}
+.detail .dclose{position:absolute;top:36px;left:28px;z-index:2;pointer-events:auto}
+.detail .dbrand{position:absolute;top:36px;right:28px;color:var(--cobalt);display:flex;align-items:center;gap:12px;pointer-events:none}
+.detail .dbrand .ln{width:28px;height:1px;background:currentColor}
+.detail .col{display:flex;flex-direction:column;justify-content:center;gap:18px;max-width:520px;min-width:0}
+.detail .mask{overflow:hidden}
+.detail .mask>span,.detail .mask>button{display:block}
+.detail .dsub{color:var(--cobalt)}
+.detail .dtitle{font-weight:600;font-size:clamp(44px,5.2vw,80px);letter-spacing:-.03em;color:var(--cobalt);line-height:1}
+.detail .dmeta{color:var(--muted);font-weight:500;font-size:12px;letter-spacing:.08em}
+.detail .dsyn{font-family:var(--serif);font-size:17px;line-height:1.5;max-width:42ch}
+.detail .dcred{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--muted)}
+.detail .dwatch{
+  align-self:start;height:44px;padding:0 20px;margin-top:10px;
+  border:1px solid var(--cobalt);color:var(--cobalt);
+}
+.detail .poster{justify-self:center;align-self:center;height:min(100%,78vh);aspect-ratio:474/900}
+.detail .poster svg{width:100%;height:100%;display:block}
+@media (max-width:767px){
+  :root{--H:min(68vw,40svh);--cy:43%}
+  .top{height:60px;padding:0 16px}
+  .navr a{display:none}
+  .brand .line,.brand .lbl:last-child{display:none}
+  .kanji{font-size:22vw;opacity:.8}
+  .cap .t{font-size:27px}
+  .arr{top:auto;bottom:118px}
+  .arr.l{left:16px;transform:none}
+  .arr.r{left:auto;right:16px;transform:none}
+  .tl{left:16px;right:16px;bottom:54px}
+  .tl .ylab:nth-child(even){display:none}
+  .foot{left:16px;right:16px;bottom:18px}
+  .detail{
+    grid-template-columns:1fr;overflow:auto;padding:84px 22px 40px;gap:24px;align-content:start;
+  }
+  .detail .poster{order:-1;height:46svh}
+  .detail .dtitle{font-size:42px}
+  .detail .dclose{top:16px;left:16px}
+  .detail .dbrand{top:16px;right:16px;font-size:9px}
+  .cur{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .tabs .ind{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<header class="top">
+  <div class="brand">
+    <a class="lbl" href="#">Leon Vasari</a>
+    <span class="line" aria-hidden="true"></span>
+    <span class="lbl">Film Archive</span>
+  </div>
+  <div class="navr">
+    <a class="lbl" href="#">Films</a>
+    <a class="lbl" href="#">About</a>
+    <a class="lbl" href="#">Journal</a>
+    <button class="burger" aria-label="Menu" type="button"><i></i><i></i></button>
+  </div>
+</header>
+<div class="kanji l" aria-hidden="true">映画</div>
+<div class="kanji r" aria-hidden="true">の記憶</div>
+<div class="floor" id="floor" aria-hidden="true"></div>
+<section class="shelf" id="shelf" aria-label="Film archive shelf">
+  <div class="stage" id="stage"></div>
+</section>
+<button class="play" id="play" aria-label="Open film"><svg viewBox="0 0 12 12"><path d="M2 1.5v9l8.5-4.5Z"/></svg></button>
+<div class="cap" id="cap" aria-live="polite">
+  <div class="mask t" id="cTitle"></div>
+  <div class="mask s lbl" id="cSub"></div>
+  <div class="rule" aria-hidden="true"></div>
+  <div class="mask y" id="cYear"></div>
+</div>
+<button class="arr l" id="prev" aria-label="Previous film"><svg viewBox="0 0 24 12"><path d="M6 1 1 6l5 5M1 6h23"/></svg></button>
+<button class="arr r" id="next" aria-label="Next film"><svg viewBox="0 0 24 12"><path d="M18 1l5 5-5 5M23 6H0"/></svg></button>
+<div class="tl" id="tl" aria-label="Timeline 1955 to 1990">
+  <div class="rail"></div>
+  <div class="ticks" id="ticks"></div>
+  <div class="dot" id="tdot"></div>
+  <div class="hit" id="thit"></div>
+</div>
+<footer class="foot">
+  <div class="lbl">© Leon Vasari. All rights reserved.</div>
+  <div class="lbl"><a href="#">FB</a> / <a href="#">TW</a></div>
+</footer>
+<div class="cur" id="cur" aria-hidden="true"><div class="ring"></div><div class="dot"></div><div class="lab">OPEN<br>開く</div></div>
+<div class="detail" id="detail" role="dialog" aria-modal="true" aria-label="Film detail">
+  <button class="box lbl dclose" id="dclose">Close / 閉じる</button>
+  <div class="dbrand lbl"><span>Leon Vasari</span><span class="ln"></span><span>Film Archive</span></div>
+  <div class="col" id="dcol">
+    <div class="mask"><span class="dsub lbl" id="dSub"></span></div>
+    <div class="mask"><span class="dtitle" id="dTitle"></span></div>
+    <div class="mask"><span class="dmeta lbl" id="dMeta"></span></div>
+    <div class="mask"><span class="dsyn" id="dSyn"></span></div>
+    <div class="mask"><span class="dcred" id="dCred">Written and directed by Leon Vasari. 監督作品</span></div>
+    <div class="mask"><button class="dwatch lbl" type="button">Watch the film / 映画を見る</button></div>
+  </div>
+  <div class="poster" aria-hidden="true">
+    <svg viewBox="0 0 474 900" id="psvg">
+      <defs>
+        <filter id="inkF" x="-50%" y="-50%" width="200%" height="200%">
+          <feTurbulence type="fractalNoise" baseFrequency=".011" numOctaves="3" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="120" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <mask id="inkM" maskUnits="userSpaceOnUse" x="-200" y="-200" width="874" height="1300">
+          <g id="blobs" filter="url(#inkF)" fill="#fff">
+            <circle cx="150" cy="330" r="0"/><circle cx="340" cy="600" r="0"/><circle cx="250" cy="120" r="0"/>
+            <circle cx="90" cy="760" r="0"/><circle cx="400" cy="250" r="0"/><circle cx="260" cy="860" r="0"/>
+            <circle cx="230" cy="470" r="0"/>
+          </g>
+        </mask>
+        <clipPath id="pc"><rect width="474" height="900"/></clipPath>
+      </defs>
+      <g clip-path="url(#pc)" mask="url(#inkM)">
+        <image id="pimg" preserveAspectRatio="none" width="474" height="900"/>
+      </g>
+    </svg>
+  </div>
+</div>
+<script>
+const SHEET={
+  covers:['https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261029_010644_837e04ca-2418-45c1-b8e0-0233265c4cd5.png&w=1744&q=85',1744,2336],
+  spines:['https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261029_010738_a3e47ead-18f2-4974-9468-06d16a25edc5.png&w=2688&q=85',2688,1152],
+  fix:['https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261029_010831_3ebb874b-93dc-433e-87ed-6299aba720f0.png&w=1520&q=85',1520,2688],
+  fix2:['https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261029_092020_f96bc094-db7b-46de-9298-074a24e0a3b8.png&w=1520&q=85',1520,2688]
+};
+const CROP={
+  'spine-valley':['spines',266,31,189,1089],'cover-valley':['covers',497,72,344,659],
+  'spine-bluehour':['spines',492,31,189,1089],'cover-bluehour':['covers',914,72,342,659],
+  'spine-river':['fix',197,54,324,2566],'cover-river':['covers',1332,72,344,659],
+  'spine-summer':['spines',937,31,188,1089],'cover-summer':['covers',74,813,344,676],
+  'spine-green':['spines',1157,31,185,1090],'cover-green':['covers',497,815,344,674],
+  'spine-noon':['spines',44,32,184,1088],'cover-noon':['covers',74,72,347,659],
+  'spine-observer':['fix2',371,15,349,2655],'cover-observer':['covers',915,815,342,675],
+  'spine-birds':['spines',1573,31,183,1089],'cover-birds':['covers',1331,815,345,675],
+  'spine-storm':['fix2',808,15,347,2656],'cover-storm':['covers',74,1571,345,681],
+  'spine-tide':['spines',2012,31,188,1089],'cover-tide':['covers',496,1577,343,678],
+  'spine-war':['spines',2236,31,189,1089],'cover-war':['covers',913,1579,343,676],
+  'spine-door':['spines',2462,31,188,1089],'cover-door':['covers',1331,1579,344,677]
+};
+const FILMS=[
+  {id:'valley',t:'The Silent Valley',r:'SHIZUKANA TANI',k:'静かな谷',y:1958,g:'Drama',m:104,s:'A schoolteacher returns to the mountain village that exiled her father, and finds the valley has kept every one of its secrets.'},
+  {id:'bluehour',t:'The Blue Hour',r:'AO NO TOKI',k:'青の刻',y:1962,g:'Romance',m:97,s:'Over one long evening in a harbour town, a widow and a stranger trade small lies until the light runs out.'},
+  {id:'river',t:'River of Salt',r:'SHIO NO KAWA',k:'塩の川',y:1964,g:'Drama',m:121,s:'Two brothers drag a salt barge downriver to a city that no longer wants anything they carry.'},
+  {id:'summer',t:'The Last Summer',r:'SAIGO NO NATSU',k:'最後の夏',y:1966,g:'Drama',m:109,s:'The summer before the dam floods their village, three friends set fire to everything they cannot take with them.'},
+  {id:'green',t:'The Green Road',r:'MIDORI NO MICHI',k:'緑の道',y:1969,g:'Mystery',m:101,s:'A surveyor mapping a forest road keeps finding the same footprints, always one day ahead of him.'},
+  {id:'noon',t:'Noon in Ashes',r:'HAI NO SHOGO',k:'灰の正午',y:1971,g:'Western',m:112,s:'A rider crosses a white desert to settle an old debt, and learns too late who sent him.'},
+  {id:'observer',t:'The Observer',r:'KANSATSUSHA',k:'観察者',y:1973,g:'Thriller',m:96,s:'A night watchman begins to suspect that the building he guards has started watching him back.'},
+  {id:'birds',t:'The Fallen Birds',r:'OCHITA TORI',k:'落ちた鳥',y:1975,g:'Drama',m:118,s:'When the birds stop singing over a frontier town, the mayor\'s daughter is the only one who goes looking for the reason.'},
+  {id:'storm',t:'Light in the Storm',r:'ARASHI NO HI',k:'嵐の灯',y:1978,g:'Drama',m:127,s:'A lighthouse keeper and his son wait out a three-day storm with a shipwrecked sailor who will not give his name.'},
+  {id:'tide',t:'The Long Tide',r:'NAGAI SHIO',k:'長い潮',y:1981,g:'Drama',m:99,s:'A fisherman\'s wife counts the tides on the harbour wall while her husband\'s boat fails to come home.'},
+  {id:'war',t:'A Quiet War',r:'SHIZUKANA SENSO',k:'静かな戦争',y:1985,g:'Comedy',m:103,s:'Two neighbours fight a silent war over a garden wall for thirty years, and neither will say how it began.'},
+  {id:'door',t:'Red Door',r:'AKAI TOBIRA',k:'赤い扉',y:1989,g:'Thriller',m:114,s:'A projectionist follows a reel of unknown film through the corridors of a cinema on its final night.'}
+];
+const N=12,COPIES=3,TOTAL=N*COPIES,P=1400,BLOB_DELAY=[0,120,220,300,360,420,180];
+const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const $=id=>document.getElementById(id);
+const shelf=$('shelf'),stage=$('stage'),play=$('play'),cur=$('cur'),detail=$('detail');
+const cTitle=$('cTitle'),cSub=$('cSub'),cYear=$('cYear');
+const pimg=$('pimg'),blobs=[...document.querySelectorAll('#blobs circle')];
+const dMasks=[...$('dcol').querySelectorAll('.mask > *')];
+const tdot=$('tdot');
+const mod=(x,n)=>((x%n)+n)%n;
+const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
+const smoothstep=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
+const B=r=>{const a=Math.abs(r);if(a<1)return (r+Math.sin(Math.PI*r)/Math.PI)/2;return Math.sign(r)*.5};
+
+function bgCrop(key){
+  const [sid,x,y,w,h]=CROP[key],[,W,H]=SHEET[sid],url=SHEET[sid][0];
+  return {
+    backgroundImage:`url("${url}")`,
+    backgroundSize:`${(W/w*100)}% ${(H/h*100)}%`,
+    backgroundPosition:`${(x/(W-w)*100)}% ${(y/(H-h)*100)}%`
+  };
+}
+function setPoster(film){
+  const [sid,x,y,w,h]=CROP['cover-'+film.id],[,W,H]=SHEET[sid];
+  pimg.setAttribute('href',SHEET[sid][0]);
+  pimg.setAttribute('x',(-x*474/w));pimg.setAttribute('y',(-y*900/h));
+  pimg.setAttribute('width',W*474/w);pimg.setAttribute('height',H*900/h);
+}
+
+const tapes=[];
+for(let c=0;c<COPIES;c++)for(let i=0;i<N;i++){
+  const f=FILMS[i],v=c*N+i,e=document.createElement('div');
+  e.className='tape';e.dataset.v=v;e.dataset.i=i;
+  const sp=document.createElement('div');sp.className='face sp';Object.assign(sp.style,bgCrop('spine-'+f.id));
+  const cv=document.createElement('div');cv.className='face cv';Object.assign(cv.style,bgCrop('cover-'+f.id));
+  e.append(sp,cv);stage.append(e);
+  tapes.push({e,sp,cv,v,i,lift:0,liftT:0,sx:0,sy:0,ssc:0,so:0,vis:false});
+}
+
+/* Timeline ticks */
+const ticks=$('ticks');
+for(let y=1955;y<=1990;y++){
+  const maj=y%5===0;
+  const tick=document.createElement('div');
+  tick.className='tick '+(maj?'maj':'min');
+  tick.style.left=((y-1955)/35*100)+'%';
+  ticks.append(tick);
+  if(maj){
+    const lab=document.createElement('div');
+    lab.className='ylab'+(y===1955?' first':'')+(y===1990?' last':'');
+    lab.textContent=y;
+    lab.style.left=((y-1955)/35*100)+'%';
+    ticks.append(lab);
+  }
+}
+
+let W=innerWidth,Hpx=0,ws=0,d=0,gap=0,U=0,shelfCy=0;
+let s=17,T=17,active=-1,mx=0,my=0,cx=0,cy=0,curReady=false;
+let tiltX=0,tiltY=0,onCover=false,isOpen=false,dragging=false,dragged=false;
+let p0x=null,p0y=null,T0=0,wheelT=0,last=0,detailAnims=[],inkStart=0,yearX=1971,yearVis=1971;
+let XS=[],XSstep=2,capPtr=null;
+
+function measure(){
+  W=innerWidth;
+  const probe=document.createElement('div');
+  probe.style.cssText='position:absolute;visibility:hidden;height:var(--H)';
+  document.body.append(probe);Hpx=probe.getBoundingClientRect().height;probe.remove();
+  ws=Hpx*142/840;d=Hpx*474/900;gap=Hpx*.035;
+  U=Hpx*(innerWidth<=767?1.05:1.3);
+  stage.style.setProperty('--ws',ws+'px');
+  stage.style.setProperty('--d',d+'px');
+  shelfCy=shelf.getBoundingClientRect().top+shelf.clientHeight/2;
+  /* Precompute screen-x integral */
+  XS=[0];
+  const maxU=U*3,steps=Math.ceil(maxU/XSstep);
+  let acc=0;
+  for(let i=1;i<=steps;i++){
+    const u=i*XSstep;
+    acc+=2/(1+Math.pow(u/U,1.6))*XSstep;
+    XS.push(acc);
+  }
+}
+function F(r){return r*(ws+gap)+(d-ws+1.4*gap)*B(r)}
+function scl(u){return 1/(1+Math.pow(Math.abs(u)/U,1.6))}
+function xsc(u){
+  const a=Math.abs(u),idx=Math.min(XS.length-2,Math.floor(a/XSstep)),t=(a/XSstep)-idx;
+  const v=XS[idx]+(XS[idx+1]-XS[idx])*t;
+  return Math.sign(u||1)*v;
+}
+function rel(v){let r=v-s;r=((r%TOTAL)+TOTAL)%TOTAL;if(r>TOTAL/2)r-=TOTAL;return r}
+
+function slideMask(mask,html,dir){
+  if(calm){mask.innerHTML='';const sp=document.createElement('span');sp.innerHTML=html;mask.append(sp);return}
+  [...mask.children].forEach(k=>{
+    if(k.dataset.leaving)return;
+    k.dataset.leaving='1';k.style.position='absolute';k.style.left=0;k.style.right=0;k.style.top=0;
+    const cur=getComputedStyle(k).transform;
+    k.animate([{transform:cur==='none'?'translateY(0)':cur},{transform:`translateY(${-dir*105}%)`}],
+      {duration:650,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'}).onfinish=()=>k.remove();
+  });
+  const sp=document.createElement('span');sp.innerHTML=html;mask.append(sp);
+  sp.animate([{transform:`translateY(${dir*105}%)`},{transform:'translateY(0)'}],
+    {duration:650,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'});
+}
+function setActive(i,dir){
+  if(i===active)return;active=i;
+  const f=FILMS[i];
+  slideMask(cTitle,f.t,dir);
+  slideMask(cSub,`${f.r} / ${f.k}`,dir);
+  slideMask(cYear,`${f.y} — ${f.g.toUpperCase()}`,dir);
+}
+
+function paint(){
+  const cull=U*1.95;
+  tapes.forEach(t=>{
+    const r=rel(t.v),o=smoothstep(Math.max(0,1-Math.abs(r)));
+    const u=F(r);
+    if(Math.abs(u)>cull){t.e.style.visibility='hidden';t.vis=false;return}
+    t.vis=true;t.e.style.visibility='visible';
+    const sc=scl(u),k=1/sc;
+    const z=P*(1-k)+o*Hpx*.1;
+    const x=xsc(u)*k;
+    const y=(Hpx*.5*(1-sc)*.42+o*Hpx*.012-t.lift*Hpx*.05)*k;
+    const sg=u===0?0:Math.sign(u);
+    const ry=sg*Math.min(1,Math.abs(u)/U)*26*(1-o)-90*o+tiltY*o;
+    const rx=tiltX*o;
+    t.sx=W/2+x*sc;t.sy=shelfCy+y*sc;t.ssc=sc;t.so=o;
+    t.e.style.transform=`translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,${z.toFixed(2)}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+    t.e.style.zIndex=Math.round(3000+z);
+    t.sp.style.setProperty('--shade',Math.min(.6,o*.55+(1-sc)*.32).toFixed(3));
+    t.cv.style.setProperty('--shade',((1-o)*.82).toFixed(3));
+  });
+  const settled=smoothstep(Math.max(0,1-Math.abs(T-s)*3));
+  play.style.left=(W/2-d/2-6)+'px';
+  play.style.top=(shelfCy+.36*Hpx)+'px';
+  play.style.transform=`scale(${isOpen?0:settled})`;
+  play.style.pointerEvents=(!isOpen&&settled>.5)?'auto':'none';
+}
+
+/* Screen-space hit: which tape is under the pointer (ignores 3D AABB ghosts). */
+function hitTape(px,py){
+  let best=null,bestD=1e9;
+  for(const t of tapes){
+    if(!t.vis)continue;
+    const hw=(t.so>.5?d:ws)*t.ssc*.55;
+    const hh=Hpx*t.ssc*.52;
+    if(Math.abs(px-t.sx)>hw||Math.abs(py-t.sy)>hh)continue;
+    const dd=Math.hypot(px-t.sx,py-t.sy)/(t.ssc+1e-6);
+    if(dd<bestD){bestD=dd;best=t}
+  }
+  return best;
+}
+
+function updateTilt(dt){
+  const near=Math.abs(T-s)<.3&&!isOpen;
+  const hx=Math.abs(mx-W/2)<.55*d,hy=Math.abs(my-shelfCy)<.55*Hpx;
+  onCover=near&&hx&&hy;
+  let tY,tX;
+  if(onCover){tY=(mx-W/2)/(.55*d)*8;tX=-(my-shelfCy)/(Hpx/2)*5}
+  else{tY=(mx-W/2)/W*4;tX=0}
+  const k=1-Math.exp(-7*dt);tiltY+=(tY-tiltY)*k;tiltX+=(tX-tiltX)*k;
+}
+
+function yearAt(pos){
+  const a=mod(Math.floor(pos),N),b=mod(a+1,N),t=pos-Math.floor(pos);
+  const ya=FILMS[a].y,yb=FILMS[b].y;
+  /* wrap 1989 → 1958 */
+  if(ya>yb)return t<.5?ya:yb;
+  return ya+(yb-ya)*t;
+}
+
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000)||.016;last=now;
+  const k=calm?1e3:(dragging?18:5.2);
+  s+=(T-s)*(1-Math.exp(-k*dt));
+  if(Math.abs(T-s)<1e-4)s=T;
+  if(Math.abs(s)>TOTAL*4){const sh=Math.round(s/TOTAL)*TOTAL;s-=sh;T-=sh}
+  const ai=mod(Math.round(s),N);
+  if(ai!==active)setActive(ai,Math.sign(T-s)||1);
+  /* hover lift from geometry, not DOM hit-test */
+  const over=(!isOpen&&!dragging)?hitTape(mx,my):null;
+  tapes.forEach(t=>{t.liftT=(over===t&&Math.abs(rel(t.v))>.5)?1:0});
+  const lk=1-Math.exp(-(calm?80:12)*dt);
+  tapes.forEach(t=>{t.lift+=(t.liftT-t.lift)*lk});
+  updateTilt(dt);
+  paint();
+  yearX=yearAt(s);
+  const yk=1-Math.exp(-14*dt);
+  if(Math.abs(yearX-yearVis)>6)yearVis=yearX;
+  else yearVis+=(yearX-yearVis)*yk;
+  tdot.style.left=((yearVis-1955)/35*100)+'%';
+  if(curReady){
+    const ck=1-Math.exp(-16*dt);cx+=(mx-cx)*ck;cy+=(my-cy)*ck;
+    cur.style.transform=`translate3d(${cx.toFixed(1)}px,${cy.toFixed(1)}px,0)`;
+  }
+  if(inkStart&&!calm){
+    const t=(performance.now()-inkStart)/1000;
+    blobs.forEach((c,i)=>{
+      const p=clamp((t*1000-BLOB_DELAY[i])/1250,0,1);
+      c.setAttribute('r',720*(1-Math.pow(1-p,3)));
+    });
+    if(t>2.4)inkStart=0;
+  }
+  requestAnimationFrame(frame);
+}
+
+function setCursor(cls){
+  cur.classList.remove('spine','btn','open');
+  if(cls)cur.classList.add(cls);
+}
+function refreshCursor(target){
+  if(!matchMedia('(pointer:fine)').matches)return;
+  if(isOpen){setCursor(target&&target.closest&&target.closest('button,a')?'btn':'');return}
+  if(onCover)setCursor('open');
+  else{
+    const ht=hitTape(mx,my);
+    if(ht&&Math.abs(rel(ht.v))>.5)setCursor('spine');
+    else if(target&&target.closest&&target.closest('button,a,.tl,.play'))setCursor('btn');
+    else setCursor('');
+  }
+}
+addEventListener('pointermove',e=>{
+  mx=e.clientX;my=e.clientY;
+  if(matchMedia('(pointer:fine)').matches){
+    if(!curReady){cx=mx;cy=my;curReady=true;cur.style.transform=`translate3d(${cx}px,${cy}px,0)`}
+    cur.classList.add('show');
+  }
+  if(p0x!=null&&!isOpen){
+    const dx=e.clientX-p0x;
+    if(!dragging&&Math.abs(dx)>5){
+      dragging=true;dragged=true;
+      if(capPtr==null){capPtr=e.pointerId;try{shelf.setPointerCapture(e.pointerId)}catch(_){}}
+    }
+    if(dragging)T=T0-dx/(ws+gap);
+  }
+  refreshCursor(e.target);
+});
+addEventListener('pointerleave',()=>cur.classList.remove('show'));
+
+shelf.addEventListener('wheel',e=>{
+  if(isOpen)return;e.preventDefault();
+  const delta=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
+  T+=delta/(ws+gap)*.5;
+  clearTimeout(wheelT);wheelT=setTimeout(()=>{T=Math.round(T)},160);
+},{passive:false});
+shelf.addEventListener('pointerdown',e=>{
+  if(isOpen||e.button)return;
+  dragging=false;dragged=false;p0x=e.clientX;p0y=e.clientY;T0=T;capPtr=null;
+});
+function endDrag(e){
+  if(dragging){T=Math.round(T);dragging=false}
+  if(capPtr!=null){try{shelf.releasePointerCapture(capPtr)}catch(_){}capPtr=null}
+  /* click on a tape only if we didn't drag */
+  if(p0x!=null&&!dragged&&!isOpen){
+    const ht=hitTape(e.clientX,e.clientY);
+    if(ht){
+      const r=rel(ht.v);
+      if(Math.abs(r)<.5)openDetail();
+      else T=Math.round(T+r);
+    }
+  }
+  dragged=false;p0x=null;p0y=null;
+}
+shelf.addEventListener('pointerup',endDrag);
+shelf.addEventListener('pointercancel',()=>{dragging=false;capPtr=null;p0x=null;p0y=null;dragged=false});
+
+$('prev').addEventListener('click',()=>{if(!isOpen)T=Math.round(T)-1});
+$('next').addEventListener('click',()=>{if(!isOpen)T=Math.round(T)+1});
+play.addEventListener('click',()=>openDetail());
+$('dclose').addEventListener('click',()=>closeDetail());
+$('thit').addEventListener('click',e=>{
+  if(isOpen)return;
+  const rect=$('tl').getBoundingClientRect();
+  const year=1955+(e.clientX-rect.left)/rect.width*35;
+  let best=0,bestDist=1e9,cur=mod(Math.round(T),N);
+  FILMS.forEach((f,i)=>{
+    const yd=Math.abs(f.y-year);
+    let dlt=i-cur;if(dlt>N/2)dlt-=N;if(dlt<-N/2)dlt+=N;
+    if(yd<bestDist||(yd===bestDist&&Math.abs(dlt)<Math.abs(best))){bestDist=yd;best=dlt}
+  });
+  /* find film with nearest year */
+  let bi=0,bd=1e9;
+  FILMS.forEach((f,i)=>{const yd=Math.abs(f.y-year);if(yd<bd){bd=yd;bi=i}});
+  let dlt=bi-cur;if(dlt>N/2)dlt-=N;if(dlt<-N/2)dlt+=N;
+  T=Math.round(T)+dlt;
+});
+
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&isOpen){closeDetail();return}
+  if(isOpen)return;
+  if(e.key==='ArrowLeft'){e.preventDefault();T=Math.round(T)-1}
+  if(e.key==='ArrowRight'){e.preventDefault();T=Math.round(T)+1}
+  if(e.key==='Enter'){e.preventDefault();openDetail()}
+});
+
+function cancelDetailAnims(){detailAnims.forEach(a=>{try{a.cancel()}catch(_){}});detailAnims=[]}
+function coverRect(){
+  const t=tapes.find(x=>x.vis&&x.so>.5)||tapes.find(x=>Math.abs(rel(x.v))<.5)||tapes[0];
+  const sc=Math.max(t.ssc,.2),hw=d*sc/2,hh=Hpx*sc/2;
+  return{left:t.sx-hw,top:t.sy-hh,right:t.sx+hw,bottom:t.sy+hh,ox:t.sx,oy:t.sy};
+}
+function openDetail(){
+  if(isOpen)return;isOpen=true;T=Math.round(T);
+  const f=FILMS[mod(Math.round(s),N)];
+  $('dSub').textContent=`${f.r} / ${f.k}`;
+  $('dTitle').textContent=f.t;
+  $('dMeta').textContent=`${f.y} / ${f.g.toUpperCase()} / ${f.m} MIN`;
+  $('dSyn').textContent=f.s;
+  setPoster(f);blobs.forEach(c=>c.setAttribute('r','0'));
+  const r=coverRect();
+  const top=r.top,right=W-r.right,bottom=innerHeight-r.bottom,left=r.left;
+  detail.classList.add('open');
+  document.body.classList.add('is-detail');
+  detail.style.visibility='visible';
+  detail.style.transformOrigin=`${r.ox}px ${r.oy}px`;
+  cancelDetailAnims();
+  const dur=calm?1:1050;
+  const a=detail.animate([
+    {clipPath:`inset(${top}px ${right}px ${bottom}px ${left}px round 3px)`},
+    {clipPath:'inset(0 0 0 0 round 0)'}
+  ],{duration:dur,easing:'cubic-bezier(.76,0,.18,1)',fill:'both'});
+  detailAnims.push(a);
+  dMasks.forEach((el,i)=>{
+    el.style.transform='translateY(110%)';
+    detailAnims.push(el.animate([{transform:'translateY(110%)'},{transform:'translateY(0)'}],{
+      duration:calm?1:900,delay:calm?0:620+i*75,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'
+    }));
+  });
+  if(calm){blobs.forEach(c=>c.setAttribute('r','720'));inkStart=0}
+  else setTimeout(()=>{inkStart=performance.now()},520);
+  setCursor('');
+}
+function closeDetail(){
+  if(!isOpen)return;
+  const r=coverRect();
+  const top=r.top,right=W-r.right,bottom=innerHeight-r.bottom,left=r.left;
+  detail.style.transformOrigin=`${r.ox}px ${r.oy}px`;
+  cancelDetailAnims();inkStart=0;
+  const a=detail.animate([
+    {clipPath:'inset(0 0 0 0 round 0)'},
+    {clipPath:`inset(${top}px ${right}px ${bottom}px ${left}px round 3px)`}
+  ],{duration:calm?1:850,easing:'cubic-bezier(.76,0,.18,1)',fill:'both'});
+  detailAnims.push(a);
+  a.onfinish=()=>{
+    detail.style.visibility='hidden';detail.classList.remove('open');
+    document.body.classList.remove('is-detail');isOpen=false;cancelDetailAnims();
+  };
+}
+
+addEventListener('resize',measure);
+Promise.all(Object.values(SHEET).map(([u])=>{const i=new Image;i.src=u;return i.decode().catch(()=>{})}))
+  .then(()=>document.fonts.ready).then(()=>{
+    measure();setActive(5,1);paint();requestAnimationFrame(frame);
+  });
+</script>
+</body>
+</html>

@@ -37,6 +37,7 @@ const LIVE_SRC: Record<string, string> = {
   blendy: "/kits/blendy/index.html",
   stride: "/kits/stride/index.html",
   jack: "/kits/jack/index.html",
+  zestwell: "/kits/zestwell/index.html",
 };
 
 export function localLivePreviewHtml(slug: string): string | null {
