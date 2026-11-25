@@ -30,5 +30,14 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "scripts", "jack-portfolio"]
+  "exclude": [
+    "node_modules",
+    "scripts",
+    "jack-portfolio",
+    "kv-freight",
+    "siteforge",
+    "academy-import",
+    "fernhollow",
+    "film"
+  ]
 }
