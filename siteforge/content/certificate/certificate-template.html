@@ -1,0 +1,49 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>תעודה</title>
+<style>
+:root{--bg:#070605;--card:#16120f;--line:#2a211b;--coral:#ff7a45;--cta:#ffb35c;--gold:#ffe0a8;--ink:#f5ede6;--sec:#b9a89b;--ter:#6f6259}
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1754px;height:1240px;background:var(--bg);font-family:Heebo,Assistant,sans-serif;color:var(--ink);overflow:hidden}
+.cert{position:relative;width:1754px;height:1240px;padding:70px;
+ background:radial-gradient(900px 600px at 88% 0%,rgba(255,122,69,.20),transparent 60%),radial-gradient(800px 600px at 5% 100%,rgba(255,179,92,.12),transparent 60%),var(--bg)}
+.frame{position:absolute;inset:44px;border:1.5px solid rgba(255,224,168,.35);border-radius:28px}
+.frame2{position:absolute;inset:60px;border:1px solid rgba(255,122,69,.25);border-radius:20px}
+.corner{position:absolute;width:90px;height:90px;border-color:var(--cta);border-style:solid;opacity:.8}
+.c1{top:36px;right:36px;border-width:3px 3px 0 0;border-radius:0 30px 0 0}.c2{top:36px;left:36px;border-width:3px 0 0 3px;border-radius:30px 0 0 0}
+.c3{bottom:36px;right:36px;border-width:0 3px 3px 0;border-radius:0 0 30px 0}.c4{bottom:36px;left:36px;border-width:0 0 3px 3px;border-radius:0 0 0 30px}
+.inner{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:60px 120px 40px}
+.kicker{font-family:"JetBrains Mono",monospace;letter-spacing:.42em;font-size:20px;color:var(--coral);font-weight:700}
+.medal{margin-top:34px}
+h1{font-size:88px;font-weight:900;margin-top:26px;line-height:1}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--gold),var(--cta) 45%,var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:30px;color:var(--sec);margin-top:26px}
+.name{font-size:96px;font-weight:800;margin-top:20px;padding:0 60px 14px;border-bottom:2px solid rgba(255,179,92,.55);color:#fff4dc}
+.course{font-size:34px;color:var(--sec);margin-top:30px;max-width:1200px;line-height:1.45}
+.course b{color:var(--gold);font-weight:800}
+.meta{position:absolute;bottom:60px;right:120px;left:120px;display:flex;justify-content:space-between;align-items:flex-end}
+.blk{text-align:right;min-width:330px}.blk.l{text-align:left}
+.blk .k{font-family:"JetBrains Mono",monospace;font-size:16px;letter-spacing:.28em;color:var(--ter)}
+.blk .v{font-size:28px;font-weight:700;margin-top:8px;color:var(--ink)}
+.blk .v.mono{direction:ltr;unicode-bidi:embed;font-family:"JetBrains Mono",monospace;font-size:24px;color:var(--cta);letter-spacing:.06em}
+.sig{text-align:center}.sig .line{width:330px;border-top:1.5px solid rgba(255,224,168,.5);margin:0 auto 10px}
+.sig .who{font-size:28px;font-weight:800}.sig .role{font-size:19px;color:var(--sec);margin-top:4px}
+.score{display:inline-block;margin-top:26px;font-size:22px;color:var(--bg);background:linear-gradient(90deg,var(--gold),var(--cta));padding:8px 26px;border-radius:999px;font-weight:800}
+.verify{direction:ltr;unicode-bidi:embed;font-size:17px;color:var(--ter);margin-top:6px;font-family:"JetBrains Mono",monospace}
+</style></head><body><div class="cert">
+<div class="frame"></div><div class="frame2"></div><div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+<div class="inner">
+ <div class="kicker">STUDIO OMEK · SITEFORGE · CERTIFICATE OF COMPLETION</div>
+ <svg class="medal" width="150" height="150" viewBox="-100 -100 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff4dc"/><stop offset=".5" stop-color="#ffd08a"/><stop offset="1" stop-color="#ff7a45"/></linearGradient></defs>
+  <polygon points="79.7,46.0 0.0,92.0 -79.7,46.0 -79.7,-46.0 -0.0,-92.0 79.7,-46.0" fill="url(#g)"/><circle r="72" fill="#0c0a09" stroke="#fff4dc" stroke-opacity=".6"/>
+  <g transform="translate(0 -4) scale(1.05)" fill="url(#g)" stroke="url(#g)"><path d="M-20 -30 H20 V-6 C20 8 10 16 0 16 C-10 16 -20 8 -20 -6Z" stroke-width="0"/><path d="M-20 -24 H-32 C-32 -8 -24 -4 -18 -4 M20 -24 H32 C32 -8 24 -4 18 -4" fill="none" stroke-width="5"/><path d="M0 16 V26 M-16 32 H16" stroke-width="7" stroke-linecap="round"/></g></svg>
+ <h1>תעודת <em>סיום</em></h1>
+ <div class="lead">מוענקת בזאת ל</div>
+ <div class="name">{{STUDENT_NAME}}</div>
+ <div class="course">על השלמת כל שלבי <b>{{COURSE_TITLE}}</b><br>ועמידה במבחן הסיום</div>
+ <div class="score">ציון: {{SCORE}}% · {{CORRECT}}/{{TOTAL}}</div>
+</div>
+<div class="meta">
+ <div class="blk"><div class="k">DATE</div><div class="v">{{DATE}}</div></div>
+ <div class="sig"><div class="line"></div><div class="who">אבישי רוזן</div><div class="role">סטודיו עומק · SiteForge</div></div>
+ <div class="blk l"><div class="k">CERTIFICATE ID</div><div class="v mono">{{CERT_ID}}</div><div class="verify">{{VERIFY_URL}}</div></div>
+</div>
+</div></body></html>
