@@ -53,7 +53,7 @@ export function ExamClient({
   const start = useCallback(async () => {
     const trimmed = name.trim();
     if (trimmed.length < 2 || trimmed.length > 40) {
-      setErr("שם מלא: 2–40 תווים");
+      setErr("שם מלא: 2 עד 40 תווים");
       return;
     }
     if (!/^[\u0590-\u05FFa-zA-Z\s'\-]+$/.test(trimmed)) {
@@ -117,7 +117,7 @@ export function ExamClient({
         }
       }
     } catch {
-      setErr("שגיאה בשליחה — נסו שוב");
+      setErr("שגיאה בשליחה, נסו שוב");
     } finally {
       setLoading(false);
     }

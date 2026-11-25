@@ -8,10 +8,19 @@ import type {
 import { ACADEMY_DEV_UNLOCK_ALL } from "./progress";
 
 const PASTE_LINE =
-  "📍 איפה מדביקים: בפאנל הסוכן של Cursor (Ctrl+I, מצב Agent) כשתיקיית הפרויקט פתוחה — או ב-Claude.";
+  "📍 איפה מדביקים: בפאנל הסוכן של Cursor (Ctrl+I, מצב Agent) כשתיקיית הפרויקט פתוחה, או ב-Claude.";
+
+/** Strip typographic makafim (— – ־) from visible copy. Number ranges → "עד". */
+export function deDash(s: string): string {
+  return s
+    .replace(/(\d)\s*[—–‐‑−]\s*(\d)/g, "$1 עד $2")
+    .replace(/\s*[—–־]\s*/g, " ")
+    .replace(/ {2,}/g, " ")
+    .trim();
+}
 
 export function shortLabel(title: string, max = 17): string {
-  const t = title.replace(/^🏅\s*/, "").trim();
+  const t = deDash(title.replace(/^🏅\s*/, "")).trim();
   if (t.length <= max) return t;
   const words = t.split(/\s+/);
   const lines: string[] = [""];
@@ -188,10 +197,10 @@ export function buildMapPayload(
       };
       return {
         id: m.id,
-        title: m.title,
-        week: m.week,
+        title: deDash(m.title),
+        week: m.week ? deDash(m.week) : m.week,
         medal: {
-          name: medal.name,
+          name: deDash(medal.name),
           icon: medal.icon || "star",
           tier: medal.tier ?? 0,
         },
@@ -213,14 +222,14 @@ export function buildMapPayload(
     kicker: isSites
       ? "SITEFORGE · COURSE 1 · ROADMAP"
       : "SITEFORGE · COURSE 2 · ROADMAP",
-    title: "מפת הדרך —",
+    title: "מפת הדרך",
     titleEm: isSites ? "קורס אתרים" : "קורס סוכנים",
     sub: isSites
-      ? "מאפס ועד שתי סגירות בחודש: דף נחיתה, באוויר, בגוגל — ושיחות שסוגרות."
-      : "ממושגים ראשונים ועד בוט הצעת מחיר מלא — לימוד עצמי, שלב אחרי שלב.",
+      ? "מאפס ועד שתי סגירות בחודש: דף נחיתה, באוויר, בגוגל, ושיחות שסוגרות."
+      : "ממושגים ראשונים ועד בוט הצעת מחיר מלא, לימוד עצמי, שלב אחרי שלב.",
     foot: isSites
-      ? "STAGES 1–50 · GATE AFTER STAGE 3 · LIVE"
-      : "STAGES 1–28 · FINAL GATE: AI BOT JUDGE · LIVE",
+      ? "STAGES 1 to 50 · GATE AFTER STAGE 3 · LIVE"
+      : "STAGES 1 to 28 · FINAL GATE: AI BOT JUDGE · LIVE",
     current: currentStageId,
     stats: [
       [modules.length, "מודולים"],
@@ -233,10 +242,12 @@ export function buildMapPayload(
     modules,
     bonusList: bonuses.map((b) => ({
       id: String(b.n).startsWith("B") ? String(b.n) : `B${b.n}`,
-      title: b.title,
+      stageId: b.id,
+      title: deDash(b.title),
       after: String(
         cores.find((c) => c.id === b.unlocks_after)?.n ?? b.unlocks_after ?? "?",
       ),
+      unlocksAfterId: b.unlocks_after ?? "",
     })),
     final: {
       questions: course.final_exam.questions,

@@ -12,7 +12,6 @@ import type { CourseId } from "../../lib/courses/types";
 type ServerData = {
   courseId: CourseId;
   title: string;
-  source: Record<string, string | undefined>;
   map: MapPayload;
   slugById: Record<string, string>;
   coreIds: string[];
@@ -88,28 +87,8 @@ export function CourseMapClient({ data }: { data: ServerData }) {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          {data.source.book_pdf && (
-            <a
-              href={data.source.book_pdf}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-[#ffb35c]/35 bg-[#241a0e] px-4 py-2 text-[12px] font-bold text-[#ffe0a8]"
-            >
-              PDF הספר ↗
-            </a>
-          )}
-          {data.source.decks_folder && (
-            <a
-              href={data.source.decks_folder}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-[#2a211b] bg-[#16120f] px-4 py-2 text-[12px] font-bold text-[#b9a89b]"
-            >
-              דקים ↗
-            </a>
-          )}
           <Link
-            href="/academy"
+            href="/#courses"
             className="rounded-full border border-[#2a211b] px-4 py-2 text-[12px] font-bold text-[#b9a89b]"
           >
             ← הקורסים שלי
@@ -127,9 +106,25 @@ export function CourseMapClient({ data }: { data: ServerData }) {
         allowAllLinks={ACADEMY_DEV_UNLOCK_ALL}
       />
 
-      <section className="mt-10">
-        <h3 className="text-lg font-extrabold text-[#ffe0a8]">מדליות</h3>
-        <div className="mt-3 flex flex-wrap gap-2">
+      <section className="relative mt-10 overflow-hidden rounded-[28px] border border-[#c4a574]/22 bg-[radial-gradient(ellipse_at_top_left,rgba(196,160,116,0.12),transparent_50%),#0a0908] p-5 sm:p-6">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="font-mono text-[10px] tracking-[0.28em] text-[#c4a574]/75 [direction:ltr] [text-align:right]">
+              PRIVATE COLLECTION
+            </p>
+            <h3 className="mt-1 text-xl font-extrabold text-[#e8c78a]">מדליות</h3>
+            <p className="mt-1.5 max-w-md text-[13px] text-[#7a6c60]">
+              אוסף תלת ממד · סובבו כל מדליה ביד בחדר המדליות
+            </p>
+          </div>
+          <Link
+            href={`/academy/medals?course=${data.courseId}`}
+            className="rounded-full bg-gradient-to-l from-[#c45a28] to-[#e8a05a] px-5 py-2.5 text-[13px] font-bold text-[#1a0e08] shadow-[0_10px_28px_rgba(196,90,40,0.28)] transition hover:brightness-110"
+          >
+            כניסה לחדר 3D ←
+          </Link>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-2.5">
           {data.medals.map((m) => {
             const mod = data.modules.find((x) => x.id === m.module);
             const earned =
@@ -138,17 +133,27 @@ export function CourseMapClient({ data }: { data: ServerData }) {
                 ? mod.stageIds.every((id) => completed.includes(id))
                 : false);
             return (
-              <span
+              <Link
                 key={m.id}
-                className={`rounded-full border px-3 py-1.5 text-[12px] ${
+                href={`/academy/medals?course=${data.courseId}`}
+                className={`inline-flex items-center gap-2.5 rounded-full px-3.5 py-2 text-[12px] font-semibold transition ${
                   earned
-                    ? "border-[#ffb35c]/50 bg-[#241a0e] text-[#ffe0a8]"
-                    : "border-[#2a211b] text-[#6f6259]"
+                    ? "bg-[linear-gradient(135deg,rgba(232,199,138,0.18),rgba(20,14,10,0.9))] text-[#ffe0a8] ring-1 ring-[#c4a574]/45 hover:ring-[#e8c78a]/75"
+                    : "bg-[#0c0a09] text-[#6f6259] ring-1 ring-[#1f1a16] hover:ring-[#2a2520]"
                 }`}
               >
-                {m.emoji} {m.name}
-                {!earned && " 🔒"}
-              </span>
+                <span
+                  className={`grid size-6 place-items-center rounded-full text-[10px] ${
+                    earned
+                      ? "bg-[conic-gradient(from_210deg,#ffe0a8,#8a5a28,#f0c14b,#5a3810,#ffe0a8)] text-[#1a1008]"
+                      : "bg-[#16120f] text-[#4a433c]"
+                  }`}
+                  aria-hidden
+                >
+                  {earned ? "★" : "◌"}
+                </span>
+                {m.name}
+              </Link>
             );
           })}
         </div>

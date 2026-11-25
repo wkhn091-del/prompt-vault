@@ -70,7 +70,7 @@ export function RewardShop({
           </div>
           <p className="mt-1.5 text-[12px] leading-relaxed text-white/45 [font-family:var(--font-heebo),sans-serif]">
             קונים עם <strong className="text-[#ffb35c]">נקודות</strong> ו־
-            <strong className="text-[#ffb08a]">מדליות</strong> מהקורס — לא בכסף
+            <strong className="text-[#ffb08a]">מדליות</strong> מהקורס, לא בכסף
             אמיתי.
           </p>
           <p className="mt-2 font-mono text-[11px] text-white/40">

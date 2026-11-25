@@ -1,13 +1,11 @@
-import {
-  isScriptId,
-  normalizeScriptId,
-  scriptSourceUrl,
-  vaultAcademyUrl,
-} from "../lib/vault-links";
+import type { ReactNode } from "react";
+import { deDash } from "../lib/courses/adapter";
+import { isScriptId, normalizeScriptId } from "../lib/vault-links";
+import { isBlockedExternalUrl } from "../lib/courses/stage-quiz";
 
 /** Lightweight markdown-ish renderer for stage section bodies (Hebrew RTL). */
 export function StageProse({ text }: { text: string }) {
-  const blocks = text.split(/\n\n+/);
+  const blocks = deDash(text).split(/\n\n+/);
   return (
     <div className="stage-prose" dir="rtl">
       {blocks.map((block, i) => {
@@ -54,30 +52,66 @@ export function StageProse({ text }: { text: string }) {
 }
 
 function ScriptLinks({ id }: { id: string }) {
-  const source = scriptSourceUrl(id);
+  // No Drive / external vault links — scripts live in-site via ScriptCard.
   return (
-    <span className="inline-flex flex-wrap items-center gap-1.5 align-middle">
-      <a
-        href={vaultAcademyUrl(id)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-mono text-[12px] font-semibold text-[#ffb35c] underline decoration-[#ff7a45]/40 underline-offset-2 hover:text-[#ffe0a8] [direction:ltr]"
-        title="פתח ב־Prompt Vault"
-      >
-        {id}
-      </a>
-      {source && (
-        <a
-          href={source}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-full border border-[#ffb35c]/35 px-2 py-0.5 text-[10px] font-bold text-[#ffe0a8] hover:bg-white/[0.05]"
-        >
-          סקריפט
-        </a>
-      )}
-    </span>
+    <code className="font-mono text-[12px] font-semibold text-[#ffb35c] [direction:ltr]">
+      {id}
+    </code>
   );
+}
+
+function ExtLink({ href, children }: { href: string; children: string }) {
+  // Course materials stay on this site — never surface Drive/Docs links.
+  if (isBlockedExternalUrl(href)) return null;
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="break-all font-mono text-[13px] font-semibold text-[#ffb35c] underline decoration-[#ffb35c]/40 underline-offset-2 hover:text-[#ffe0a8] [direction:ltr]"
+    >
+      {children}
+    </a>
+  );
+}
+
+/** Linkify markdown links + bare https URLs inside plain text. */
+function linkifyPlain(text: string, keyPrefix: string) {
+  const nodes: ReactNode[] = [];
+  // [label](url) OR bare https?://… (stop before Hebrew/whitespace/punctuation commonly trailing)
+  const re =
+    /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)|(https?:\/\/[^\s<>"')\]}،·]+)/gi;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let n = 0;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) {
+      nodes.push(
+        <span key={`${keyPrefix}-t${n++}`}>{text.slice(last, m.index)}</span>,
+      );
+    }
+    if (m[1] && m[2]) {
+      nodes.push(
+        <ExtLink key={`${keyPrefix}-a${n++}`} href={m[2]}>
+          {m[1]}
+        </ExtLink>,
+      );
+    } else if (m[3]) {
+      let url = m[3];
+      // trim trailing punctuation that isn't part of the URL
+      url = url.replace(/[.,;:!?)]+$/, "");
+      nodes.push(
+        <ExtLink key={`${keyPrefix}-u${n++}`} href={url}>
+          {url}
+        </ExtLink>,
+      );
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) {
+    nodes.push(<span key={`${keyPrefix}-e`}>{text.slice(last)}</span>);
+  }
+  return nodes.length ? nodes : text;
 }
 
 function Inline({ text }: { text: string }) {
@@ -90,12 +124,20 @@ function Inline({ text }: { text: string }) {
           if (isScriptId(inner)) {
             return <ScriptLinks key={i} id={normalizeScriptId(inner)} />;
           }
+          // Still linkify URLs inside backticks (RESOURCES often wraps them)
+          if (/^https?:\/\//i.test(inner)) {
+            return <ExtLink key={i} href={inner}>{inner}</ExtLink>;
+          }
           return <code key={i}>{inner}</code>;
         }
         if (part.startsWith("**") && part.endsWith("**")) {
-          return <strong key={i}>{part.slice(2, -2)}</strong>;
+          return (
+            <strong key={i}>
+              {linkifyPlain(part.slice(2, -2), `b${i}`)}
+            </strong>
+          );
         }
-        return <span key={i}>{part}</span>;
+        return <span key={i}>{linkifyPlain(part, `p${i}`)}</span>;
       })}
     </>
   );

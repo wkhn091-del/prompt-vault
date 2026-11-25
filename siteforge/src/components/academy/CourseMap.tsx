@@ -26,7 +26,13 @@ export type MapPayload = {
       bonus: { id: string; label: string }[];
     }[];
   }[];
-  bonusList: { id: string; title: string; after: string }[];
+  bonusList: {
+    id: string;
+    stageId: string;
+    title: string;
+    after: string;
+    unlocksAfterId: string;
+  }[];
   final: { questions: number; pass: number };
 };
 
@@ -835,27 +841,106 @@ export function CourseMap({
       </ol>
 
       {map.bonusList.length > 0 && (
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          {map.bonusList.map((b) => (
-            <div
-              key={b.id}
-              className="flex items-center gap-3 rounded-[14px] border border-dashed border-[#ffb35c]/45 bg-[#16120f] px-4 py-3"
-            >
-              <code className="grid size-11 place-items-center rounded-full border-[1.5px] border-dashed border-[#ffb35c] font-mono text-[14px] font-bold text-[#ffb35c]">
-                {b.id}
-              </code>
-              <div>
-                <b className="text-[14px] text-[#f5ede6]">{b.title}</b>
-                <small className="mt-0.5 block text-[12px] text-[#6f6259]">
-                  נפתח אחרי שלב {b.after} · לא חובה
-                </small>
-              </div>
+        <section className="bonus-atelier relative mt-12 overflow-hidden rounded-[28px] border border-[#c4a574]/22 bg-[radial-gradient(ellipse_at_top,rgba(196,160,116,0.1),transparent_55%),linear-gradient(180deg,#14110e_0%,#0a0908_100%)] p-5 sm:p-7">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-l from-transparent via-[#c4a574]/55 to-transparent"
+          />
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="font-mono text-[10px] tracking-[0.3em] text-[#c4a574]/75 [direction:ltr] [text-align:right]">
+                ATELIER · OPTIONAL
+              </p>
+              <h2 className="mt-1.5 text-2xl font-extrabold tracking-tight text-[#e8c78a] sm:text-[1.75rem]">
+                בונוסים
+              </h2>
             </div>
-          ))}
-        </div>
+            <p className="max-w-xs text-[12px] leading-relaxed text-[#7a6c60]">
+              מסלול משני · נפתח לפי התקדמות · לא חובה לסיום
+            </p>
+          </div>
+
+          <div className="grid gap-3.5 sm:grid-cols-2">
+            {map.bonusList.map((b) => {
+              const open =
+                allowAllLinks ||
+                !b.unlocksAfterId ||
+                doneSet.has(b.unlocksAfterId);
+              const slug = slugById[b.stageId];
+              const href =
+                open && slug ? stageHref(courseId, slug) : null;
+              const body = (
+                <>
+                  <span
+                    className={`relative grid size-[3.25rem] shrink-0 place-items-center rounded-full font-mono text-[14px] font-bold tracking-wide ${
+                      open
+                        ? "bg-[conic-gradient(from_210deg,#ffe0a8,#8a5a28,#f0c14b,#5a3810,#ffe0a8)] text-[#1a1008] shadow-[0_8px_24px_rgba(196,160,116,0.25)]"
+                        : "bg-[#16120f] text-[#4a433c] ring-1 ring-[#2a2520]"
+                    }`}
+                  >
+                    <span
+                      className={`grid size-[2.55rem] place-items-center rounded-full ${
+                        open
+                          ? "bg-[linear-gradient(160deg,#2a1c10,#120e0a)] text-[#f0c14b]"
+                          : "bg-[#0c0a09] text-[#5a524a]"
+                      }`}
+                    >
+                      {b.id}
+                    </span>
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span
+                      className={`block text-[14px] font-bold leading-snug sm:text-[15px] ${
+                        open ? "text-[#f7efe6]" : "text-[#6f6259]"
+                      }`}
+                    >
+                      {b.title}
+                    </span>
+                    <span
+                      className={`mt-1.5 block font-mono text-[11px] tracking-[0.04em] ${
+                        open ? "text-[#c4a574]/85" : "text-[#4a433c]"
+                      }`}
+                    >
+                      {open
+                        ? `OPEN · AFTER STAGE ${b.after}`
+                        : `LOCKED · AFTER STAGE ${b.after}`}
+                    </span>
+                  </span>
+                  <span
+                    className={`hidden size-8 shrink-0 place-items-center rounded-full sm:grid ${
+                      open
+                        ? "bg-[#c4a574]/15 text-[#e8c78a]"
+                        : "bg-transparent text-[#3a342e]"
+                    }`}
+                    aria-hidden
+                  >
+                    {open ? "→" : "◌"}
+                  </span>
+                </>
+              );
+
+              const shell =
+                "group relative flex items-center gap-4 overflow-hidden rounded-[20px] px-4 py-4 transition duration-300";
+
+              const surface = open
+                ? "border border-[#c4a574]/40 bg-[linear-gradient(135deg,rgba(232,199,138,0.12)_0%,rgba(18,14,10,0.95)_42%,#0a0908_100%)] shadow-[inset_0_1px_0_rgba(255,230,180,0.12),0_14px_40px_rgba(0,0,0,0.4)] hover:-translate-y-1 hover:border-[#e8c78a]/70 hover:shadow-[inset_0_1px_0_rgba(255,230,180,0.18),0_22px_50px_rgba(0,0,0,0.5),0_0_32px_rgba(196,160,116,0.14)]"
+                : "border border-[#1c1814] bg-[#0c0a09]/85";
+
+              return href ? (
+                <Link key={b.id} href={href} className={`${shell} ${surface}`}>
+                  {body}
+                </Link>
+              ) : (
+                <div key={b.id} className={`${shell} ${surface}`}>
+                  {body}
+                </div>
+              );
+            })}
+          </div>
+        </section>
       )}
 
-      <div className="mt-4 flex justify-between font-mono text-[11px] tracking-[0.18em] text-[#6f6259]">
+      <div className="mt-8 flex justify-between border-t border-[#1f1a16] pt-4 font-mono text-[11px] tracking-[0.18em] text-[#5a524a]">
         <span>{map.foot}</span>
         <span>STUDIO OMEK · SITEFORGE</span>
       </div>

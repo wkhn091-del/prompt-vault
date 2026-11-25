@@ -6,12 +6,9 @@ import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
-  ArrowUpRight,
   BookOpen,
   CheckCircle2,
   ClipboardList,
-  ExternalLink,
-  FileText,
   Lock,
   ScrollText,
   Target,
@@ -26,12 +23,7 @@ import {
   saveProgress,
   type ProgressState,
 } from "../lib/progress";
-import {
-  getScriptMeta,
-  PROMPT_VAULT_ORIGIN,
-  scriptSourceUrl,
-  vaultAcademyUrl,
-} from "../lib/vault-links";
+import { getScriptMeta } from "../lib/vault-links";
 
 type Section = { heading: string; body: string };
 
@@ -193,26 +185,18 @@ export function StageRoom(props: Props) {
           <div className="space-y-4">
             {props.scriptIds.length === 0 && !scriptsSec?.body ? (
               <p className="text-[14px] text-white/50">
-                בשלב זה אין סקריפט מהמאגר — תרגול בלבד.
+                בשלב זה אין סקריפט מהמאגר. תרגול בלבד.
               </p>
             ) : (
               <>
-                <a
-                  href={PROMPT_VAULT_ORIGIN}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#ffb08a] hover:underline"
-                >
-                  Prompt Vault
-                  <ExternalLink className="size-3.5" />
-                </a>
+                <p className="text-[12px] text-[#ffb08a]">
+                  הסקריפטים באתר · מעתיקים מהכרטיס ומשתמשים בשיעור
+                </p>
 
                 {props.scriptIds.length > 0 && (
                   <div className="space-y-3">
                     {props.scriptIds.map((id) => {
                       const meta = getScriptMeta(id);
-                      const source = scriptSourceUrl(id);
-                      const academy = vaultAcademyUrl(id);
                       return (
                         <div
                           key={id}
@@ -222,36 +206,13 @@ export function StageRoom(props: Props) {
                             {id}
                           </p>
                           <p className="mt-1 text-[13px] text-white/70 [font-family:var(--font-heebo),sans-serif]">
-                            {meta?.title ??
-                              "סקריפט מ־Prompt Vault / Academy"}
+                            {meta?.title ?? "סקריפט באתר"}
                           </p>
                           {meta?.courseTitle && (
                             <p className="mt-0.5 text-[11px] text-white/40">
                               {meta.courseTitle}
                             </p>
                           )}
-                          <div className="mt-3 flex flex-wrap gap-2">
-                            <a
-                              href={academy}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ff7a45] to-[#ffb35c] px-3.5 text-[12px] font-bold text-[#1a0e08]"
-                            >
-                              פתח ב־Prompt Vault
-                              <ArrowUpRight className="size-3.5" />
-                            </a>
-                            {source && (
-                              <a
-                                href={source}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-[#ffb35c]/35 bg-white/[0.04] px-3.5 text-[12px] font-bold text-[#ffe0a8]"
-                              >
-                                <FileText className="size-3.5" />
-                                הסקריפט / Drive
-                              </a>
-                            )}
-                          </div>
                         </div>
                       );
                     })}

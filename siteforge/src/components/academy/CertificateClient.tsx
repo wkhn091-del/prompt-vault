@@ -98,7 +98,7 @@ export function CertificateClient({
         pdf.save(`SiteForge-${courseId}-${data.certId}.pdf`);
       }
     } catch {
-      setMsg("ההורדה נכשלה — נסו שוב בדפדפן אחר");
+      setMsg("ההורדה נכשלה, נסו שוב בדפדפן אחר");
     } finally {
       setBusy(false);
     }

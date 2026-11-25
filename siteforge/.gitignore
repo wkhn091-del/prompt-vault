@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/public/medals/_src/
+*.png
+*.zip
+/siteforge/
+/_pkg_v2/
+

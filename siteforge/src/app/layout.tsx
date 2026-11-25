@@ -35,7 +35,7 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "SiteForge — מחשב אפס → אתרים מטורפים",
+  title: "SiteForge מחשב אפס → אתרים מטורפים",
   description:
     "ספר לימוד אינטראקטיבי: 100 שלבים, מדליות, פרויקטים ומבחני שער. אותו DNA ויזואלי כמו Prompt Vault.",
   robots: { index: false, follow: false },
@@ -52,8 +52,9 @@ export default function RootLayout({
     >
       <head>
         <meta name="robots" content="noindex" />
+        <link rel="preconnect" href="https://images.higgs.ai" />
       </head>
-      <body className="min-h-full overflow-x-clip bg-[#070605] text-white antialiased">
+      <body className="min-h-full bg-[#070605] text-white antialiased">
         {children}
       </body>
     </html>

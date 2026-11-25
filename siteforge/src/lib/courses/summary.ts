@@ -1,5 +1,10 @@
 import type { CourseId, RawCourse, RawStage } from "./types";
-import { buildMapPayload, coreStages, bonusStages } from "./adapter";
+import {
+  buildMapPayload,
+  coreStages,
+  bonusStages,
+  deDash,
+} from "./adapter";
 
 /** Lightweight stage payload for lesson pages (no other stages' bodies). */
 export type StageLessonPayload = {
@@ -37,12 +42,12 @@ export function stageLessonPayload(
     id: stage.id,
     slug: stage.slug,
     n: stage.n,
-    title: stage.title,
+    title: deDash(stage.title),
     module: stage.module,
-    moduleTitle: mod?.title ?? stage.module,
+    moduleTitle: deDash(mod?.title ?? stage.module),
     bonus: stage.bonus,
     unlocks_after: stage.unlocks_after,
-    goal: stage.goal,
+    goal: stage.goal ? deDash(stage.goal) : stage.goal,
     body_md: stage.body_md,
     scripts: stage.scripts.map((s) => ({
       id: s.id,
@@ -64,15 +69,14 @@ export function courseMapServerData(course: RawCourse, current: string) {
   for (const s of course.stages) slugById[s.id] = s.slug;
   return {
     courseId: course.id as CourseId,
-    title: course.title,
-    source: course.source,
+    title: deDash(course.title),
     map,
     slugById,
     coreIds: coreStages(course).map((s) => s.id),
     bonusCount: bonusStages(course).length,
     medals: course.medals.map((m) => ({
       id: m.id,
-      name: m.name,
+      name: deDash(m.name),
       emoji: m.emoji,
       module: m.module,
       icon: m.icon,
@@ -82,8 +86,8 @@ export function courseMapServerData(course: RawCourse, current: string) {
       .filter((m) => m.id !== "B")
       .map((m) => ({
         id: m.id,
-        title: m.title,
-        week: m.week,
+        title: deDash(m.title),
+        week: m.week ? deDash(m.week) : m.week,
         stageIds: m.stages,
       })),
   };

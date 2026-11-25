@@ -41,6 +41,31 @@ export function saveCourseProgress(progress: CourseProgress) {
   writeStore(store);
 }
 
+/** Minimum score to unlock the next stage after a stage quiz. */
+export const STAGE_QUIZ_PASS_PERCENT = 80;
+
+export function quizPercent(correct: number, total: number): number {
+  if (total <= 0) return 100;
+  return Math.round((correct / total) * 100);
+}
+
+export function isQuizPassing(correct: number, total: number): boolean {
+  return quizPercent(correct, total) >= STAGE_QUIZ_PASS_PERCENT;
+}
+
+export function markQuizPassed(
+  courseId: CourseId,
+  stageId: string,
+): CourseProgress {
+  const p = loadCourseProgress(courseId);
+  const list = p.quizPassed ?? [];
+  if (!list.includes(stageId)) {
+    p.quizPassed = [...list, stageId];
+    saveCourseProgress(p);
+  }
+  return p;
+}
+
 export function completeStage(
   courseId: CourseId,
   stageId: string,
@@ -52,6 +77,10 @@ export function completeStage(
   }
   if (nextCoreId) p.current = nextCoreId;
   saveCourseProgress(p);
+  // Wallet notify so header coins refresh even if award runs next
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("siteforge-wallet"));
+  }
   return p;
 }
 
@@ -72,5 +101,5 @@ export function markExamPassed(
   return p;
 }
 
-/** Dev: open all for browsing maps */
+/** Dev: open all stages + medals (bypasses locks). Quiz 80% gate still applies to mark a stage complete. */
 export const ACADEMY_DEV_UNLOCK_ALL = true;

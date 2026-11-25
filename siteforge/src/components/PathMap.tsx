@@ -196,7 +196,7 @@ export function PathMap({ tracks, stages }: Props) {
               type="button"
               onClick={() => setShopOpen(true)}
               className="inline-flex items-center gap-1 rounded-full border border-[#ffb35c]/35 bg-gradient-to-r from-[#ff7a45]/20 to-[#ffb35c]/15 px-2.5 py-1 text-[12px] font-bold text-[#ffe0a8] hover:brightness-110"
-              title="חנות אנימציות — נקודות ומדליות מהקורס"
+              title="חנות אנימציות, נקודות ומדליות מהקורס"
             >
               <Gift className="size-3.5" />
               חנות
@@ -242,7 +242,7 @@ export function PathMap({ tracks, stages }: Props) {
                 boxShadow: "inset 0 2px 6px rgba(0,0,0,0.15)",
               }}
             >
-              {trackDone}/{trackStages.length || "—"}
+              {trackDone}/{trackStages.length || 0}
             </div>
             <div className="relative min-w-0 flex-1 text-right">
               <p className="text-[11px] font-bold tracking-wide text-[#1a0e08]/60">

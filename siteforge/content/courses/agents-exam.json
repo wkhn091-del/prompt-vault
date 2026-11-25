@@ -1,7 +1,7 @@
 {
  "course": "agents",
  "id": "agents-final-exam",
- "title": "מבחן סיום — קורס סוכנים",
+ "title": "מבחן סיום קורס סוכנים",
  "pass_percent": 80,
  "pass_min_correct": 16,
  "question_count": 20,

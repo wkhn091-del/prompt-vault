@@ -94,6 +94,14 @@ export type CourseProgress = {
   /** Completed core stage ids */
   completed: string[];
   current: string;
+  /** Stage ids where stage quiz scored ≥80% */
+  quizPassed?: string[];
+  /** Wallet — collected in lessons, spent later in shop */
+  coins?: number;
+  /** Stages that already paid out coins (no double-award) */
+  coinStages?: string[];
+  /** Medal ids unlocked */
+  medals?: string[];
   examPassed?: boolean;
   examScore?: number;
   examPercent?: number;

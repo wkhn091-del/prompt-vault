@@ -1,7 +1,7 @@
 {
  "course": "sites",
  "id": "sites-final-exam",
- "title": "מבחן סיום — קורס אתרים",
+ "title": "מבחן סיום קורס אתרים",
  "pass_percent": 80,
  "pass_min_correct": 16,
  "question_count": 20,
