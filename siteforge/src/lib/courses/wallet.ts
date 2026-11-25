@@ -38,7 +38,9 @@ export function isMedalEarned(
 export function awardStageCompletion(
   courseId: CourseId,
   stageId: string,
-  course: Pick<RawCourse, "modules">,
+  course: {
+    modules: Array<{ id: string; medal: string; stages: string[] }>;
+  },
 ): { coinsGained: number; newMedals: string[] } {
   const p = loadCourseProgress(courseId);
   const paid = p.coinStages ?? [];

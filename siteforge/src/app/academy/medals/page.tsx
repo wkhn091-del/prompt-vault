@@ -18,7 +18,7 @@ function medalGlbUrl(courseId: string, medalId: string): string | null {
     path.join(process.cwd(), "public", "medals", `${medalId}.glb`),
   ];
   for (const file of candidates) {
-    if (fs.existsSync(file)) {
+    if (fs.existsSync(/*turbopackIgnore: true*/ file)) {
       const rel = path.relative(path.join(process.cwd(), "public"), file);
       return `/${rel.split(path.sep).join("/")}?v=6`;
     }
