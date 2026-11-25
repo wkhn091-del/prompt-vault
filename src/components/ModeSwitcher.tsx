@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ChevronDown } from "lucide-react";
-import { ACADEMY_URL } from "@/lib/academy-url";
-
 export type AppMode =
   | "stats"
   | "tools"
@@ -17,6 +15,7 @@ type ModeSwitcherProps = {
   active: AppMode;
 };
 
+/** /go/academy carries the Vault session into SiteForge (no second login). */
 const OPTIONS: { id: AppMode; label: string; href: string; external?: boolean }[] =
   [
     { id: "stats", label: "Home", href: "/" },
@@ -24,7 +23,7 @@ const OPTIONS: { id: AppMode; label: string; href: string; external?: boolean }[
     { id: "websites", label: "Sites", href: "/websites" },
     { id: "animations", label: "Animations", href: "/animations" },
     { id: "backgrounds", label: "Backgrounds", href: "/backgrounds" },
-    { id: "learn", label: "לימודים", href: ACADEMY_URL, external: true },
+    { id: "learn", label: "לימודים", href: "/go/academy" },
   ];
 
 export function BackHomeButton() {
@@ -82,35 +81,19 @@ export function ModeSwitcher({ active }: ModeSwitcherProps) {
             role="menu"
             className="absolute right-0 top-[calc(100%+6px)] z-[70] min-w-[148px] overflow-hidden rounded-xl border border-white/[0.1] bg-[#141416] py-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.9)]"
           >
-            {OPTIONS.map((opt) =>
-              opt.external ? (
-                <a
-                  key={opt.id}
-                  href={opt.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  role="menuitem"
-                  onClick={() => setOpen(false)}
-                  className={`flex w-full px-3.5 py-2 text-left text-[12px] font-medium transition hover:bg-white/[0.06] ${
-                    opt.id === active ? "text-white" : "text-white/50"
-                  }`}
-                >
-                  {opt.label}
-                </a>
-              ) : (
-                <Link
-                  key={opt.id}
-                  href={opt.href}
-                  role="menuitem"
-                  onClick={() => setOpen(false)}
-                  className={`flex w-full px-3.5 py-2 text-left text-[12px] font-medium transition hover:bg-white/[0.06] ${
-                    opt.id === active ? "text-white" : "text-white/50"
-                  }`}
-                >
-                  {opt.label}
-                </Link>
-              ),
-            )}
+            {OPTIONS.map((opt) => (
+              <Link
+                key={opt.id}
+                href={opt.href}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className={`flex w-full px-3.5 py-2 text-left text-[12px] font-medium transition hover:bg-white/[0.06] ${
+                  opt.id === active ? "text-white" : "text-white/50"
+                }`}
+              >
+                {opt.label}
+              </Link>
+            ))}
           </div>
         )}
       </div>

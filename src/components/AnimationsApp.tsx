@@ -18,7 +18,6 @@ import {
 } from "@/lib/live-registry";
 import type { PromptDTO } from "@/lib/types";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
-import { ACADEMY_URL } from "@/lib/academy-url";
 import { ModeSwitcher } from "./ModeSwitcher";
 import { PreviewModal } from "./PreviewModal";
 import { SiteHeader } from "./SiteHeader";
@@ -514,7 +513,7 @@ function KitCard({
           <p className="mt-1 text-[11px] text-white/40">
             {adminFree
               ? "Unlocked for admin"
-              : `Earn coins in לימודים · ${ACADEMY_URL.replace(/^https?:\/\//, "")}`}
+              : "Earn coins in לימודים"}
           </p>
         </div>
 

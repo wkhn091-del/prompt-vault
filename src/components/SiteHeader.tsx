@@ -5,6 +5,7 @@ import { Search } from "lucide-react";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { AccountMenu } from "./AccountMenu";
 import { BrandLogo } from "./BrandLogo";
+import { MobileNav } from "./MobileNav";
 
 type SiteHeaderProps = {
   active?:
@@ -43,11 +44,19 @@ export function SiteHeader({
   );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-black/85 backdrop-blur-2xl">
-      <div className="mx-auto flex h-[68px] max-w-[1400px] items-center gap-5 px-4 sm:h-[72px] sm:px-6 lg:px-8">
-        <Link href="/" className="group flex shrink-0 items-center gap-2.5">
-          <BrandLogo size={32} priority className="shadow-[0_0_0_1px_rgba(255,255,255,0.12)]" />
-          <span className="text-[16px] font-medium tracking-[-0.02em] text-white lowercase">
+    <>
+    <header
+      className="sticky top-0 z-40 border-b border-white/[0.06] bg-black/95 backdrop-blur-md"
+      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+    >
+      <div className="mobile-pad-x mx-auto flex h-[52px] max-w-[1400px] items-center gap-2.5 sm:h-[72px] sm:gap-5 sm:px-6 lg:px-8">
+        <Link href="/" className="group flex min-w-0 shrink-0 items-center gap-2 sm:gap-2.5">
+          <BrandLogo
+            size={32}
+            priority
+            className="size-7 shadow-[0_0_0_1px_rgba(255,255,255,0.12)] sm:size-8"
+          />
+          <span className="truncate text-[14px] font-medium tracking-[-0.02em] text-white lowercase sm:text-[16px]">
             promptvault
           </span>
         </Link>
@@ -91,7 +100,13 @@ export function SiteHeader({
                 : "font-medium text-white/45 hover:text-white/80"
             }`}
           >
-            Academy
+            Sites
+          </Link>
+          <Link
+            href="/go/academy"
+            className="rounded-full px-3.5 py-2 text-[14px] font-medium text-white/45 transition hover:text-white/80"
+          >
+            לימודים
           </Link>
           <Link
             href="/mcp"
@@ -123,7 +138,7 @@ export function SiteHeader({
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2.5 xl:ml-3">
+        <div className="ml-auto flex items-center gap-2 xl:ml-3">
           {showSearch && (
             <div className="relative hidden sm:block">
               <Search className="pointer-events-none absolute left-3.5 top-1/2 size-3.5 -translate-y-1/2 text-white/35" />
@@ -136,20 +151,10 @@ export function SiteHeader({
             </div>
           )}
 
-          {!showSearch && (
-            <button
-              type="button"
-              aria-label="Search"
-              className="hidden size-10 items-center justify-center rounded-full text-white/50 transition hover:bg-white/[0.06] hover:text-white sm:inline-flex"
-            >
-              <Search className="size-4" />
-            </button>
-          )}
-
           {rightAction ?? (
             <Link
               href="/mcp"
-              className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full border border-white/[0.12] bg-white/[0.04] px-3 text-[12px] font-medium text-white/85 transition hover:bg-white/[0.08] hover:text-white"
+              className="hidden h-9 shrink-0 items-center whitespace-nowrap rounded-full border border-white/[0.12] bg-white/[0.04] px-3 text-[12px] font-medium text-white/85 transition hover:bg-white/[0.08] hover:text-white sm:inline-flex"
             >
               Connect MCP
             </Link>
@@ -158,6 +163,23 @@ export function SiteHeader({
           <AccountMenu />
         </div>
       </div>
+
+      {showSearch && (
+        <div className="mobile-pad-x border-t border-white/[0.05] pb-2.5 pt-2 sm:hidden">
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-white/35" />
+            <input
+              value={searchValue}
+              onChange={(e) => onSearchChange?.(e.target.value)}
+              placeholder="Search prompts…"
+              enterKeyHint="search"
+              className="h-11 w-full rounded-full border border-white/[0.1] bg-white/[0.04] py-2 pl-11 pr-4 text-[16px] text-white outline-none transition placeholder:text-white/30 focus:border-white/22 focus:bg-white/[0.07]"
+            />
+          </div>
+        </div>
+      )}
     </header>
+    <MobileNav active={active === "login" ? "sites" : active} />
+    </>
   );
 }

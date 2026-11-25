@@ -31,7 +31,6 @@ export function Shell({
           </Link>
 
           <div className="ms-auto flex items-center gap-1.5 sm:gap-2">
-            <AuthBar />
             <WalletBar />
             <nav className="flex items-center gap-1">
               <Link
@@ -65,6 +64,7 @@ export function Shell({
                 מדליות
               </Link>
             </nav>
+            <AuthBar />
           </div>
         </div>
       </header>

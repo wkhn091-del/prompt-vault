@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { AuthBar } from "../auth/AuthBar";
 import {
   FACADE_S,
   LEDGE_LUT,
@@ -472,6 +473,7 @@ export function NocheVivaHero({ courses }: { courses: CourseCard[] }) {
 
   return (
     <>
+      <AuthBar floating />
       <div className="nv-track" ref={trackRef}>
         <main className="nv-hero" ref={heroRef}>
           <div className="nv-world" aria-hidden>
