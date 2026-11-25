@@ -63,12 +63,15 @@ type OAuthProvidersProps = {
   forceShow?: boolean;
   /** Hide the “or continue with” rule (when OAuth is the primary action). */
   hideDivider?: boolean;
+  /** Return false to abort OAuth (e.g. missing name/phone). */
+  onBeforeStart?: () => boolean;
 };
 
 export function OAuthProviders({
   nextPath = "/",
   forceShow = false,
   hideDivider = false,
+  onBeforeStart,
 }: OAuthProvidersProps) {
   const [busy, setBusy] = useState<OAuthProviderId | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -79,6 +82,9 @@ export function OAuthProviders({
 
   async function onClick(id: OAuthProviderId) {
     setError(null);
+    if (onBeforeStart && !onBeforeStart()) {
+      return;
+    }
     setBusy(id);
     try {
       const result = await signInWithOAuthProvider(id, nextPath);
@@ -97,10 +103,10 @@ export function OAuthProviders({
     <div className="space-y-2.5" data-oauth-ready="true">
       {!hideDivider && (
         <div className="relative py-1 text-center">
-          <span className="relative z-10 bg-[var(--login-panel-bg,#0c0b0a)] px-3 font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[#c4a574]/55">
+          <span className="relative z-10 bg-[var(--login-panel-bg,#0c0b0a)] px-3 font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[#d4af7a]/55">
             or continue with
           </span>
-          <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-[#c4a574]/25 to-transparent" />
+          <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-[#d4af7a]/25 to-transparent" />
         </div>
       )}
       {OAUTH_PROVIDERS.map((provider) => (
@@ -116,7 +122,7 @@ export function OAuthProviders({
         </button>
       ))}
       {error && (
-        <p className="rounded-2xl border border-[#c4a574]/25 bg-[#c4a574]/10 px-3 py-2 text-[12px] leading-relaxed text-[#f0e6d4]">
+        <p className="rounded-2xl border border-[#d4af7a]/25 bg-[#d4af7a]/10 px-3 py-2 text-[12px] leading-relaxed text-[#f0e6d4]">
           {error}
         </p>
       )}

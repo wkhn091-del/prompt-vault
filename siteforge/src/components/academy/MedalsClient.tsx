@@ -5,10 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { CourseId } from "../../lib/courses/types";
-import {
-  ACADEMY_DEV_UNLOCK_ALL,
-  loadCourseProgress,
-} from "../../lib/courses/progress";
+import { loadCourseProgress } from "../../lib/courses/progress";
 import {
   COINS_MEDAL_BONUS,
   COINS_PER_STAGE,
@@ -16,6 +13,7 @@ import {
   WALLET_EVENT,
 } from "../../lib/courses/wallet";
 import { courseHref } from "../../lib/courses/adapter";
+import { useAuth } from "../auth/AuthProvider";
 import type { RoomMedal } from "./medals/MedalsRoom";
 import { GoldCoin } from "./GoldCoin";
 
@@ -57,6 +55,7 @@ export function MedalsClient({
   initialCourse: CourseId;
 }) {
   const router = useRouter();
+  const { unlockAll } = useAuth();
   const [tab, setTab] = useState<CourseId>(initialCourse);
   const [tick, setTick] = useState(0);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -80,7 +79,7 @@ export function MedalsClient({
   const coins = courseCoins(active.courseId);
 
   function earned(m: MedalCardData) {
-    if (ACADEMY_DEV_UNLOCK_ALL) return true;
+    if (unlockAll) return true;
     if (progress.medals?.includes(m.id)) return true;
     return m.stageIds.every((id) => progress.completed.includes(id));
   }

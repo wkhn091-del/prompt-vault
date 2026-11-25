@@ -4,8 +4,9 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { MedalShowcaseData } from "../../../lib/courses/medal-showcase";
-import { ACADEMY_DEV_UNLOCK_ALL, loadCourseProgress } from "../../../lib/courses/progress";
+import { loadCourseProgress } from "../../../lib/courses/progress";
 import { courseHref } from "../../../lib/courses/adapter";
+import { useAuth } from "../../auth/AuthProvider";
 
 const MedalSolo = dynamic(
   () => import("./MedalSolo").then((m) => m.MedalSolo),
@@ -20,12 +21,13 @@ const MedalSolo = dynamic(
 );
 
 export function MedalShowcase({ data }: { data: MedalShowcaseData }) {
+  const { unlockAll } = useAuth();
   const progress = useMemo(
     () => loadCourseProgress(data.courseId),
     [data.courseId],
   );
   const open =
-    ACADEMY_DEV_UNLOCK_ALL ||
+    unlockAll ||
     Boolean(progress.medals?.includes(data.medal.id)) ||
     (data.skills.length > 0 &&
       data.skills.every((s) => progress.completed.includes(s.id)));

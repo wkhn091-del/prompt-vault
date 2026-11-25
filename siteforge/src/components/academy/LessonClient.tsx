@@ -11,11 +11,11 @@ import {
   completeStage,
   loadCourseProgress,
   markQuizPassed,
-  ACADEMY_DEV_UNLOCK_ALL,
   STAGE_QUIZ_PASS_PERCENT,
 } from "../../lib/courses/progress";
 import { awardStageCompletion } from "../../lib/courses/wallet";
 import { courseHref, stageHref } from "../../lib/courses/adapter";
+import { useAuth } from "../auth/AuthProvider";
 
 type GateInfo = {
   scriptsGateStage?: string;
@@ -42,6 +42,7 @@ export function LessonClient({
   modules: { id: string; medal: string; stages: string[] }[];
 }) {
   const router = useRouter();
+  const { unlockAll } = useAuth();
   const [ready, setReady] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
   const [showScripts, setShowScripts] = useState(false);
@@ -54,7 +55,7 @@ export function LessonClient({
   useEffect(() => {
     const p = loadCourseProgress(courseId);
     const completed = p.completed;
-    let ok = ACADEMY_DEV_UNLOCK_ALL;
+    let ok = unlockAll;
     if (!ok) {
       if (gate.isBonus) {
         ok = gate.unlocksAfter
@@ -78,14 +79,14 @@ export function LessonClient({
       : -1;
     const stageIdx = gate.coreIds.indexOf(gate.stageId);
     const scriptsOk =
-      ACADEMY_DEV_UNLOCK_ALL ||
+      unlockAll ||
       gate.isBonus ||
       gateIdx < 0 ||
       (stageIdx >= gateIdx &&
         (completed.includes(gate.scriptsGateStage!) || stageIdx >= gateIdx));
     setShowScripts(scriptsOk);
     setReady(true);
-  }, [courseId, gate]);
+  }, [courseId, gate, unlockAll]);
 
   const onQuizPass = useCallback(
     (_percent: number) => {

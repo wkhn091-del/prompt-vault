@@ -3,11 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CourseMap, type MapPayload } from "./CourseMap";
-import {
-  loadCourseProgress,
-  ACADEMY_DEV_UNLOCK_ALL,
-} from "../../lib/courses/progress";
+import { loadCourseProgress } from "../../lib/courses/progress";
 import type { CourseId } from "../../lib/courses/types";
+import { useAuth } from "../auth/AuthProvider";
 
 type ServerData = {
   courseId: CourseId;
@@ -32,6 +30,7 @@ type ServerData = {
 };
 
 export function CourseMapClient({ data }: { data: ServerData }) {
+  const { unlockAll } = useAuth();
   const [ready, setReady] = useState(false);
   const [completed, setCompleted] = useState<string[]>([]);
   const [current, setCurrent] = useState(data.map.current);
@@ -50,8 +49,7 @@ export function CourseMapClient({ data }: { data: ServerData }) {
   }, [data.courseId, data.coreIds]);
 
   const examUnlocked =
-    ACADEMY_DEV_UNLOCK_ALL ||
-    data.coreIds.every((id) => completed.includes(id));
+    unlockAll || data.coreIds.every((id) => completed.includes(id));
 
   if (!ready) {
     return (
@@ -103,7 +101,7 @@ export function CourseMapClient({ data }: { data: ServerData }) {
         examUnlocked={examUnlocked}
         completedIds={completed}
         slugById={data.slugById}
-        allowAllLinks={ACADEMY_DEV_UNLOCK_ALL}
+        allowAllLinks={unlockAll}
       />
 
       <section className="relative mt-10 overflow-hidden rounded-[28px] border border-[#c4a574]/22 bg-[radial-gradient(ellipse_at_top_left,rgba(196,160,116,0.12),transparent_50%),#0a0908] p-5 sm:p-6">
@@ -128,7 +126,7 @@ export function CourseMapClient({ data }: { data: ServerData }) {
           {data.medals.map((m) => {
             const mod = data.modules.find((x) => x.id === m.module);
             const earned =
-              ACADEMY_DEV_UNLOCK_ALL ||
+              unlockAll ||
               (mod
                 ? mod.stageIds.every((id) => completed.includes(id))
                 : false);

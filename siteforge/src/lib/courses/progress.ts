@@ -101,5 +101,26 @@ export function markExamPassed(
   return p;
 }
 
-/** Dev: open all stages + medals (bypasses locks). Quiz 80% gate still applies to mark a stage complete. */
-export const ACADEMY_DEV_UNLOCK_ALL = true;
+/**
+ * Open all stages + medals (bypasses locks).
+ * Set by AuthProvider when admin 091 is signed in, or via NEXT_PUBLIC_ACADEMY_UNLOCK_ALL.
+ * Quiz 80% gate still applies to mark a stage complete.
+ */
+let adminUnlockFlag = false;
+
+export function setAcademyAdminUnlock(v: boolean) {
+  adminUnlockFlag = v;
+}
+
+export function academyUnlockAll(): boolean {
+  if (
+    typeof process !== "undefined" &&
+    process.env.NEXT_PUBLIC_ACADEMY_UNLOCK_ALL === "true"
+  ) {
+    return true;
+  }
+  return adminUnlockFlag;
+}
+
+/** Prefer academyUnlockAll() — kept for call sites that re-read each render. */
+export const ACADEMY_DEV_UNLOCK_ALL = false;

@@ -5,7 +5,7 @@ import type {
   RawModule,
   RawStage,
 } from "./types";
-import { ACADEMY_DEV_UNLOCK_ALL } from "./progress";
+import { academyUnlockAll } from "./progress";
 
 const PASTE_LINE =
   "📍 איפה מדביקים: בפאנל הסוכן של Cursor (Ctrl+I, מצב Agent) כשתיקיית הפרויקט פתוחה, או ב-Claude.";
@@ -65,7 +65,7 @@ export function isStageUnlocked(
   completed: string[],
   current: string,
 ): boolean {
-  if (ACADEMY_DEV_UNLOCK_ALL) return true;
+  if (academyUnlockAll()) return true;
   const stage = getStage(course, stageId);
   if (!stage) return false;
   if (stage.bonus) {
@@ -80,7 +80,7 @@ export function isStageUnlocked(
 }
 
 export function scriptsUnlocked(course: RawCourse, completed: string[]): boolean {
-  if (ACADEMY_DEV_UNLOCK_ALL) return true;
+  if (academyUnlockAll()) return true;
   const gate = course.scripts_gate?.stage;
   if (!gate) return true;
   const idx = stageIndex(course, gate);

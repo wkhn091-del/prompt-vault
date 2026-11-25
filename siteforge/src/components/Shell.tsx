@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { WalletBar } from "./academy/WalletBar";
+import { AuthBar } from "./auth/AuthBar";
 
 export function Shell({
   children,
@@ -30,6 +31,7 @@ export function Shell({
           </Link>
 
           <div className="ms-auto flex items-center gap-1.5 sm:gap-2">
+            <AuthBar />
             <WalletBar />
             <nav className="flex items-center gap-1">
               <Link

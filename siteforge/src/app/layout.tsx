@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit, Heebo, JetBrains_Mono, Syne } from "next/font/google";
+import { AuthProvider } from "../components/auth/AuthProvider";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -55,7 +56,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://images.higgs.ai" />
       </head>
       <body className="min-h-full bg-[#070605] text-white antialiased">
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

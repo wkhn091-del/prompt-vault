@@ -1,8 +1,10 @@
 /**
  * Cap concurrent live HTML iframes (each runs its own JS + layout).
- * Off-screen cards stay as cheap placeholders.
+ * High enough that Mine + Vault first screens stay live once granted
+ * (tearing down heavy kits makes cards look stuck black).
  */
-const MAX_LIVE = 2;
+/** Keep the animations grid snappy — only a few live iframes at once. */
+const MAX_LIVE = 6;
 
 type Slot = { id: string; release: () => void; since: number };
 

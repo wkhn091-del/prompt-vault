@@ -16,7 +16,9 @@ import {
   Loader2,
   Lock,
   Mail,
+  Phone,
   Sparkles,
+  User,
 } from "lucide-react";
 import {
   sendPasswordReset,
@@ -30,7 +32,15 @@ import {
   getSavedEmail,
   saveEmail,
 } from "@/lib/auth-local";
+import {
+  getSavedProfile,
+  profileComplete,
+  saveProfile,
+  type AuthProfile,
+} from "@/lib/auth-profile";
+import { isExternalNext, safeNextPath } from "@/lib/safe-next";
 import { createBrowserClient, hasSupabaseEnv } from "@/lib/supabase";
+import { isAdminEmail } from "@/lib/admin";
 import { OAuthProviders } from "./OAuthProviders";
 
 type Mode = "signin" | "signup";
@@ -38,12 +48,6 @@ type Method = "password" | "magic" | "reset";
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
-
-function safeNextPath(raw: string | null): string {
-  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return "/";
-  if (raw.startsWith("/login") || raw.startsWith("/auth/")) return "/";
-  return raw;
 }
 
 export function LoginApp() {
@@ -66,6 +70,17 @@ export function LoginApp() {
   const [busy, setBusy] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [recoveryMode, setRecoveryMode] = useState(false);
+  const [profile, setProfile] = useState<AuthProfile>({
+    fullName: "",
+    phone: "",
+  });
+  const [profileReady, setProfileReady] = useState(false);
+
+  useEffect(() => {
+    const savedProfile = getSavedProfile();
+    setProfile(savedProfile);
+    setProfileReady(profileComplete(savedProfile));
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -150,8 +165,34 @@ export function LoginApp() {
   }
 
   function goAfterSignIn() {
-    setInfo("Signed in — entering vault…");
-    setTimeout(() => router.push(nextPath), 500);
+    setInfo(
+      isExternalNext(nextPath)
+        ? "Signed in — opening academy…"
+        : "Signed in — entering vault…",
+    );
+    setTimeout(() => {
+      if (isExternalNext(nextPath)) {
+        window.location.assign(nextPath);
+      } else {
+        router.push(nextPath);
+      }
+    }, 500);
+  }
+
+  function commitProfile(): boolean {
+    if (isAdminEmail(email) || isAdminEmail(saved)) {
+      saveProfile(profile);
+      setProfileReady(true);
+      return true;
+    }
+    if (!profileComplete(profile)) {
+      setError("Enter your full name and phone number before Connect.");
+      return false;
+    }
+    saveProfile(profile);
+    setProfileReady(true);
+    setError(null);
+    return true;
   }
 
   async function onSubmit(e: FormEvent) {
@@ -164,6 +205,8 @@ export function LoginApp() {
       setError("Enter a valid email address.");
       return;
     }
+
+    if (!recoveryMode && !commitProfile()) return;
 
     if (!hasSupabaseEnv()) {
       setError("Auth is not configured (missing Supabase env).");
@@ -181,7 +224,10 @@ export function LoginApp() {
         setInfo(result.info ?? "Password updated.");
         setRecoveryMode(false);
         setNewPassword("");
-        setTimeout(() => router.push(nextPath), 900);
+        setTimeout(() => {
+          if (isExternalNext(nextPath)) window.location.assign(nextPath);
+          else router.push(nextPath);
+        }, 900);
         return;
       }
 
@@ -195,6 +241,7 @@ export function LoginApp() {
           setError(result.error);
           return;
         }
+        await syncProfileToSession();
         setSaved(value);
         setRealSession(true);
         goAfterSignIn();
@@ -212,6 +259,7 @@ export function LoginApp() {
           return;
         }
         if (result.info?.includes("signed in")) {
+          await syncProfileToSession();
           setSaved(value);
           setRealSession(true);
           goAfterSignIn();
@@ -248,6 +296,25 @@ export function LoginApp() {
     }
   }
 
+  async function syncProfileToSession() {
+    if (!hasSupabaseEnv() || !profileComplete(profile)) return;
+    try {
+      const supabase = createBrowserClient();
+      await supabase.auth.updateUser({
+        data: {
+          full_name: profile.fullName.trim(),
+          phone: profile.phone.trim(),
+        },
+      });
+    } catch {
+      /* best-effort — cookies still carry profile for callback */
+    }
+  }
+
+  function onOAuthBeforeStart(): boolean {
+    return commitProfile();
+  }
+
   const showSignedIn =
     realSession &&
     Boolean(saved) &&
@@ -280,7 +347,7 @@ export function LoginApp() {
             : "Sign in with email and password.";
 
   const fieldClass =
-    "h-12 w-full rounded-xl border border-white/[0.1] bg-black/40 py-3 pl-11 pr-4 text-[14px] text-white outline-none transition placeholder:text-white/25 focus:border-[#c4a574]/45 focus:bg-black/55 focus:ring-1 focus:ring-[#c4a574]/20";
+    "h-12 w-full rounded-xl border border-[#d4af7a]/12 bg-black/45 py-3 pl-11 pr-4 text-[14px] text-white outline-none transition placeholder:text-white/25 focus:border-[#d4af7a]/50 focus:bg-black/60 focus:ring-1 focus:ring-[#d4af7a]/25";
   const passwordFieldClass = `${fieldClass} pr-12`;
 
   return (
@@ -288,34 +355,46 @@ export function LoginApp() {
       className="relative min-h-dvh overflow-hidden text-white"
       style={
         {
-          "--login-panel-bg": "#0c0b0a",
+          "--login-panel-bg": "#0a0908",
           background:
-            "radial-gradient(120% 80% at 10% 0%, #1a1510 0%, #070706 42%, #050505 100%)",
+            "radial-gradient(90% 70% at 78% 42%, rgba(212,175,122,0.14) 0%, transparent 55%), radial-gradient(110% 85% at 8% 8%, #1c1610 0%, #0a0908 38%, #050504 72%, #030302 100%)",
         } as CSSProperties
       }
     >
       <div className="vault-grain" aria-hidden />
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        className="pointer-events-none absolute inset-0 opacity-[0.28]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(196,165,116,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(196,165,116,0.04) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
+            "linear-gradient(rgba(212,175,122,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,122,0.045) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
           maskImage:
-            "radial-gradient(ellipse at center, black 20%, transparent 75%)",
+            "radial-gradient(ellipse at 70% 45%, black 15%, transparent 72%)",
         }}
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -left-32 top-[-10%] h-[520px] w-[520px] rounded-full bg-[#c4a574]/[0.09] blur-[130px]"
+        className="pointer-events-none absolute left-[-12%] top-[-8%] h-[560px] w-[560px] rounded-full bg-[#d4af7a]/[0.11] blur-[140px]"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -right-24 bottom-[-5%] h-[460px] w-[460px] rounded-full bg-[#8a6a3e]/[0.08] blur-[120px]"
+        className="pointer-events-none absolute right-[-8%] top-[18%] h-[420px] w-[420px] rounded-full bg-[#f0d9a8]/[0.07] blur-[110px]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute bottom-[-12%] right-[10%] h-[380px] w-[380px] rounded-full bg-[#8b6914]/[0.1] blur-[130px]"
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto grid min-h-dvh max-w-6xl lg:grid-cols-[1.1fr_0.9fr]">
+      <div
+        className="relative z-10 mx-auto grid min-h-dvh max-w-6xl lg:grid-cols-[1.1fr_0.9fr]"
+        style={{
+          paddingTop: "env(safe-area-inset-top)",
+          paddingBottom: "env(safe-area-inset-bottom)",
+          paddingLeft: "env(safe-area-inset-left)",
+          paddingRight: "env(safe-area-inset-right)",
+        }}
+      >
         <section className="relative hidden flex-col justify-between px-10 py-14 lg:flex xl:px-16">
           <Link href="/login" className="inline-flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -326,13 +405,13 @@ export function LoginApp() {
           </Link>
 
           <div className="max-w-lg">
-            <p className="font-[family-name:var(--font-mono)] text-[11px] font-medium uppercase tracking-[0.28em] text-[#c4a574]/70">
+            <p className="font-[family-name:var(--font-mono)] text-[11px] font-medium uppercase tracking-[0.28em] text-[#e4c9a0]/75">
               Private motion atelier
             </p>
             <h1 className="mt-5 font-[family-name:var(--font-syne)] text-[clamp(2.6rem,5vw,3.6rem)] font-extrabold leading-[1.02] tracking-[-0.05em] text-white">
               Prompt Vault
             </h1>
-            <p className="mt-3 font-[family-name:var(--font-syne)] text-[clamp(1.35rem,2.4vw,1.85rem)] font-semibold leading-snug tracking-[-0.03em] text-white/50">
+            <p className="mt-3 font-[family-name:var(--font-syne)] text-[clamp(1.35rem,2.4vw,1.85rem)] font-semibold leading-snug tracking-[-0.03em] text-[#e8dcc8]/55">
               Paste prompts. Ship motion.
             </p>
             <p className="mt-6 max-w-md text-[15px] leading-relaxed text-white/40">
@@ -341,7 +420,7 @@ export function LoginApp() {
             </p>
           </div>
 
-          <p className="font-[family-name:var(--font-mono)] text-[11px] tracking-[0.12em] text-white/25">
+          <p className="font-[family-name:var(--font-mono)] text-[11px] tracking-[0.12em] text-[#d4af7a]/35">
             Secure access · email · Google · Apple · GitHub
           </p>
         </section>
@@ -356,15 +435,15 @@ export function LoginApp() {
           </div>
 
           <div
-            className="login-panel relative mx-auto w-full max-w-[420px] overflow-hidden rounded-[24px] border border-[#c4a574]/15 bg-[#0c0b0a]/92 p-7 shadow-[0_50px_120px_-48px_rgba(0,0,0,0.95),0_0_0_1px_rgba(196,165,116,0.06)_inset] backdrop-blur-2xl sm:p-8"
-            style={{ ["--login-panel-bg" as string]: "#0c0b0a" }}
+            className="login-panel relative mx-auto w-full max-w-[420px] overflow-hidden rounded-[24px] border border-[#d4af7a]/22 bg-[#0a0908]/94 p-7 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.95),0_0_80px_-48px_rgba(212,175,122,0.35),0_0_0_1px_rgba(240,217,168,0.06)_inset] backdrop-blur-2xl sm:p-8"
+            style={{ ["--login-panel-bg" as string]: "#0a0908" }}
           >
             <div
-              className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#c4a574]/55 to-transparent"
+              className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#f0d9a8]/65 to-transparent"
               aria-hidden
             />
             <div
-              className="pointer-events-none absolute -right-16 -top-20 h-40 w-40 rounded-full bg-[#c4a574]/10 blur-3xl"
+              className="pointer-events-none absolute -right-16 -top-20 h-44 w-44 rounded-full bg-[#d4af7a]/14 blur-3xl"
               aria-hidden
             />
 
@@ -377,21 +456,31 @@ export function LoginApp() {
 
             {showSignedIn && !recoveryMode ? (
               <div className="mt-8 space-y-4">
-                <div className="rounded-xl border border-[#c4a574]/15 bg-white/[0.03] px-4 py-3.5">
-                  <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.18em] text-[#c4a574]/60">
+                <div className="rounded-xl border border-[#d4af7a]/15 bg-white/[0.03] px-4 py-3.5">
+                  <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.18em] text-[#d4af7a]/60">
                     Signed in as
                   </p>
                   <p className="mt-1.5 text-[15px] font-medium text-white">
                     {saved}
                   </p>
                 </div>
-                <Link
-                  href={nextPath}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#e8d5b5] to-[#c4a574] px-4 py-3.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-105"
-                >
-                  Enter vault
-                  <ArrowRight className="size-3.5" />
-                </Link>
+                {isExternalNext(nextPath) ? (
+                  <a
+                    href={nextPath}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#f0d9a8] to-[#d4af7a] px-4 py-3.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-105"
+                  >
+                    Open academy
+                    <ArrowRight className="size-3.5" />
+                  </a>
+                ) : (
+                  <Link
+                    href={nextPath}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#f0d9a8] to-[#d4af7a] px-4 py-3.5 text-[13px] font-semibold text-[#1a140c] transition hover:brightness-105"
+                  >
+                    Enter vault
+                    <ArrowRight className="size-3.5" />
+                  </Link>
+                )}
                 <button
                   type="button"
                   onClick={() => void signOut()}
@@ -421,7 +510,7 @@ export function LoginApp() {
                         }}
                         className={`rounded-full py-2.5 text-[13px] font-semibold transition ${
                           mode === item.id
-                            ? "bg-gradient-to-b from-[#e8d5b5] to-[#c4a574] text-[#1a140c] shadow-[0_8px_24px_-12px_rgba(196,165,116,0.7)]"
+                            ? "bg-gradient-to-b from-[#f0d9a8] to-[#d4af7a] text-[#1a140c] shadow-[0_8px_24px_-12px_rgba(212,175,122,0.75)]"
                             : "text-white/40 hover:text-white/75"
                         }`}
                       >
@@ -436,23 +525,71 @@ export function LoginApp() {
                   className="mt-5 space-y-4"
                 >
                   {!recoveryMode && (
-                    <label className="block">
-                      <span className="mb-1.5 block font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/40">
-                        Email
-                      </span>
-                      <div className="relative">
-                        <Mail className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#c4a574]/45" />
-                        <input
-                          type="email"
-                          autoComplete="email"
-                          required
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="you@studio.com"
-                          className={fieldClass}
-                        />
-                      </div>
-                    </label>
+                    <>
+                      <label className="block">
+                        <span className="mb-1.5 block font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/40">
+                          Full name
+                        </span>
+                        <div className="relative">
+                          <User className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#d4af7a]/45" />
+                          <input
+                            type="text"
+                            autoComplete="name"
+                            required={!isAdminEmail(email)}
+                            value={profile.fullName}
+                            onChange={(e) => {
+                              setProfile((p) => ({
+                                ...p,
+                                fullName: e.target.value,
+                              }));
+                              setProfileReady(false);
+                            }}
+                            placeholder="Your name"
+                            className={fieldClass}
+                          />
+                        </div>
+                      </label>
+                      <label className="block">
+                        <span className="mb-1.5 block font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/40">
+                          Phone
+                        </span>
+                        <div className="relative">
+                          <Phone className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#d4af7a]/45" />
+                          <input
+                            type="tel"
+                            autoComplete="tel"
+                            required={!isAdminEmail(email)}
+                            value={profile.phone}
+                            onChange={(e) => {
+                              setProfile((p) => ({
+                                ...p,
+                                phone: e.target.value,
+                              }));
+                              setProfileReady(false);
+                            }}
+                            placeholder="+972…"
+                            className={fieldClass}
+                          />
+                        </div>
+                      </label>
+                      <label className="block">
+                        <span className="mb-1.5 block font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/40">
+                          Email
+                        </span>
+                        <div className="relative">
+                          <Mail className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#d4af7a]/45" />
+                          <input
+                            type="email"
+                            autoComplete="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="you@studio.com"
+                            className={fieldClass}
+                          />
+                        </div>
+                      </label>
+                    </>
                   )}
 
                   {method === "password" && !recoveryMode && (
@@ -470,14 +607,14 @@ export function LoginApp() {
                               setError(null);
                               setInfo(null);
                             }}
-                            className="text-[12px] font-medium text-[#c4a574]/80 transition hover:text-[#e8d5b5]"
+                            className="text-[12px] font-medium text-[#d4af7a]/80 transition hover:text-[#f0d9a8]"
                           >
                             Forgot password?
                           </button>
                         )}
                       </div>
                       <div className="relative">
-                        <Lock className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#c4a574]/45" />
+                        <Lock className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#d4af7a]/45" />
                         <input
                           type={showPassword ? "text" : "password"}
                           autoComplete={
@@ -495,7 +632,7 @@ export function LoginApp() {
                         <button
                           type="button"
                           onClick={() => setShowPassword((v) => !v)}
-                          className="absolute right-2 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-lg text-white/40 transition hover:bg-white/[0.06] hover:text-[#c4a574]"
+                          className="absolute right-2 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-lg text-white/40 transition hover:bg-white/[0.06] hover:text-[#d4af7a]"
                           aria-label={
                             showPassword ? "Hide password" : "Show password"
                           }
@@ -516,7 +653,7 @@ export function LoginApp() {
                         New password · 12+
                       </span>
                       <div className="relative">
-                        <Lock className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#c4a574]/45" />
+                        <Lock className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#d4af7a]/45" />
                         <input
                           type={showNewPassword ? "text" : "password"}
                           autoComplete="new-password"
@@ -530,7 +667,7 @@ export function LoginApp() {
                         <button
                           type="button"
                           onClick={() => setShowNewPassword((v) => !v)}
-                          className="absolute right-2 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-lg text-white/40 transition hover:bg-white/[0.06] hover:text-[#c4a574]"
+                          className="absolute right-2 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-lg text-white/40 transition hover:bg-white/[0.06] hover:text-[#d4af7a]"
                           aria-label={
                             showNewPassword
                               ? "Hide password"
@@ -549,7 +686,7 @@ export function LoginApp() {
 
                   {method === "magic" && !recoveryMode && (
                     <p className="flex items-start gap-2 text-[12px] leading-relaxed text-white/40">
-                      <Sparkles className="mt-0.5 size-3.5 shrink-0 text-[#c4a574]/50" />
+                      <Sparkles className="mt-0.5 size-3.5 shrink-0 text-[#d4af7a]/50" />
                       Check your inbox after sending — the link signs you in
                       instantly.
                     </p>
@@ -569,7 +706,7 @@ export function LoginApp() {
                   <button
                     type="submit"
                     disabled={busy}
-                    className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#e8d5b5] to-[#c4a574] text-[13px] font-semibold text-[#1a140c] shadow-[0_12px_32px_-14px_rgba(196,165,116,0.85)] transition hover:brightness-105 disabled:opacity-60"
+                    className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#f0d9a8] to-[#d4af7a] text-[13px] font-semibold text-[#1a140c] shadow-[0_12px_32px_-14px_rgba(212,175,122,0.9)] transition hover:brightness-105 disabled:opacity-60"
                   >
                     {busy ? (
                       <Loader2 className="size-4 animate-spin" />
@@ -612,7 +749,7 @@ export function LoginApp() {
                       setError(null);
                       setInfo(null);
                     }}
-                    className="mt-4 inline-flex w-full items-center justify-center gap-1.5 text-[12px] font-medium text-white/40 transition hover:text-[#c4a574]/90"
+                    className="mt-4 inline-flex w-full items-center justify-center gap-1.5 text-[12px] font-medium text-white/40 transition hover:text-[#d4af7a]/90"
                   >
                     <Sparkles className="size-3.5" />
                     Sign in with magic link instead
@@ -621,7 +758,15 @@ export function LoginApp() {
 
                 {!recoveryMode && (
                   <div className="mt-7">
-                    <OAuthProviders nextPath={nextPath} />
+                    {!profileReady && !isAdminEmail(email) && (
+                      <p className="mb-3 text-center text-[11px] text-white/35">
+                        Name + phone required before Connect
+                      </p>
+                    )}
+                    <OAuthProviders
+                      nextPath={nextPath}
+                      onBeforeStart={onOAuthBeforeStart}
+                    />
                   </div>
                 )}
               </>

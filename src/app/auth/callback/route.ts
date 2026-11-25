@@ -1,23 +1,18 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
-
-function safeNext(raw: string | null): string {
-  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return "/";
-  if (raw.startsWith("/login") || raw.startsWith("/auth/")) return "/";
-  return raw;
-}
+import { safeNextPath, isExternalNext } from "@/lib/safe-next";
 
 /**
  * Server-side OAuth / magic-link callback.
  * Exchanges the PKCE code using cookies (where @supabase/ssr stored the verifier).
- * A client page exchange fails when the verifier cookie isn't visible to JS yet.
+ * Syncs name/phone from cookies into user_metadata when present.
  */
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const type = url.searchParams.get("type");
-  const next = safeNext(url.searchParams.get("next"));
+  const next = safeNextPath(url.searchParams.get("next"));
   const oauthError =
     url.searchParams.get("error_description") || url.searchParams.get("error");
 
@@ -68,12 +63,25 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const dest =
-    type === "recovery"
-      ? "/login?type=recovery"
-      : next.startsWith("/")
-        ? next
-        : "/";
+  const fullNameRaw = cookieStore.get("pv_full_name")?.value;
+  const phoneRaw = cookieStore.get("pv_phone")?.value;
+  const fullName = fullNameRaw ? decodeURIComponent(fullNameRaw).trim() : "";
+  const phone = phoneRaw ? decodeURIComponent(phoneRaw).trim() : "";
 
-  return NextResponse.redirect(new URL(dest, origin));
+  if (fullName || phone) {
+    const data: Record<string, string> = {};
+    if (fullName) data.full_name = fullName;
+    if (phone) data.phone = phone;
+    await supabase.auth.updateUser({ data }).catch(() => undefined);
+  }
+
+  if (type === "recovery") {
+    return NextResponse.redirect(new URL("/login?type=recovery", origin));
+  }
+
+  if (isExternalNext(next)) {
+    return NextResponse.redirect(next);
+  }
+
+  return NextResponse.redirect(new URL(next.startsWith("/") ? next : "/", origin));
 }

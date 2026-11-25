@@ -3,31 +3,35 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ChevronDown } from "lucide-react";
+import { ACADEMY_URL } from "@/lib/academy-url";
 
 export type AppMode =
   | "stats"
   | "tools"
   | "websites"
   | "backgrounds"
-  | "animations";
+  | "animations"
+  | "learn";
 
 type ModeSwitcherProps = {
   active: AppMode;
 };
 
-const OPTIONS: { id: AppMode; label: string; href: string }[] = [
-  { id: "stats", label: "Home", href: "/" },
-  { id: "tools", label: "Tools", href: "/tools" },
-  { id: "websites", label: "Academy", href: "/websites" },
-  { id: "animations", label: "Animations", href: "/animations" },
-  { id: "backgrounds", label: "Backgrounds", href: "/backgrounds" },
-];
+const OPTIONS: { id: AppMode; label: string; href: string; external?: boolean }[] =
+  [
+    { id: "stats", label: "Home", href: "/" },
+    { id: "tools", label: "Tools", href: "/tools" },
+    { id: "websites", label: "Sites", href: "/websites" },
+    { id: "animations", label: "Animations", href: "/animations" },
+    { id: "backgrounds", label: "Backgrounds", href: "/backgrounds" },
+    { id: "learn", label: "לימודים", href: ACADEMY_URL, external: true },
+  ];
 
 export function BackHomeButton() {
   return (
     <Link
       href="/"
-      className="inline-flex h-9 items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.04] px-3 text-[13px] font-medium text-white/80 transition hover:bg-white/[0.08] hover:text-white"
+      className="inline-flex h-10 items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.04] px-3 text-[13px] font-medium text-white/80 transition hover:bg-white/[0.08] hover:text-white"
     >
       <ArrowLeft className="size-3.5 opacity-70" />
       Back
@@ -57,7 +61,7 @@ export function ModeSwitcher({ active }: ModeSwitcherProps) {
   }, [open]);
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="relative z-[50] flex items-center gap-2">
       <BackHomeButton />
       <div ref={rootRef} className="relative shrink-0">
         <button
@@ -65,7 +69,7 @@ export function ModeSwitcher({ active }: ModeSwitcherProps) {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-haspopup="menu"
-          className="inline-flex h-9 items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.04] px-3.5 text-[13px] font-medium text-white/90 transition hover:bg-white/[0.08]"
+          className="inline-flex h-10 max-w-[42vw] items-center gap-1.5 truncate rounded-full border border-white/[0.12] bg-white/[0.04] px-3 text-[13px] font-medium text-white/90 transition hover:bg-white/[0.08] sm:max-w-none sm:px-3.5"
         >
           {current.label}
           <ChevronDown
@@ -76,21 +80,37 @@ export function ModeSwitcher({ active }: ModeSwitcherProps) {
         {open && (
           <div
             role="menu"
-            className="absolute right-0 top-[calc(100%+6px)] z-[80] min-w-[148px] overflow-hidden rounded-xl border border-white/[0.1] bg-[#141416] py-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.9)]"
+            className="absolute right-0 top-[calc(100%+6px)] z-[70] min-w-[148px] overflow-hidden rounded-xl border border-white/[0.1] bg-[#141416] py-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.9)]"
           >
-            {OPTIONS.map((opt) => (
-              <Link
-                key={opt.id}
-                href={opt.href}
-                role="menuitem"
-                onClick={() => setOpen(false)}
-                className={`flex w-full px-3.5 py-2 text-left text-[12px] font-medium transition hover:bg-white/[0.06] ${
-                  opt.id === active ? "text-white" : "text-white/50"
-                }`}
-              >
-                {opt.label}
-              </Link>
-            ))}
+            {OPTIONS.map((opt) =>
+              opt.external ? (
+                <a
+                  key={opt.id}
+                  href={opt.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                  className={`flex w-full px-3.5 py-2 text-left text-[12px] font-medium transition hover:bg-white/[0.06] ${
+                    opt.id === active ? "text-white" : "text-white/50"
+                  }`}
+                >
+                  {opt.label}
+                </a>
+              ) : (
+                <Link
+                  key={opt.id}
+                  href={opt.href}
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                  className={`flex w-full px-3.5 py-2 text-left text-[12px] font-medium transition hover:bg-white/[0.06] ${
+                    opt.id === active ? "text-white" : "text-white/50"
+                  }`}
+                >
+                  {opt.label}
+                </Link>
+              ),
+            )}
           </div>
         )}
       </div>
