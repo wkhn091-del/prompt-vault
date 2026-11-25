@@ -1,30 +1,14 @@
 import { Suspense } from "react";
-import fs from "fs";
-import path from "path";
 import { Shell } from "../../../components/Shell";
 import { MedalsClient } from "../../../components/academy/MedalsClient";
 import { listCourseIds, loadCourse } from "../../../lib/courses/load";
+import { medalGlbUrl } from "../../../lib/courses/medal-glb";
 import type { CourseId } from "../../../lib/courses/types";
 
 export const metadata = {
   title: "חדר המדליות · SiteForge Academy",
   robots: { index: false, follow: false },
 };
-
-function medalGlbUrl(courseId: string, medalId: string): string | null {
-  const candidates = [
-    path.join(process.cwd(), "public", "medals", courseId, `${medalId}.glb`),
-    path.join(process.cwd(), "public", "medals", `${courseId}-${medalId}.glb`),
-    path.join(process.cwd(), "public", "medals", `${medalId}.glb`),
-  ];
-  for (const file of candidates) {
-    if (fs.existsSync(/*turbopackIgnore: true*/ file)) {
-      const rel = path.relative(path.join(process.cwd(), "public"), file);
-      return `/${rel.split(path.sep).join("/")}?v=6`;
-    }
-  }
-  return null;
-}
 
 function buildCourses() {
   return listCourseIds().map((id) => {

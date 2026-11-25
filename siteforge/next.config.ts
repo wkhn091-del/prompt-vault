@@ -9,6 +9,19 @@ const nextConfig: NextConfig = {
       { source: "/learn/:path*", destination: "/academy", permanent: false },
     ];
   },
+  async headers() {
+    return [
+      {
+        source: "/medals/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
   turbopack: {
     root: __dirname,
     rules: {

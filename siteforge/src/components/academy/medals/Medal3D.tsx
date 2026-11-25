@@ -249,8 +249,8 @@ function paintMedalMaterials(
   root.traverse((obj) => {
     const mesh = obj as THREE.Mesh;
     if (!mesh.isMesh || !mesh.material) return;
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
+    mesh.castShadow = false;
+    mesh.receiveShadow = false;
     const mats = Array.isArray(mesh.material)
       ? mesh.material
       : [mesh.material];
@@ -360,7 +360,8 @@ function GlbMedal({
   useFrame((_, dt) => {
     if (!group.current) return;
     // Keep spinning even when selected — only slow down slightly.
-    const speed = selected ? 0.25 : open ? 0.75 : 0.2;
+    // Slow spin — cheaper than Float + high-speed rotation every frame.
+    const speed = selected ? 0.2 : open ? 0.45 : 0.12;
     group.current.rotation.y += dt * speed;
   });
 
