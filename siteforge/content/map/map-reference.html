@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>SiteForge — מפת דרך</title>
+<style>
+/* ===== SiteForge design tokens (same as the book) ===== */
+:root{
+  --bg:#070605; --card:#16120f; --card2:#1c1512; --line:#2a211b;
+  --coral:#ff7a45; --cta:#ffb35c; --soft:#ffb08a; --gold:#ffe0a8;
+  --ink:#f5ede6; --sec:#b9a89b; --ter:#6f6259;
+  --learn:#FFB08A; --do:#FF7A45; --script:#FFB35C; --exam:#FFE0A8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{width:1600px;font-family:Heebo,Assistant,Rubik,sans-serif;color:var(--ink);
+  background:radial-gradient(1200px 700px at 85% -10%,rgba(255,122,69,.16),transparent 60%),
+             radial-gradient(900px 600px at 0% 105%,rgba(255,179,92,.10),transparent 60%),var(--bg)}
+.wrap{padding:72px 80px 64px}
+.kicker{font-family:"JetBrains Mono",monospace;font-size:15px;letter-spacing:.32em;color:var(--coral);font-weight:700}
+h1{font-size:76px;font-weight:900;line-height:1.02;margin-top:14px;letter-spacing:-.01em}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--gold),var(--cta) 40%,var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:24px;color:var(--sec);margin-top:14px}
+.stats{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:10px 20px;font-size:19px;color:var(--sec)}
+.stat b{color:var(--ink);font-weight:800;margin-inline-end:6px}
+.legend{display:flex;gap:26px;margin-top:26px;font-size:17px;color:var(--sec);align-items:center;flex-wrap:wrap}
+.legend i{display:inline-block;width:22px;height:22px;border-radius:50%;vertical-align:-5px;margin-inline-end:8px}
+.l-done{background:linear-gradient(135deg,var(--gold),var(--coral))}
+.l-cur{background:var(--cta);box-shadow:0 0 0 5px rgba(255,179,92,.25)}
+.l-lock{background:var(--card);border:2px solid #3a2e26}
+.l-bonus{background:#241a0e;border:2px dashed var(--cta)}
+.l-medal{background:conic-gradient(var(--gold),var(--cta),var(--coral),var(--gold));clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%);border-radius:0!important}
+
+svg.map{display:block;margin-top:30px;overflow:visible}
+.bonus{margin-top:26px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.bonus .b{background:var(--card);border:1px dashed rgba(255,179,92,.45);border-radius:14px;padding:14px 18px;font-size:18px;color:var(--sec);display:flex;gap:14px;align-items:center}
+.bonus .b code{font-family:"JetBrains Mono",monospace;color:var(--cta);font-weight:700;font-size:16px;border:1.5px dashed var(--cta);border-radius:50%;width:44px;height:44px;display:grid;place-items:center;flex:none}
+.bonus .b b{color:var(--ink);font-weight:700}
+.bonus .b small{display:block;font-size:15px;color:var(--ter)}
+.foot{margin-top:18px;display:flex;justify-content:space-between;font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--ter);letter-spacing:.18em}
+/* svg text */
+.mod-code{font-weight:700;font-size:17px;letter-spacing:.06em;fill:var(--coral)}
+.mod-title{font-weight:800;font-size:28px;fill:var(--ink)}
+.mod-meta{font-size:16px;fill:var(--sec)}
+.num{font-weight:900;font-size:24px;text-anchor:middle;dominant-baseline:central}
+.lbl{font-size:15.5px;fill:var(--sec);text-anchor:middle}
+.lbl.cur{fill:var(--cta);font-weight:700}
+.lbl.done{fill:var(--ink)}
+.tag{font-size:13px;font-weight:800;text-anchor:middle;dominant-baseline:central}
+.medal-name{font-size:14px;font-weight:700;text-anchor:middle}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="title"></h1>
+  <div class="sub" id="sub"></div>
+  <div class="stats" id="stats"></div>
+  <div class="legend">
+    <span><i class="l-done"></i>הושלם</span>
+    <span><i class="l-cur"></i>אתה כאן</span>
+    <span><i class="l-lock"></i>נעול</span>
+    <span><i class="l-bonus"></i>בונוס (לא חובה)</span>
+    <span><i class="l-medal"></i>מדליית מודול</span>
+  </div>
+  <svg class="map" id="map" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="bonus" id="bonus"></div>
+  <div class="foot"><span id="footL"></span><span>STUDIO OMEK · SITEFORGE</span></div>
+</div>
+<script>
+/* ===== DATA (replace with courses/*.json in the real site) =====
+   MAP = {kicker,title,titleEm,sub,stats:[[n,label]],current:"st-13",
+          modules:[{id,title,meta,medal:{name,icon,tier},stages:[{id,n,label,gate?,bonus?:[{id,label}]}]}]} */
+const MAP = window.MAP;
+
+/* medal icon paths (same set as the book) */
+const ICON = {"sprout": "<path d=\"M0 34 V-2\" stroke-width=\"7\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M0 4 C-4 -18 -22 -26 -36 -22 C-34 -6 -20 6 0 4Z\" stroke-width=\"0\"/><path d=\"M0 -6 C4 -28 22 -36 36 -32 C34 -14 20 -4 0 -6Z\" stroke-width=\"0\"/>", "toolbox": "<rect x=\"-34\" y=\"-12\" width=\"68\" height=\"40\" rx=\"7\" stroke-width=\"0\"/><path d=\"M-14 -12 V-24 H14 V-12\" fill=\"none\" stroke-width=\"6\" stroke-linejoin=\"round\"/><rect x=\"-34\" y=\"2\" width=\"68\" height=\"5\" fill=\"#0c0a09\" stroke-width=\"0\"/><rect x=\"-6\" y=\"-2\" width=\"12\" height=\"13\" rx=\"3\" fill=\"#0c0a09\" stroke-width=\"0\"/>", "page": "<path d=\"M-24 -34 H10 L26 -18 V34 H-24Z\" fill=\"none\" stroke-width=\"6\" stroke-linejoin=\"round\"/><path d=\"M10 -34 V-18 H26\" fill=\"none\" stroke-width=\"5\"/><path d=\"M-14 -6 H16 M-14 6 H16 M-14 18 H6\" stroke-width=\"5\" stroke-linecap=\"round\"/>", "target": "<circle r=\"32\" fill=\"none\" stroke-width=\"6\"/><circle r=\"18\" fill=\"none\" stroke-width=\"6\"/><circle r=\"6\" stroke-width=\"0\"/>", "rocket": "<path d=\"M0 -36 C16 -22 18 -4 12 12 H-12 C-18 -4 -16 -22 0 -36Z\" stroke-width=\"0\"/><circle cx=\"0\" cy=\"-12\" r=\"6\" fill=\"#0c0a09\"/><path d=\"M-12 4 L-24 18 L-10 16 M12 4 L24 18 L10 16\" stroke-width=\"5\" fill=\"none\" stroke-linejoin=\"round\"/><path d=\"M-5 20 L0 32 L5 20\" stroke-width=\"5\" fill=\"none\"/>", "search": "<circle cx=\"-6\" cy=\"-6\" r=\"22\" fill=\"none\" stroke-width=\"7\"/><path d=\"M10 10 L30 30\" stroke-width=\"9\" stroke-linecap=\"round\"/>", "shield": "<path d=\"M0 -36 L30 -24 V2 C30 20 16 30 0 36 C-16 30 -30 20 -30 2 V-24Z\" fill=\"none\" stroke-width=\"6\" stroke-linejoin=\"round\"/><path d=\"M-13 0 L-3 10 L15 -10\" fill=\"none\" stroke-width=\"7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>", "briefcase": "<rect x=\"-34\" y=\"-16\" width=\"68\" height=\"46\" rx=\"7\" stroke-width=\"0\"/><path d=\"M-12 -16 V-28 H12 V-16\" fill=\"none\" stroke-width=\"6\"/><rect x=\"-34\" y=\"0\" width=\"68\" height=\"4\" fill=\"#0c0a09\" stroke-width=\"0\"/>", "star": "<path d=\"M0 -34 L9 -11 L34 -10 L14 5 L21 30 L0 16 L-21 30 L-14 5 L-34 -10 L-9 -11Z\" stroke-width=\"0\"/>", "trophy": "<path d=\"M-20 -30 H20 V-6 C20 8 10 16 0 16 C-10 16 -20 8 -20 -6Z\" stroke-width=\"0\"/><path d=\"M-20 -24 H-32 C-32 -8 -24 -4 -18 -4 M20 -24 H32 C32 -8 24 -4 18 -4\" fill=\"none\" stroke-width=\"5\"/><path d=\"M0 16 V26 M-16 32 H16\" stroke-width=\"7\" stroke-linecap=\"round\"/>"};
+const TIER = [['#6e2f17','#b8532a','#ff9a6c'],['#a84a24','#e07a45','#ffb08a'],['#ff7a45','#ff9a6c','#ffe0a8'],['#ffb35c','#ffd08a','#fff4dc'],['#ffe0a8','#fff4dc','#ffffff']];
+
+const NS='http://www.w3.org/2000/svg';
+const svg=document.getElementById('map');
+const el=(tag,attrs={},parent=svg)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e;};
+const txt=(s,attrs,parent)=>{const t=el('text',attrs,parent);t.textContent=(attrs&&attrs.direction==='rtl')?'\u202B'+s+'\u202C':s;return t;};
+
+document.getElementById('kicker').textContent=MAP.kicker;
+document.getElementById('title').innerHTML=MAP.title+' <em>'+MAP.titleEm+'</em>';
+document.getElementById('sub').textContent=MAP.sub;
+document.getElementById('stats').innerHTML=MAP.stats.map(s=>`<span class="stat"><b>${s[0]}</b>${s[1]}</span>`).join('');
+document.getElementById('footL').textContent=MAP.foot||'';
+document.getElementById('bonus').innerHTML=(MAP.bonusList||[]).map(b=>`<div class="b"><code>${b.id}</code><div><b>${b.title}</b><small>נפתח אחרי שלב ${b.after} · לא חובה</small></div></div>`).join('');
+
+/* ---- state: everything before `current` is done, after it locked ---- */
+const order=MAP.modules.flatMap(m=>m.stages.map(s=>s.id));
+const curIdx=order.indexOf(MAP.current);
+const stateOf=id=>{const i=order.indexOf(id);return i<curIdx?'done':i===curIdx?'cur':'lock';};
+const modDone=m=>order.indexOf(m.stages[m.stages.length-1].id)<curIdx;
+
+/* ---- layout: snake bands, RTL (band 0 runs right→left) ---- */
+const W=1440, X0=70, X1=W-70, BAND=270, TOP=40;
+const defs=el('defs');
+defs.innerHTML=`
+ <linearGradient id="gDone" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe0a8"/><stop offset=".45" stop-color="#ff9a6c"/><stop offset="1" stop-color="#ff7a45"/></linearGradient>
+ <radialGradient id="gCur" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="#ffd08a"/><stop offset="1" stop-color="#ffb35c"/></radialGradient>
+ <radialGradient id="gLock" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="#211a15"/><stop offset="1" stop-color="#110e0c"/></radialGradient>
+ <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="10"/></filter>`;
+const pts=[]; const nodes=[];
+MAP.modules.forEach((m,bi)=>{
+  const rtl=bi%2===0, yBase=TOP+bi*BAND+120;
+  const items=[...m.stages.map(s=>({kind:'stage',s,m})),{kind:'medal',m}];
+  const n=items.length, step=(X1-X0-80)/(n-1);
+  items.forEach((it,k)=>{
+    const x=rtl? X1-40-k*step : X0+40+k*step;
+    const y=yBase+(k%2? 26:-10);           // gentle winding
+    it.x=x; it.y=y; it.band=bi; it.k=k; nodes.push(it); pts.push([x,y,it]);
+  });
+  m._y=yBase; m._rtl=rtl;
+});
+/* final band: exam + certificate */
+if(MAP.final){
+  const bi=MAP.modules.length, rtl=bi%2===0, yBase=TOP+bi*BAND+120;
+  [{kind:'exam'},{kind:'cert'}].forEach((it,k)=>{
+    it.x= rtl? (k? W*0.36 : W*0.64) : (k? W*0.64 : W*0.36); it.y=yBase+(k?0:10); it.band=bi; it.k=k;
+    nodes.push(it); pts.push([it.x,it.y,it]);
+  });
+  MAP._finalBand={y:yBase,rtl};
+}
+/* path through all nodes with smooth curves + U-turns between bands */
+function pathD(list){
+  let d=`M${list[0][0]},${list[0][1]}`;
+  for(let i=1;i<list.length;i++){
+    const [x0,y0,a]=list[i-1],[x1,y1,b]=list[i];
+    if(a.band!==b.band){ const side=a.x>W/2? W+10 : -10; d+=` C${side},${y0} ${side},${y1} ${x1},${y1}`; }
+    else { const mx=(x0+x1)/2; d+=` C${mx},${y0} ${mx},${y1} ${x1},${y1}`; }
+  }
+  return d;
+}
+const gPath=el('g');
+el('path',{d:pathD(pts),fill:'none',stroke:'#2a211b','stroke-width':14,'stroke-linecap':'round'},gPath);
+el('path',{d:pathD(pts),fill:'none',stroke:'#3a2e26','stroke-width':3,'stroke-dasharray':'2 12','stroke-linecap':'round'},gPath);
+const doneUpTo=pts.findIndex(p=>p[2].kind==='stage'&&p[2].s.id===MAP.current);
+if(doneUpTo>0){ el('path',{d:pathD(pts.slice(0,doneUpTo+1)),fill:'none',stroke:'url(#gDone)','stroke-width':8,'stroke-linecap':'round'},gPath); }
+
+/* module headers */
+MAP.modules.forEach((m,bi)=>{
+  const y=TOP+bi*BAND+14, g=el('g');
+  const x= m._rtl? X1 : X0, anchor= m._rtl? 'start':'end';   // in RTL svg text, 'start' = right edge
+  const dir={direction:'rtl','text-anchor':anchor};
+  txt(`${m.id}\u200F · ${m.stages.length} שלבים${m.week? ' · '+m.week:''} · מדליה: ${m.medal.name}`,{x,y,class:'mod-code',...dir},g);
+  txt(m.title,{x,y:y+36,class:'mod-title',...dir},g);
+});
+
+/* final band header */
+if(MAP.final){ const f=MAP._finalBand, y=f.y-106, x=f.rtl?X1:X0, anchor=f.rtl?'start':'end';
+  txt(`FINAL\u200F · ${MAP.final.questions} שאלות · ציון עובר ${MAP.final.pass}% · אפשר לנסות שוב`,{x,y,class:'mod-code',direction:'rtl','text-anchor':anchor});
+  txt('מבחן סיום ותעודה',{x,y:y+36,class:'mod-title',direction:'rtl','text-anchor':anchor}); }
+/* nodes */
+nodes.forEach(it=>{
+  const g=el('g',{transform:`translate(${it.x},${it.y})`});
+  if(it.kind==='exam'||it.kind==='cert'){
+    const allDone=curIdx>=order.length; const op=allDone?1:.55;
+    if(it.kind==='exam'){
+      el('circle',{r:74,fill:'#ffe0a8',opacity:.10,filter:'url(#glow)'},g);
+      el('circle',{r:58,fill:'url(#gLock)',stroke:'#ffe0a8','stroke-width':3,opacity:op},g);
+      el('circle',{r:66,fill:'none',stroke:'#ffe0a8','stroke-opacity':.45,'stroke-width':1.5,'stroke-dasharray':'3 7'},g);
+      const ic=el('g',{transform:'translate(0,-6)',opacity:op},g);   // checklist icon
+      el('rect',{x:-20,y:-24,width:40,height:48,rx:6,fill:'none',stroke:'#ffe0a8','stroke-width':3.5},ic);
+      [-10,2,14].forEach(yy=>{ el('path',{d:`M-12 ${yy} l4 4 l7 -7`,fill:'none',stroke:'#ff7a45','stroke-width':3,'stroke-linecap':'round'},ic); el('line',{x1:3,y1:yy+1,x2:13,y2:yy+1,stroke:'#ffe0a8','stroke-width':3,'stroke-linecap':'round'},ic); });
+      txt('מבחן סיום',{y:92,class:'lbl done','font-size':20,'font-weight':800,direction:'rtl'},g);
+      txt(`${MAP.final.questions} שאלות · 80% לעבור`,{y:116,class:'lbl',direction:'rtl'},g);
+      if(!allDone){ const c=el('g',{transform:'translate(42,-42)'},g); el('circle',{r:14,fill:'#16120f',stroke:'#3a2e26'},c); el('rect',{x:-6,y:-1,width:12,height:9,rx:2,fill:'#b9a89b'},c); el('path',{d:'M-3.5 -1 V-5 A3.5 3.5 0 0 1 3.5 -5 V-1',fill:'none',stroke:'#b9a89b','stroke-width':2},c); }
+    } else {
+      el('circle',{r:90,fill:'#ffb35c',opacity:.16,filter:'url(#glow)'},g);
+      const gg=el('g',{opacity:op},g);
+      gg.innerHTML=`<defs><linearGradient id="gCert" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff4dc"/><stop offset=".5" stop-color="#ffd08a"/><stop offset="1" stop-color="#ff7a45"/></linearGradient></defs>
+        <polygon points="${[...Array(6)].map((_,k)=>{const r=72,an=(Math.PI/180)*(60*k+30);return (r*Math.cos(an)).toFixed(1)+','+(r*Math.sin(an)).toFixed(1)}).join(' ')}" fill="url(#gCert)"/>
+        <circle r="56" fill="#0c0a09" stroke="#fff4dc" stroke-opacity=".6"/>
+        <g transform="translate(0 -4) scale(.85)" fill="url(#gCert)" stroke="url(#gCert)">${ICON.trophy}</g>`;
+      txt('תעודה',{y:106,class:'lbl done','font-size':22,'font-weight':900,fill:'#ffe0a8',direction:'rtl'},g);
+      txt('PDF עם השם שלך + מזהה ייחודי',{y:130,class:'lbl',direction:'rtl'},g);
+    }
+    return;
+  }
+  if(it.kind==='medal'){
+    const earned=modDone(it.m), [a,b,c]=TIER[it.m.medal.tier||0];
+    const id='md'+it.m.id;
+    const gg=el('g',{opacity:earned?1:.33},g);
+    gg.innerHTML=`<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}"/><stop offset=".5" stop-color="${b}"/><stop offset="1" stop-color="${a}"/></linearGradient></defs>
+      <polygon points="${[...Array(6)].map((_,k)=>{const r=52,an=(Math.PI/180)*(60*k);return (r*Math.cos(an)).toFixed(1)+','+(r*Math.sin(an)).toFixed(1)}).join(' ')}" fill="url(#${id})"/>
+      <circle r="38" fill="#0c0a09" stroke="${c}" stroke-opacity=".5"/>
+      <g transform="translate(0 -2) scale(.62)" fill="url(#${id})" stroke="url(#${id})">${ICON[it.m.medal.icon]||ICON.star}</g>`;
+    txt((earned?'':'🔒 ').replace('🔒 ','')+it.m.medal.name,{y:80,class:'medal-name',fill:earned?'#ffe0a8':'#6f6259',direction:'rtl'},g);
+    txt(earned?'MEDAL ✓':'MEDAL',{y:100,class:'tag',fill:earned?'#ff7a45':'#4a3d34','font-family':'JetBrains Mono','letter-spacing':'.2em'},g);
+    return;
+  }
+  const s=it.s, st=stateOf(s.id), R= st==='cur'?42:34;
+  if(st==='cur'){ el('circle',{r:62,fill:'#ffb35c',opacity:.35,filter:'url(#glow)'},g); el('circle',{r:54,fill:'none',stroke:'#ffb35c','stroke-opacity':.5,'stroke-width':2,'stroke-dasharray':'4 6'},g); }
+  el('circle',{r:R,fill: st==='done'?'url(#gDone)': st==='cur'?'url(#gCur)':'url(#gLock)',stroke: st==='lock'?'#3a2e26':'none','stroke-width':2},g);
+  if(st==='done'){ el('circle',{r:R-6,fill:'none',stroke:'#070605','stroke-opacity':.25,'stroke-width':2},g); }
+  txt(String(s.n),{class:'num',fill: st==='lock'?'#6f6259':'#1a0f08','font-size': String(s.n).length>2?20:24},g);
+  if(st==='done'){ const c=el('g',{transform:`translate(${R*0.72},${-R*0.72})`},g); el('circle',{r:12,fill:'#070605',stroke:'#ff7a45','stroke-width':2},c); el('path',{d:'M-5 0 L-1 4 L6 -4',fill:'none',stroke:'#ffe0a8','stroke-width':2.6,'stroke-linecap':'round'},c); }
+  if(st==='lock'){ const c=el('g',{transform:`translate(${R*0.72},${-R*0.72})`},g); el('circle',{r:12,fill:'#16120f',stroke:'#3a2e26'},c); el('rect',{x:-5,y:-1,width:10,height:8,rx:2,fill:'#6f6259'},c); el('path',{d:'M-3 -1 V-4 A3 3 0 0 1 3 -4 V-1',fill:'none',stroke:'#6f6259','stroke-width':2},c); }
+  /* label (max 2 lines) */
+  const words=s.label.split(' '); const lines=['']; words.forEach(w=>{ if((lines[lines.length-1]+' '+w).trim().length>17 && lines.length<2) lines.push(w); else lines[lines.length-1]=(lines[lines.length-1]+' '+w).trim(); });
+  if(lines[1]&&lines[1].length>19) lines[1]=lines[1].slice(0,18)+'…';
+  lines.forEach((l,i)=>txt(l,{y:R+28+i*20,class:'lbl '+st,direction:'rtl'},g));
+  if(st==='cur'){ const t=el('g',{transform:'translate(0,-78)'},g); el('rect',{x:-50,y:-16,width:100,height:32,rx:16,fill:'#ffb35c'},t); txt('אתה כאן',{class:'tag',fill:'#1a0f08','font-size':15,direction:'rtl'},t); el('path',{d:'M-7 16 L0 24 L7 16Z',fill:'#ffb35c'},t); }
+  if(s.gate){ const t=el('g',{transform:`translate(0,${st==='cur'?-118:-70})`},g); el('rect',{x:-70,y:-15,width:140,height:30,rx:8,fill:'#241a0e',stroke:'#ffe0a8','stroke-width':1.5},t); txt(s.gate,{class:'tag',fill:'#ffe0a8',direction:'rtl'},t); }
+  (s.bonus||[]).forEach((b,bi)=>{
+    const dir = (it.k===0? -1:1) * (it.m._rtl? 1 : -1);   // toward the previous node (or the next one if first in band)
+    const first=it.k===0, oy= first? 44 : -62;
+    const t=el('g',{transform:`translate(${dir*((first?84:64)+bi*46)},${oy})`},g);
+    el('line',{x1:-dir*20,y1: first? -10:16,x2:-dir*(first?46:40),y2: first? -30:34,stroke:'#ffb35c','stroke-width':2,'stroke-dasharray':'3 4'},t);
+    el('circle',{r:20,fill:'#241a0e',stroke:'#ffb35c','stroke-width':2,'stroke-dasharray':'5 4'},t);
+    txt(b.id,{class:'tag',fill:'#ffb35c','font-family':'JetBrains Mono'},t);
+  });
+});
+/* size svg to content */
+const H=TOP+(MAP.modules.length+(MAP.final?1:0))*BAND+60;
+svg.setAttribute('width',W); svg.setAttribute('height',H); svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+</script>
+</body>
+</html>

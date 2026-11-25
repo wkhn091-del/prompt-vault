@@ -1,0 +1,2333 @@
+{
+  "method": {
+    "title": "השיטה שלי",
+    "summary": "פרומפט הפעלה — הדבק בריף והפעל מודול.",
+    "href": "https://docs.google.com/document/d/12fMJUB1G6zjRBaZgo3DxN9fUR0vyEv9dgfPaiARy07k/edit",
+    "courseId": "foundations",
+    "courseTitle": "יסודות"
+  },
+  "site-kit": {
+    "title": "תקיה בסיסית לאתר",
+    "summary": "Boilerplate RTL · Sanity · env · שאלון.",
+    "href": "https://docs.google.com/document/d/1GVgC1ye4AX2lipx1gROdiT9qQAdzGWGnZaXDsHmEZFY/edit",
+    "courseId": "foundations",
+    "courseTitle": "יסודות"
+  },
+  "agency": {
+    "title": "Agency Starter Kit",
+    "summary": "Next.js + Sanity + Tailwind + Framer Motion.",
+    "href": "https://docs.google.com/document/d/1gKG9LCdxJpDi7fybB-7W1VjrBd8znMi8ySKljjE5aW8/edit",
+    "courseId": "foundations",
+    "courseTitle": "יסודות"
+  },
+  "prompt-how-doc": {
+    "title": "איך כותבים פרומפט",
+    "summary": "Role · Task · Context · Format — טאב במסמך פורמטים.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "prompt-how",
+    "courseTitle": "איך כותבים פרומפט"
+  },
+  "prompt-noam-doc": {
+    "title": "פרומפט נועם",
+    "summary": "טאב «פרומט נועם» במסמך פורמטים לאתר.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "prompt-noam",
+    "courseTitle": "פרומפט נועם"
+  },
+  "format-basic-doc": {
+    "title": "פורמט בסיסי לאתר",
+    "summary": "טאב «פורמט בסיסי לאתר».",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "format-basic",
+    "courseTitle": "פורמט בסיסי לאתר"
+  },
+  "format-one-basic-doc": {
+    "title": "פורמט אחד לאתר בסיסי",
+    "summary": "טאב «פורמט אחד לאתר בסיסי».",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "format-one-basic",
+    "courseTitle": "פורמט אחד לאתר בסיסי"
+  },
+  "build-1": {
+    "title": "סקריפט 1 · בנייה, אזור אישי ואימות",
+    "summary": "ליבה, אזור אישי ומנוע אימות.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "site-build-formats",
+    "courseTitle": "פורמטים לבניית האתר"
+  },
+  "build-1-2": {
+    "title": "סקריפט 1.2 · ההירו",
+    "summary": "Hero — הודעה ראשונה ו-CTA.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "site-build-formats",
+    "courseTitle": "פורמטים לבניית האתר"
+  },
+  "build-1-3": {
+    "title": "סקריפט 1.3 · אלמנטים",
+    "summary": "אלמנטי ממשק ומבנה.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "site-build-formats",
+    "courseTitle": "פורמטים לבניית האתר"
+  },
+  "build-1-4": {
+    "title": "סקריפט 1.4",
+    "summary": "# סקריפט 1.4 - מנוע ציד הנכסים וארכיטקטורת התלת-ממד ברמת עלית (The Elite 3D & Asset Hunting Engine) הנחיית-על…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "build-2": {
+    "title": "סקריפט 2 · מנוע המרות וביצועים",
+    "summary": "המרות, ביצועים וסימולציית לקוח.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "site-build-formats",
+    "courseTitle": "פורמטים לבניית האתר"
+  },
+  "build-3": {
+    "title": "סקריפט 3 · חומת אבטחה והשקה",
+    "summary": "אבטחה והשקה לציבור.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "site-build-formats",
+    "courseTitle": "פורמטים לבניית האתר"
+  },
+  "build-4": {
+    "title": "סקריפט 4 · מסירה ללקוח",
+    "summary": "מסירה והכנה למכירות.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "site-build-formats",
+    "courseTitle": "פורמטים לבניית האתר"
+  },
+  "build-5": {
+    "title": "סקריפט 5 · ביקורת סופית",
+    "summary": "ביקורת סופית מקיפה.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "site-build-formats",
+    "courseTitle": "פורמטים לבניית האתר"
+  },
+  "build-6": {
+    "title": "סקריפט 6 · סינון אכזרי",
+    "summary": "לא חובה — סינון אכזרי.",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "site-build-formats",
+    "courseTitle": "פורמטים לבניית האתר"
+  },
+  "format-personal-doc": {
+    "title": "פורמט לאתר אישי",
+    "summary": "טאב «פורמט לאתר אישי».",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "format-personal",
+    "courseTitle": "פורמט לאתר אישי"
+  },
+  "format-app-doc": {
+    "title": "פורמט לבניית אפליקציה",
+    "summary": "טאב «פורמט לבניית אפליקציה».",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "format-app",
+    "courseTitle": "פורמט לבניית אפליקציה"
+  },
+  "format-3d-sites-doc": {
+    "title": "אתרי 3D",
+    "summary": "טאב «אתרי 3D».",
+    "href": "https://docs.google.com/document/d/1yneGW08SGl6RSBTbkF3df8Wb78g2rr3MOocKaBO4n7I/edit",
+    "courseId": "format-3d-sites",
+    "courseTitle": "אתרי 3D"
+  },
+  "ui-map": {
+    "title": "00 · מפה",
+    "summary": "מפת 7 שלבי UI.",
+    "href": "https://docs.google.com/document/d/1GVsh83HaxQAdH1LMYRb-2IPJMDpHSSrrxJrIBHYK-q8/edit",
+    "courseId": "ui",
+    "courseTitle": "UI"
+  },
+  "ui-01": {
+    "title": "01 · יסוד סטטי",
+    "summary": "Static Gate + מיקרו־אסתטיקה.",
+    "href": "https://docs.google.com/document/d/18n1i0sCdWnSzPMC7BnKSJqBsE-0GH8WoI8Fi29wiw1U/edit",
+    "courseId": "ui",
+    "courseTitle": "UI"
+  },
+  "ui-02": {
+    "title": "02 · מעטפת",
+    "summary": "Header / Hero / Footer.",
+    "href": "https://docs.google.com/document/d/1xFH6BH7V617Dggn3vvOpkco72ue7kgwZS-usZUi93d8/edit",
+    "courseId": "ui",
+    "courseTitle": "UI"
+  },
+  "ui-03": {
+    "title": "03 · אלמנטים",
+    "summary": "Art Direction.",
+    "href": "https://docs.google.com/document/d/1ZKOOh8SkgPToA5XPEr7qXXP7PcJQonzHZDGobTxLxFk/edit",
+    "courseId": "ui",
+    "courseTitle": "UI"
+  },
+  "ui-04": {
+    "title": "04 · תלת־ממד",
+    "summary": "ציד נכסים + Poster SSR.",
+    "href": "https://docs.google.com/document/d/1rDCHzij7cDVfyCTkPcpuQDW5o2ziOKhT8JhseuQqBN8/edit",
+    "courseId": "ui",
+    "courseTitle": "UI"
+  },
+  "ui-05": {
+    "title": "05 · המרות ואמון",
+    "summary": "CRO סטטי.",
+    "href": "https://docs.google.com/document/d/1Cvh7toimPgagrktkVE5N0gso8K-H7pXfrs9MYgX4hII/edit",
+    "courseId": "ui",
+    "courseTitle": "UI"
+  },
+  "ui-06": {
+    "title": "06 · שוליים והשקה",
+    "summary": "404 · OTP · מיילים · OG.",
+    "href": "https://docs.google.com/document/d/1f1ovb5PsYALTSP2NrtwU3TMv-movsc18--Pslwyz4VA/edit",
+    "courseId": "ui",
+    "courseTitle": "UI"
+  },
+  "ui-07": {
+    "title": "07 · סגירה",
+    "summary": "אריזה + QA + גיליוטינת קופי.",
+    "href": "https://docs.google.com/document/d/1Z6G20L5GOFpOlxmDsjIEObHRT-k3m8Kuu2wboihBAxI/edit",
+    "courseId": "ui",
+    "courseTitle": "UI"
+  },
+  "ux-00": {
+    "title": "00 · מפה",
+    "summary": "מפת 7 שלבי UX.",
+    "href": "https://docs.google.com/document/d/1XG3Q_eK4P_-3-4UF4Wj8gk8oBaOLN9oq5SKDDU6nWeg/edit",
+    "courseId": "ux",
+    "courseTitle": "UX"
+  },
+  "ux-01": {
+    "title": "01 · ליבה ואזור אישי",
+    "summary": "אימות וארכיטקטורה.",
+    "href": "https://docs.google.com/document/d/1n2ZOtMSrWBrRbSlHSu-HAK8UkbUJqsNmlb9YxYbBRKg/edit",
+    "courseId": "ux",
+    "courseTitle": "UX"
+  },
+  "ux-02": {
+    "title": "02 · הירו",
+    "summary": "5 שניות ראשונות.",
+    "href": "https://docs.google.com/document/d/1yhsj0NyEu9VUOyfYGAiaDaduS2go-_QmWpWi_szbM6U/edit",
+    "courseId": "ux",
+    "courseTitle": "UX"
+  },
+  "ux-03": {
+    "title": "03 · אלמנטים",
+    "summary": "טפסים, ניווט, מצבי ריק.",
+    "href": "https://docs.google.com/document/d/1F1JQItmq9wmR0k_HZ9txsYAJ110z1PlI_ZzuPEMeziw/edit",
+    "courseId": "ux",
+    "courseTitle": "UX"
+  },
+  "ux-04": {
+    "title": "04 · תלת־מימד",
+    "summary": "WebGL בתוך זרימת UX.",
+    "href": "https://docs.google.com/document/d/1wrW7EJiN1r5VMc4SMX0Qw3JXFHpK3D05mU6QTpuiJ18/edit",
+    "courseId": "ux",
+    "courseTitle": "UX"
+  },
+  "ux-05": {
+    "title": "05 · ביצועים ואבטחה",
+    "summary": "סימולציה + השקה.",
+    "href": "https://docs.google.com/document/d/1sIV447ojqmKB4FtWPckx6dzNpSoHtJtkMktuCklswzo/edit",
+    "courseId": "ux",
+    "courseTitle": "UX"
+  },
+  "ux-06": {
+    "title": "06 · מסירה ו-SLA",
+    "summary": "לוגיקת מסירה ועסקים.",
+    "href": "https://docs.google.com/document/d/1w-G8wSpQ6BBfJ7OKiLLAxbCzcTAERrjZHeJIWS-dkr4/edit",
+    "courseId": "ux",
+    "courseTitle": "UX"
+  },
+  "ux-07": {
+    "title": "07 · ביקורת ו-AppSec",
+    "summary": "קוד, סייבר, Compliance.",
+    "href": "https://docs.google.com/document/d/1kBXAldz-vQsZtprfCwv2yE-0h8MjPadf-CZAcYOVPOQ/edit",
+    "courseId": "ux",
+    "courseTitle": "UX"
+  },
+  "anim-00": {
+    "title": "00 · מפה",
+    "summary": "מפת 7 שלבי אנימציה.",
+    "href": "https://docs.google.com/document/d/1KCW5754D59pU8xY7LQaCZCF26OsR0v28NQAmxwVwcLE/edit",
+    "courseId": "motion",
+    "courseTitle": "אנימציה"
+  },
+  "anim-01": {
+    "title": "01 · חשיפת טקסט",
+    "summary": "Premium text reveal.",
+    "href": "https://docs.google.com/document/d/1ZGwh6fari-Bp0V8zeLMBhnd4YXIcq9aFuWRb2fEecEw/edit",
+    "courseId": "motion",
+    "courseTitle": "אנימציה"
+  },
+  "anim-02": {
+    "title": "02 · גלילה ופרלקס",
+    "summary": "Scroll reveal + parallax.",
+    "href": "https://docs.google.com/document/d/1XNsL2RWuE5EtoAaNEDwdDr7jM7z-Itvah4kb3ciMgeA/edit",
+    "courseId": "motion",
+    "courseTitle": "אנימציה"
+  },
+  "anim-03": {
+    "title": "03 · אינטראקציה",
+    "summary": "מגנט · כרטיס 3D · סמן.",
+    "href": "https://docs.google.com/document/d/1nDIhpWCk2jgW5rQAN7Vi3bv88Im2Phg4va9bVmbWTW8/edit",
+    "courseId": "motion",
+    "courseTitle": "אנימציה"
+  },
+  "anim-04": {
+    "title": "04 · טעינה ומעברים",
+    "summary": "Loader 3D + וילון.",
+    "href": "https://docs.google.com/document/d/1omG9kPqnHkYbqBnYl1NAOlmGw3xHWJR9DuCUho7qZBM/edit",
+    "courseId": "motion",
+    "courseTitle": "אנימציה"
+  },
+  "anim-05": {
+    "title": "05 · Marquee וגלריה",
+    "summary": "טקסט רץ + גלריה מדורגת.",
+    "href": "https://docs.google.com/document/d/1_-8nkFrOO_HZY7mU3YXxqqw5TWNuQZCxGQwF_u_SFOw/edit",
+    "courseId": "motion",
+    "courseTitle": "אנימציה"
+  },
+  "anim-06": {
+    "title": "06 · חבילות נישה",
+    "summary": "מאפיות → הייטק.",
+    "href": "https://docs.google.com/document/d/1RXpNIg50XD1PvEzRlyFVHpfTwoJAJkQUEmbx-QMdDeg/edit",
+    "courseId": "motion",
+    "courseTitle": "אנימציה"
+  },
+  "anim-07": {
+    "title": "07 · נועם ואבישי",
+    "summary": "חבילות אישיות.",
+    "href": "https://docs.google.com/document/d/1Wiyd_v8pppKuGHZK0dIWusGNaMRViRGtFy4J_m6n4Dw/edit",
+    "courseId": "motion",
+    "courseTitle": "אנימציה"
+  },
+  "demo-00": {
+    "title": "00 · מפה",
+    "summary": "מפת 5 שלבי דימו.",
+    "href": "https://docs.google.com/document/d/1QEReSC59ihGh2jglgIiIjmScyeeX9_zB6vvQCYOJP2M/edit",
+    "courseId": "demo",
+    "courseTitle": "אתר דימו"
+  },
+  "demo-01": {
+    "title": "01 · ליבה",
+    "summary": "ארכיטקטורת WOW · בלי Backend.",
+    "href": "https://docs.google.com/document/d/1vZ78RvOUfNkmgMXQO1CnqA0sgJvliQSbS-8LlwRcgFM/edit",
+    "courseId": "demo",
+    "courseTitle": "אתר דימו"
+  },
+  "demo-02": {
+    "title": "02 · סימולציית המרות",
+    "summary": "מנוע המרות ו-UX.",
+    "href": "https://docs.google.com/document/d/1bn62rz0fdTKMCCgupoS42AlH55ytgnbLoabk_Mp_RU0/edit",
+    "courseId": "demo",
+    "courseTitle": "אתר דימו"
+  },
+  "demo-03": {
+    "title": "03 · פריסה וזכויות",
+    "summary": "פריסה פרטית והגנת IP.",
+    "href": "https://docs.google.com/document/d/1b6sWyVkOFOWL-40GSsX0a--urKbFSEplslXwbZAiG6k/edit",
+    "courseId": "demo",
+    "courseTitle": "אתר דימו"
+  },
+  "demo-04": {
+    "title": "04 · מכתץ הסגירה",
+    "summary": "סגירת מכירה על הדימו.",
+    "href": "https://docs.google.com/document/d/1CQW3cIuYls2k-fmzRzYH9PFLGMNgyWJyvmh-hZB1-nY/edit",
+    "courseId": "demo",
+    "courseTitle": "אתר דימו"
+  },
+  "demo-05": {
+    "title": "05 · מבחן WOW",
+    "summary": "שלמות ויזואלית.",
+    "href": "https://docs.google.com/document/d/1W9el8p19UKeo2dFTcfScoGJ-DqF67vhW4fmmcX1Siu8/edit",
+    "courseId": "demo",
+    "courseTitle": "אתר דימו"
+  },
+  "land-00": {
+    "title": "00 · מפה",
+    "summary": "מפת 5 שלבי נחיתה.",
+    "href": "https://docs.google.com/document/d/1LqYNZNBWFmbYtquX32AWldo0s3YP6YgEBdWYawtBsqQ/edit",
+    "courseId": "landing",
+    "courseTitle": "דף נחיתה"
+  },
+  "land-01": {
+    "title": "01 · ליבה",
+    "summary": "פורמט דף נחיתה.",
+    "href": "https://docs.google.com/document/d/1ObZCMLblvv_pW6DCob_4EkbhJHghMFU6a-EfeRbs6lo/edit",
+    "courseId": "landing",
+    "courseTitle": "דף נחיתה"
+  },
+  "land-02": {
+    "title": "02 · מנוע המרות",
+    "summary": "פסיכולוגיה ו-UX.",
+    "href": "https://docs.google.com/document/d/1cVsUBd8Dj5ohzWNCBTwgDDfRgH7mUhFQ6DejAMfn328/edit",
+    "courseId": "landing",
+    "courseTitle": "דף נחיתה"
+  },
+  "land-03": {
+    "title": "03 · טפסים ו-Go-Live",
+    "summary": "הגנה, מעקבים, השקה.",
+    "href": "https://docs.google.com/document/d/18xG68Ur5fCfPiLqXmyvU_Qe7dRQiMjPZIfjqM6BMPME/edit",
+    "courseId": "landing",
+    "courseTitle": "דף נחיתה"
+  },
+  "land-04": {
+    "title": "04 · מסירה וקמפיינים",
+    "summary": "ריטיינר אופטימיזציה.",
+    "href": "https://docs.google.com/document/d/1QC0VWTFJKv_oa0YsyC8Sn8586ziJNzmJZ5_CGYD90UI/edit",
+    "courseId": "landing",
+    "courseTitle": "דף נחיתה"
+  },
+  "land-05": {
+    "title": "05 · מבקר המרות",
+    "summary": "אבטחת לידים.",
+    "href": "https://docs.google.com/document/d/1_V6P5mE9ZkCoxybYM6Pj41GqP0malSN1WfuBhyZBibY/edit",
+    "courseId": "landing",
+    "courseTitle": "דף נחיתה"
+  },
+  "e1-00": {
+    "title": "00 · מפה",
+    "summary": "מפת 5 שלבי Tier 1.",
+    "href": "https://docs.google.com/document/d/11BUJTWxuxvp9zR9TksJ21xCod8Uuk5t3l4Y7XIs7clk/edit",
+    "courseId": "ecom-classic",
+    "courseTitle": "איקומרס Tier 1"
+  },
+  "e1-01": {
+    "title": "01 · ליבה",
+    "summary": "ארכיטקטורה ואבטחת מחירים.",
+    "href": "https://docs.google.com/document/d/1-RK065qiehi_M870dcYdQ5iwHjCaCN8IfxT6HoMKq1M/edit",
+    "courseId": "ecom-classic",
+    "courseTitle": "איקומרס Tier 1"
+  },
+  "e1-02": {
+    "title": "02 · חיפוש ועגלות",
+    "summary": "Faceted search וביצועים.",
+    "href": "https://docs.google.com/document/d/1HnMGMgZGgk73hpMudp9OaKXmx0MkDTHpW8sQwkT9Ucw/edit",
+    "courseId": "ecom-classic",
+    "courseTitle": "איקומרס Tier 1"
+  },
+  "e1-03": {
+    "title": "03 · המבצר והשקה",
+    "summary": "אבטחה והשקת ענק.",
+    "href": "https://docs.google.com/document/d/1_GUH9r8_D2ut3RJs6Qil8qDgpLDm0d46xvfsE5aj-r0/edit",
+    "courseId": "ecom-classic",
+    "courseTitle": "איקומרס Tier 1"
+  },
+  "e1-04": {
+    "title": "04 · מסירה",
+    "summary": "מסירה למערכת גדולה.",
+    "href": "https://docs.google.com/document/d/1SFqymLNrdX6R2aKjvtf_s0pQ-scbcJ8UlGAVY2lD7mk/edit",
+    "courseId": "ecom-classic",
+    "courseTitle": "איקומרס Tier 1"
+  },
+  "e1-05": {
+    "title": "05 · מבקר מערכות",
+    "summary": "AppSec · Logic · QA.",
+    "href": "https://docs.google.com/document/d/1hu_y03NG9vk1zsF3zhN2FoJPHFFRGluTgL2ddAveh80/edit",
+    "courseId": "ecom-classic",
+    "courseTitle": "איקומרס Tier 1"
+  },
+  "e3-00": {
+    "title": "00 · מפה",
+    "summary": "מפת 5 שלבי Tier 2/3.",
+    "href": "https://docs.google.com/document/d/1fag4XgwikG_-BuykuU2YX1CXHxq8tA6iT5u0niPGpHA/edit",
+    "courseId": "ecom-3d",
+    "courseTitle": "איקומרס 3D"
+  },
+  "e3-01": {
+    "title": "01 · ליבה",
+    "summary": "WebGL + R3F מעל איקומרס.",
+    "href": "https://docs.google.com/document/d/1PzR2s5Jqz-Jo-55OdBeWWAS5nm4fG0MEmuA4R9xCe3s/edit",
+    "courseId": "ecom-3d",
+    "courseTitle": "איקומרס 3D"
+  },
+  "e3-02": {
+    "title": "02 · ביצועי WebGL",
+    "summary": "ביצועים קיצוניים.",
+    "href": "https://docs.google.com/document/d/14tShymQ8TNIfmbS53G-ltZs0SQzoikgUXMQLTp-LsiY/edit",
+    "courseId": "ecom-3d",
+    "courseTitle": "איקומרס 3D"
+  },
+  "e3-03": {
+    "title": "03 · אבטחת רכוש",
+    "summary": "נכסים + השקת פרימיום.",
+    "href": "https://docs.google.com/document/d/14dLORNOekPN7iQf8tLXaLKAS2T16ieJvra2S4V-Ajp8/edit",
+    "courseId": "ecom-3d",
+    "courseTitle": "איקומרס 3D"
+  },
+  "e3-04": {
+    "title": "04 · מסירת שואורום",
+    "summary": "ריטיינר פרימיום.",
+    "href": "https://docs.google.com/document/d/1DLc4yUehWTeDRPDJ9vFEz1fun7i7p0XC8kKY32LhVV4/edit",
+    "courseId": "ecom-3d",
+    "courseTitle": "איקומרס 3D"
+  },
+  "e3-05": {
+    "title": "05 · ביקורת ורישוי",
+    "summary": "WebGL · נכסים · רישוי.",
+    "href": "https://docs.google.com/document/d/1Sr0zpQMaY56UFwJz1hHI-zVq9fZy1IB2gDe19hoBe84/edit",
+    "courseId": "ecom-3d",
+    "courseTitle": "איקומרס 3D"
+  },
+  "ps-00": {
+    "title": "00 · מפה",
+    "summary": "מפת 4 שלבי סינון.",
+    "href": "https://docs.google.com/document/d/12pzMhYn4C_diz-86CrGO6sZ5NbBuXPvhbxrknVv66Us/edit",
+    "courseId": "pre-sale",
+    "courseTitle": "סינון לפני מכירה"
+  },
+  "ps-01": {
+    "title": "01 · ביקורת כלקוח",
+    "summary": "עיני לקוח high-ticket.",
+    "href": "https://docs.google.com/document/d/1bC-FO0umY245PzoicIpMgJEYt_3clyF7mjyWJifw8bU/edit",
+    "courseId": "pre-sale",
+    "courseTitle": "סינון לפני מכירה"
+  },
+  "ps-02": {
+    "title": "02 · ביקורת אבטחה",
+    "summary": "בדיקת אבטחת האתר.",
+    "href": "https://docs.google.com/document/d/1MML3AzshKvfbqWNJjv89hr0GvfQOFx77D4hkZW5Uyac/edit",
+    "courseId": "pre-sale",
+    "courseTitle": "סינון לפני מכירה"
+  },
+  "ps-03": {
+    "title": "03 · ביקורת משפטית",
+    "summary": "כשירות חוקית.",
+    "href": "https://docs.google.com/document/d/1zWNAAf7Twu-8Qeo5p0nf0wTTyFnee7P0ugw0mmrlt3M/edit",
+    "courseId": "pre-sale",
+    "courseTitle": "סינון לפני מכירה"
+  },
+  "ps-04": {
+    "title": "04 · ביקורת לדף נחיתה",
+    "summary": "סינון ייעודי לנחיתה.",
+    "href": "https://docs.google.com/document/d/1Bk0OyySTKW4y3nNX4L9MCkJ072tHovIU270dT73la0w/edit",
+    "courseId": "pre-sale",
+    "courseTitle": "סינון לפני מכירה"
+  },
+  "million-sites-book": {
+    "title": "Million Sites Book",
+    "summary": "ספר PDF.",
+    "href": "https://drive.google.com/file/d/1xUxBhaOVTnnGwBDJn6tplPYWY1odGHOl/view",
+    "courseId": "assets",
+    "courseTitle": "קבצים"
+  },
+  "motion-kit": {
+    "title": "Motion Kit",
+    "summary": "חבילת נכסי תנועה.",
+    "href": "https://drive.google.com/file/d/1rrKsAcMN57zGAvZ7B7hGup3BvwY3ZFRS/view",
+    "courseId": "assets",
+    "courseTitle": "קבצים"
+  },
+  "studio-sites-claude-21st": {
+    "title": "אתר בסטנדרט של סטודיו: Claude + רכיבי 21st",
+    "summary": "# אתר בסטנדרט של סטודיו: Claude + רכיבי 21st בונים עמוד שלם מרכיבי React מוכנים, אחד-אחד, במקום לבקש 'תבנה לי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "code-only-promo-video": {
+    "title": "פרסומת אנכית שנבנית כולה בקוד",
+    "summary": "# פרסומת אנכית שנבנית כולה בקוד Claude Code כותב מנוע רינדור 2.5D בפייתון ומפיק סרטון 1080×1920 – בלי מצלמה ו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "claude-meta-ads-12-agents": {
+    "title": "Claude בונה קמפיין לידים במטא – במצב מושהה",
+    "summary": "# Claude בונה קמפיין לידים במטא – במצב מושהה מחבר רשמי למנהל המודעות, הרשאות נעולות, ופרומפט של 12 'סוכנים' ש…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "osiris-live-globe": {
+    "title": "אוסיריס: גלובוס חי של מצלמות, טיסות ולוויינים",
+    "summary": "# אוסיריס: גלובוס חי של מצלמות, טיסות ולוויינים גלובוס תלת-ממדי בדפדפן, חינמי וקוד פתוח: שידורים חיים ממצלמות…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "3d-websites-claude": {
+    "title": "דף נחיתה עם עומק ותלת-ממד: בריף מסודר ל-Claude",
+    "summary": "# דף נחיתה עם עומק ותלת-ממד: בריף מסודר ל-Claude איך לתת ל-Claude כיוון עיצובי אמיתי – השראה, תנועה, פונטים ו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "chatgpt-gif-maker": {
+    "title": "גיפים ממשפט אחד ב-ChatGPT",
+    "summary": "# גיפים ממשפט אחד ב-ChatGPT תבנית של שורה אחת שמחזירה גיף בלופ תוך פחות מדקה – לסטורי, למייל ולדף מוצר. ## מה…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "drone-shot-from-photo": {
+    "title": "שוט רחפן מתמונה אחת",
+    "summary": "# שוט רחפן מתמונה אחת מסמנים מסלול טיסה, מעלים כ-Start frame, ומריצים פרומפט תנועה חלק ויציב. ## מה זה עושה ה…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "comment-to-dm-zernio": {
+    "title": "תגובה שהופכת להודעה פרטית (Comment-to-DM) עם Zernio",
+    "summary": "# תגובה שהופכת להודעה פרטית (Comment-to-DM) עם Zernio מי שמגיב מילת קוד על הפוסט מקבל תשובה פומבית מתחלפת והו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "artcraft-free-adobe-alternative": {
+    "title": "ArtCraft: עריכת תמונות ווידאו בקוד פתוח – ש-Claude Code מפעיל",
+    "summary": "# ArtCraft: עריכת תמונות ווידאו בקוד פתוח – ש-Claude Code מפעיל חבילת אפליקציות חינמיות (PhotoCraft, LightCra…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "claude-subscription-finder-agent": {
+    "title": "סוכן שבועי שמאתר מנויים וחיובים במייל",
+    "summary": "# סוכן שבועי שמאתר מנויים וחיובים במייל משימה מתוזמנת ב-Claude שסורקת את Gmail פעם בשבוע ומחזירה רשימת מנויים…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "ai-product-lifestyle-shoot": {
+    "title": "מתמונת מוצר אחת לסדרת צילומי לייפסטייל",
+    "summary": "# מתמונת מוצר אחת לסדרת צילומי לייפסטייל המוצר נשאר זהה בכל פריים – רק הלוקיישן, האור והזווית מתחלפים. כולל ש…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "hebrew-voice-clone-elevenlabs": {
+    "title": "שיבוט הקול שלך לקריינות בעברית",
+    "summary": "# שיבוט הקול שלך לקריינות בעברית דגימה של 1–3 דקות, Instant Voice Clone, ומודל שתומך בעברית – קריינות שנשמעת…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "chatgpt-business-profile": {
+    "title": "דף עסק בתוך ChatGPT – הקמה ואימות",
+    "summary": "# דף עסק בתוך ChatGPT – הקמה ואימות שם ותיאור, אימות דומיין ברשומת TXT, טלפון, מייל וזהות – כדי ש-ChatGPT יכי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "ai-agent-team-setup": {
+    "title": "סוכן AI אישי מאפס: התקנה, חיבורים והיכרות",
+    "summary": "פותחים חשבון, מחברים מייל/דרייב/יומן, ומלמדים את הבוט על העסק – עם 'צ'יף' שמנהל בוטים לפי תפקיד.",
+    "href": "https://docs.google.com/document/d/18mPPZxvva1jPRFGJBSZLo4Kv8eXbx6kbYjOmsHw2ihk/edit",
+    "courseId": "formats-38",
+    "courseTitle": "38 פורמטים מעוצבים"
+  },
+  "gemini-skills-saved-instructions": {
+    "title": "סקילים ב-Gemini: הוראות קבועות שמופעלות בלוכסן",
+    "summary": "# סקילים ב-Gemini: הוראות קבועות שמופעלות בלוכסן שומרים פעם אחת את 'הקול של העסק', תשובה לליד ודוח שבועי – ומ…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "adobe-tools-in-chat": {
+    "title": "עריכת תמונות ו-PDF של Adobe מתוך הצ'אט",
+    "summary": "# עריכת תמונות ו-PDF של Adobe מתוך הצ'אט הסרת רקע, אחידות צבע, גרסאות לרשתות ואיחוד PDF – בבקשה בעברית ל-Clau…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "elementor-mcp-claude": {
+    "title": "Claude בונה עמודים באלמנטור דרך MCP",
+    "summary": "# Claude בונה עמודים באלמנטור דרך MCP מפעילים חיבור MCP בוורדפרס, מדביקים ל-Claude, ומבקשים דף נחיתה במילים –…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "search-console-image-search": {
+    "title": "כמה מבקרים הגיעו מחיפוש בתמונה (Search Console)",
+    "summary": "# כמה מבקרים הגיעו מחיפוש בתמונה (Search Console) המסנן multimodal מראה כניסות מ-Lens וחיפוש בתמונה – ואיך לה…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "google-vids-free-ai-video": {
+    "title": "סרטוני AI בחינם עם Google Vids",
+    "summary": "# סרטוני AI בחינם עם Google Vids נוסחת פרומפט בשש חלקים, תמונת מוצר שהופכת לווידאו, ופרסומת של 20–30 שניות –…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "ai-tools-stack-10": {
+    "title": "ערכת עשרה כלי AI לעסק – ומה כל אחד פותר",
+    "summary": "# ערכת עשרה כלי AI לעסק – ומה כל אחד פותר כתיבה, תמונות, אוטומציה, בנייה, מחקר, קול ווידאו: עשרה כלים במפה אח…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "business-prompt-bank-50": {
+    "title": "בנק פרומפטים לעסק: שיווק, מכירות, תוכן, שירות ואסטרטגיה",
+    "summary": "# בנק פרומפטים לעסק: שיווק, מכירות, תוכן, שירות ואסטרטגיה נוסחת פרומפט אחת + חמש קטגוריות עם בקשות קצרות ומדו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "ai-tools-for-business-5": {
+    "title": "חמישה כלי AI לעסק – עם תבניות מוכנות לעבודה",
+    "summary": "# חמישה כלי AI לעסק – עם תבניות מוכנות לעבודה ChatGPT, Claude, NotebookLM, Gemini ו-Make: לכל כלי שימוש אחד ב…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "claude-code-skills-50": {
+    "title": "מדריך סקילים ל-Claude Code: התקנה וסדר עדיפויות",
+    "summary": "# מדריך סקילים ל-Claude Code: התקנה וסדר עדיפויות סקיל = תיקיית הוראות ש-Claude טוען לבד כשהמשימה מתאימה. ככה…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "claude-code-codex-image-mcp": {
+    "title": "יצירת תמונות מתוך Claude Code דרך Codex MCP",
+    "summary": "# יצירת תמונות מתוך Claude Code דרך Codex MCP מחברים את Codex כשרת MCP, מתחברים פעם אחת, וכל באנר/מוקאפ נוצר…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "gpt-image-2-business-prompts": {
+    "title": "עשרה פרומפטים לתמונות עסקיות ב-GPT Image 2",
+    "summary": "# עשרה פרומפטים לתמונות עסקיות ב-GPT Image 2 צילום מוצר, מוקאפ אתר, סדרת פוסטים, סטוריבורד, החלפת זווית, מוקא…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "remotion-videos-with-claude": {
+    "title": "סרטונים בקוד React עם Remotion ו-Claude",
+    "summary": "# סרטונים בקוד React עם Remotion ו-Claude פקודה אחת מתקינה ל-Claude את הסקילים של Remotion – ואז מתארים סרטון…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "bullet-time-ai-video": {
+    "title": "סרטון 'זמן קפוא' (Bullet Time) בשני שלבים",
+    "summary": "# סרטון 'זמן קפוא' (Bullet Time) בשני שלבים הגדרות מדויקות + פרומפט מובנה עם מפת רפרנסים, ציר זמן ונעילת טקסט…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "viral-content-radar-bot": {
+    "title": "רדאר תוכן: פוסטים מצליחים → טלגרם → גרסה בעברית",
+    "summary": "# רדאר תוכן: פוסטים מצליחים → טלגרם → גרסה בעברית סורק שבועי ב-Apify, בוט טלגרם שמביא את התוצאות, טבלת ניהול,…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "meta-pixel-9-checks": {
+    "title": "תשע בדיקות מדידה לפני שמגדילים תקציב במטא",
+    "summary": "# תשע בדיקות מדידה לפני שמגדילים תקציב במטא המערכת לומדת ממה שמודדים. אם המדידה שבורה – גם קמפיין טוב שורף כס…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "lead-auto-reply-summary": {
+    "title": "מענה אוטומטי ללידים – תקציר בלבד",
+    "summary": "עקרונות: תשובה ראשונה תוך שניות, הודעת פתיחה ששואלת שאלה, AI שמסכם את הליד, ומעקב אוטומטי.",
+    "href": "https://docs.google.com/document/d/13ZTJyy9VVanNdQiDqJgpRpRs9Bac5IOT3l0ZiZln6wA/edit",
+    "courseId": "formats-38",
+    "courseTitle": "38 פורמטים מעוצבים"
+  },
+  "meta-ads-playbook": {
+    "title": "ספר הפעלה לקמפיין במטא",
+    "summary": "# ספר הפעלה לקמפיין במטא מבנה פשוט, קהל רחב עם הצעות, תקציב שנותן ללמידה לקרות, וקריאייטיב אנכי שהוא הטירגוט…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "roas-break-even-formula": {
+    "title": "ROAS, ROI, MER ונקודת האיזון – בנוסחה אחת לכל עסק",
+    "summary": "# ROAS, ROI, MER ונקודת האיזון – בנוסחה אחת לכל עסק לפני שמגדילים תקציב: מחשבים Break-Even ROAS לפי שולי הרוו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "landing-page-3-conversion-fixes": {
+    "title": "שלושה שינויים בדף שמגדילים פניות",
+    "summary": "# שלושה שינויים בדף שמגדילים פניות כפתור פנייה אחד בולט, ביקורת אמיתית אחת לפני הכפתור, וסרטון של 15 שניות –…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "instagram-posting-times-israel": {
+    "title": "מתי לפרסם באינסטגרם: לוח זמנים לקהל ישראלי",
+    "summary": "# מתי לפרסם באינסטגרם: לוח זמנים לקהל ישראלי פוסטים, סטוריז ורילים מתנהגים אחרת – לוח שבועי מוכן ושיטה לבדוק…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "social-4-week-content-plan": {
+    "title": "תוכנית תוכן ל-4 שבועות: פוסטים, ריל וסטוריז",
+    "summary": "# תוכנית תוכן ל-4 שבועות: פוסטים, ריל וסטוריז חמישה עמודי תוכן שמתחלפים, לוח שבועי קבוע, וכמות מומלצת לפי גוד…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "make-first-automation": {
+    "title": "אוטומציה ראשונה ב-Make: טופס → CRM → מייל",
+    "summary": "# אוטומציה ראשונה ב-Make: טופס → CRM → מייל Webhook מהטופס באתר, סינון ספאם, שמירה ב-Notion ומייל אישור ללקוח…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "snapbar-instant-screenshots-mac": {
+    "title": "SnapBar למק: צילום מסך שנכנס ישר ללוח",
+    "summary": "# SnapBar למק: צילום מסך שנכנס ישר ללוח אפליקציה חינמית בקוד פתוח: כל צילום נשמר ומועתק מיד, עם ספרייה וחיפוש…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "brand-identity-questionnaire": {
+    "title": "שאלון אפיון מותג – לפני שפותחים קובץ עיצוב",
+    "summary": "# שאלון אפיון מותג – לפני שפותחים קובץ עיצוב קהל, ערך, ייחודיות, טון ויעדים: שאלון בחמישה פרקים שמסתיים בבריף…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "m79-pvrmtym-ayk-kvtbym-prvmt": {
+    "title": "איך כותבים פרומט",
+    "summary": "-You are an Expert Prompt Engineer. Your goal is to take the simple task I provide below and transform it int…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-pvrmtym-prvmt-nvam": {
+    "title": "פרומט נועם",
+    "summary": "אתה מומחה לכתיבת פרומפטים. תפקידך לקחת תיאור קצר ולא מסודר שאתן לך, ולהפוך אותו לפרומט מובנה, ברור ומקצועי. כ…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-pvrmtym-pvrmt-bsysy-latr": {
+    "title": "פורמט בסיסי לאתר",
+    "summary": "Scroll Animations פרומט לעצירת גלילה לאחר ה hero # Pinned Scroll-Triggered Section — Hebrew RTL ## 🎯 Goal Build a new section that comes **…",
+    "href": "https://docs.google.com/document/d/16Fs6ukV4xot6FLiyk6Ge0SMUuOo3mW0Gf-C8noBndMQ/edit",
+    "courseId": "formats-38",
+    "courseTitle": "38 פורמטים מעוצבים"
+  },
+  "m79-pvrmtym-pvrmt-achd-latr-bsysy": {
+    "title": "פורמט אחד לאתר בסיסי",
+    "summary": "# **פרומט V2 — אתר ממיר, עיצוב לפני הכל, אפקטי גלילה מוגדרים לפרט** מה השתנה מ-V1: במקום להגיד לו מה אסור, אומרים לו **בדיוק מה לבנות** — כל…",
+    "href": "https://docs.google.com/document/d/16Fs6ukV4xot6FLiyk6Ge0SMUuOo3mW0Gf-C8noBndMQ/edit",
+    "courseId": "formats-38",
+    "courseTitle": "38 פורמטים מעוצבים"
+  },
+  "m79-pvrmtym-skrypt-1-bnyyh-azvr-ayshy-vaymvt": {
+    "title": "סקריפט 1: בנייה, אזור אישי ואימות",
+    "summary": "# סקריפט 1 - בניית הליבה, האזור האישי, מנוע האימות וארכיטקטורת אימרסיב (Tier 2 & 3) הנחיית-על (Mission Direct…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-pvrmtym-skrypt-1-2-hhyrv": {
+    "title": "סקריפט 1.2 ההירו",
+    "summary": "האתרים שלנו נבנים כדי למשוך לקוחות ולמכור, בשוק הישראלי: עברית ו-RTL, התנהגות צרכנים ישראלית, וואטסאפ, אמצעי תשלום מקומיים ואמון מקומי.",
+    "href": "https://docs.google.com/document/d/1mXncmj8Hh_JoBVa82FMTdAJqH3U-dyjNZ1kgScIhP6Q/edit",
+    "courseId": "formats-38",
+    "courseTitle": "38 פורמטים מעוצבים"
+  },
+  "m79-pvrmtym-skrypt-1-4": {
+    "title": "סקריפט 1.4",
+    "summary": "# סקריפט 1.3 - מנוע ההשראה והתנועה ברמת 100K\\\\$ (The Universal Awwwards Motion Engine) הנחיית-על (Mission Directive) - רמת הגימור (The \\\\$100K…",
+    "href": "https://docs.google.com/document/d/1mXncmj8Hh_JoBVa82FMTdAJqH3U-dyjNZ1kgScIhP6Q/edit",
+    "courseId": "formats-38",
+    "courseTitle": "38 פורמטים מעוצבים"
+  },
+  "m79-pvrmtym-skrypt-3-chvmt-abtchh-vhshkh-ltzybvr": {
+    "title": "סקריפט 3: חומת אבטחה והשקה לציבור",
+    "summary": "# סקריפט 3 - חומת אבטחה קשוחה והשקה לציבור (Defense in Depth & Elite Launch) הנחיית-על (Mission Directive) -…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-pvrmtym-skrypt-4-msyrh-llkvch-vhknh-lmkyrvt": {
+    "title": "סקריפט 4: מסירה ללקוח והכנה למכירות",
+    "summary": "# סקריפט 4 - מסירה ללקוח (Handoff), חוויית פרימיום והכנה למכירות (The \\\\$100K Elite Handoff Engine) הנחיית-על…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-pvrmtym-skrypt-5-bykvrt-svpyt-mkyph": {
+    "title": "סקריפט 5: ביקורת סופית מקיפה",
+    "summary": "# סקריפט 5 - ביקורת איכות סופית, אבטחה והתאמה ל-100K\\\\$ (The Ultimate \\\\$100K QA, Security & CRO Audit) הנחיית-…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-pvrmtym-skrypt-6-la-chvbh-synvn-akzry": {
+    "title": "סקריפט 6 (לא חובה) סינון אכזרי",
+    "summary": "מעבר מדוקדק על כל הדרישות מסקריפטים 1 עד 4, דרישה אחר דרישה, ואימות קיומן בפועל בפרויקט.",
+    "href": "https://docs.google.com/document/d/1JOpwbU3Mbe0IZATXoLz8LTUCpWSlHc3He5Go0JgwlKk/edit",
+    "courseId": "formats-38",
+    "courseTitle": "38 פורמטים מעוצבים"
+  },
+  "m79-pvrmtym-pvrmt-lbnyyt-aplyktzyh": {
+    "title": "פורמט לבניית אפליקציה",
+    "summary": "### **פרומפט 1: ארכיטקטורה, הגדרות בסיס וניווט (The Skeleton)** הפרומפט הזה מקים את התשתית של האפליקציה. הוא דואג שהניווט יעבוד חלק (כמו באפ…",
+    "href": "https://docs.google.com/document/d/1yNkq-IcnEIjXFxysnO2nZ6xdQzwR5EJaqTVakK-a7Vo/edit",
+    "courseId": "formats-38",
+    "courseTitle": "38 פורמטים מעוצבים"
+  },
+  "m79-anymtzyh-chshypt-tkst-prymyvm": {
+    "title": "חשיפת טקסט פרימיום",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `Premi…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-anymtzyh-hvpah-chlkh-bglylh": {
+    "title": "הופעה חלקה בגלילה",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `Scrol…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-anymtzyh-mrchp-am-msk-taynh-3d": {
+    "title": "מרחף עם מסך טעינה 3D",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `Float…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-anymtzyh-kptvr-mgnty": {
+    "title": "כפתור מגנטי",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `Magne…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-anymtzyh-apkt-prlks-ltmvnvt": {
+    "title": "אפקט פרלקס לתמונות",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `Paral…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-anymtzyh-shvrt-tkst-rtzh-aynsvpyt": {
+    "title": "שורת טקסט רצה אינסופית",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `Infin…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-anymtzyh-krtys-akbr-tlt-mmdy": {
+    "title": "כרטיס עכבר תלת-ממדי",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `TiltC…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-anymtzyh-chshypt-glryh-mdvrgt": {
+    "title": "חשיפת גלריה מדורגת",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `Stagg…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-anymtzyh-smn-akbr-mvtam-ayshyt": {
+    "title": "סמן עכבר מותאם אישית",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `Custo…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-anymtzyh-mabr-amvd-vylvn": {
+    "title": "מעבר עמוד וילון",
+    "summary": "# תפקיד אתה מפתח Front-end ב-Next.js או React. מטמיע את הרכיב למטה בלי לשנות את הקוד. # מטרה להוסיף את `PageT…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ui-skrypt-1-mnva-h-ui-vhmykrv-asttykh-art-direc": {
+    "title": "סקריפט 1 - מנוע ה-UI והמיקרו-אסתטיקה (Art Direc",
+    "summary": "# סקריפט 1 - מנוע ה-UI והמיקרו-אסתטיקה (Art Direction & Static Foundation) הנחיית-על (Mission Directive): אתה…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ui-skrypt-1-2-hhyrv": {
+    "title": "סקריפט 1.2 ההירו",
+    "summary": "אתה כעת Master Art Director בסטודיו עלית. אנו בונים את המעטפת (Header, Hero, Footer) לאתרי High-Ticket ברמת \\\\$100K. המשימה שלך היא לבנות את ה-UI הסטטי המושלם. א",
+    "href": "https://docs.google.com/document/d/1xFH6BH7V617Dggn3vvOpkco72ue7kgwZS-usZUi93d8/edit",
+    "courseId": "method-ui",
+    "courseTitle": "מהשיטה · UI"
+  },
+  "m79-ui-skrypt-1-3-almntym": {
+    "title": "סקריפט 1.3 אלמנטים",
+    "summary": "# סקריפט 1.3 UI - מנוע ההשראה והארט דיירקשן (The Universal Awwwards Art Direction) הנחיית-על (Mission Directive) - רמת הגימור (The \\\\$100K St…",
+    "href": "https://docs.google.com/document/d/1ZKOOh8SkgPToA5XPEr7qXXP7PcJQonzHZDGobTxLxFk/edit",
+    "courseId": "method-ui",
+    "courseTitle": "מהשיטה · UI"
+  },
+  "m79-ui-skrypt-2-ui-arkytktvrt-hmrvt-amvn-vhshvvah-t": {
+    "title": "סקריפט 2 UI - ארכיטקטורת המרות, אמון והשוואה (T",
+    "summary": "# סקריפט 2 UI - ארכיטקטורת המרות, אמון והשוואה (The Static CRO & Trust Engine) הנחיית-על (Mission Directive):…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ui-skrypt-3-ui-abtchh-shgyavt-vtbnyvt-tkshvr": {
+    "title": "סקריפט 3 UI אבטחה, שגיאות ותבניות תקשור",
+    "summary": "# סקריפט 3 UI - מעטפת האמון, שגיאות ותבניות תקשורת (The Static Trust & Launch UI) הנחיית-על (Mission Directiv…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ui-skrypt-4-ui-mnva-haryzh-hvvyzvalyt-hmvkapym": {
+    "title": "סקריפט 4 UI - מנוע האריזה הוויזואלית, המוקאפים",
+    "summary": "# סקריפט 4 UI - מנוע האריזה הוויזואלית, המוקאפים ותוצרי השיווק (The Static Handoff & Marketing Aesthetics Eng…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ui-skrypt-5-ui-bykvrt-mykrv-asttykh-amt-vyzvaly": {
+    "title": "סקריפט 5 UI - ביקורת מיקרו-אסתטיקה, אמת ויזואלי",
+    "summary": "# סקריפט 5 UI - ביקורת מיקרו-אסתטיקה, אמת ויזואלית ופסיכולוגיית צרכנים (The Static QA & Visual Audit) הנחיית-…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ux-skrypt-1-bnyh-hbsysyt": {
+    "title": "סקריפט 1 בניה הבסיסית",
+    "summary": "האתרים שלנו נבנים כדי למשוך לקוחות ולמכור, בשוק הישראלי: עברית ו-RTL, התנהגות צרכנים ישראלית, וואטסאפ, אמצעי תשלום מקומיים ואמון מקומי.",
+    "href": "https://docs.google.com/document/d/1n2ZOtMSrWBrRbSlHSu-HAK8UkbUJqsNmlb9YxYbBRKg/edit",
+    "courseId": "method-ux",
+    "courseTitle": "מהשיטה · UX"
+  },
+  "m79-ux-skrypt-1-2-hhyrv": {
+    "title": "סקריפט 1.2 ההירו",
+    "summary": "אתה כעת Elite Creative Developer ומומחה WebGL/GSAP. קיבלת קוד UI סטטי מרהיב להידר, הירו ופוטר. המשימה שלך היא להזריק לתוכו את החיים (Motion, 3D, Physics).",
+    "href": "https://docs.google.com/document/d/1yhsj0NyEu9VUOyfYGAiaDaduS2go-_QmWpWi_szbM6U/edit",
+    "courseId": "method-ux",
+    "courseTitle": "מהשיטה · UX"
+  },
+  "m79-ux-skrypt-1-3-almntym": {
+    "title": "סקריפט 1.3 אלמנטים",
+    "summary": "# סקריפט 1.3 UX - מנוע ההנדסה לאחור והתנועה (The Universal Awwwards Motion Engine) הנחיית-על (Mission Directive) - רמת הגימור (The \\\\$100K St…",
+    "href": "https://docs.google.com/document/d/1F1JQItmq9wmR0k_HZ9txsYAJ110z1PlI_ZzuPEMeziw/edit",
+    "courseId": "method-ux",
+    "courseTitle": "מהשיטה · UX"
+  },
+  "m79-ux-skrypt-1-4-mnva-htlt-mymd": {
+    "title": "סקריפט 1.4 מנוע התלת מימד",
+    "summary": "אתה כעת טכנולוג קריאייטיב (Creative Technologist) ומומחה WebGL/GSAP ברמת Top 1%. אישרנו את מודל התלת-ממד, חומרי ה-PBR ופוסטר הטעינה. מטרתך כעת היא לכתוב את הכור",
+    "href": "https://docs.google.com/document/d/1wrW7EJiN1r5VMc4SMX0Qw3JXFHpK3D05mU6QTpuiJ18/edit",
+    "courseId": "method-ux",
+    "courseTitle": "מהשיטה · UX"
+  },
+  "m79-ux-skrypt-2-ux-lvgykt-bytzvaym-abtchh-vsymvltzyh-a": {
+    "title": "סקריפט 2 UX - לוגיקת ביצועים, אבטחה וסימולציה א",
+    "summary": "# סקריפט 2 UX - לוגיקת ביצועים, אבטחה וסימולציה אכזרית (The Logic, Performance & Neuro-Audit Engine) הנחיית-ע…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ux-skrypt-3-ux-chvmt-abtchh-kshvchh-vhshkh-ltzybvr-de": {
+    "title": "סקריפט 3 UX - חומת אבטחה קשוחה והשקה לציבור (De",
+    "summary": "# סקריפט 3 UX - חומת אבטחה קשוחה והשקה לציבור (Defense in Depth & Elite Launch) הנחיית-על (Mission Directive)…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ux-skrypt-4-ux-business-lvgykt-hmsyrh-h-sla": {
+    "title": "סקריפט 4 UX / Business - לוגיקת המסירה, ה-SLA,",
+    "summary": "# סקריפט 4 UX / Business - לוגיקת המסירה, ה-SLA, נהלי האבטחה ופרוטוקול הצמיחה (The Client Success, SLA & AppS…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ux-skrypt-5-ux-bykvrt-kvd-kshvchh-syybr-vbytzvay-k": {
+    "title": "סקריפט 5 UX - ביקורת קוד קשוחה, סייבר וביצועי ק",
+    "summary": "# סקריפט 5 UX - ביקורת קוד קשוחה, סייבר וביצועי קצה עליון (The Elite AppSec, Logic & Performance Audit) הנחיי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ux-skrypt-6-appsec-compliance-hprnvyh-shl-h-cis": {
+    "title": "סקריפט 6 AppSec & Compliance - הפרנויה של ה-CIS",
+    "summary": "# סקריפט 6 AppSec & Compliance - הפרנויה של ה-CISO והתובע הטכנולוגי (The Paranoid Security & Compliance Audit…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-dymv-1-skrypt-latr-dymv": {
+    "title": "1: סקריפט לאתר דימו",
+    "summary": "# סקריפט דימו (Proof of Concept) - ארכיטקטורת WOW לסגירת לקוחות הנחיית-על (Mission Directive): 1. מטרה: אנחנו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-dymv-3-prysh-prtyt-vhgnh-al-zkvyvt-yvtzrym": {
+    "title": "3: פריסה פרטית והגנה על זכויות יוצרים",
+    "summary": "# סקריפט 3 (Demo) - פריסה פרטית, חסימת סורקים והכנה לפגישה הנחיית-על (Mission Directive): 1. הגנה על המותג: א…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-dymv-4-mkttz-hsgyrh": {
+    "title": "4: מכתץ הסגירה",
+    "summary": "# סקריפט 4 (Demo) - מסירה מכירתית והמרת הדימו לעסקה הנחיית-על (Mission Directive): 1. מטרה: הדימו מוכן. עכשיו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-dymv-5-mbchn-h-wow-vhshlmvt-hvyzvalyt": {
+    "title": "5: מבחן ה-WOW והשלמות הויזואלית",
+    "summary": "# סקריפט 5 (Demo) - ביקורת QA ויזואלית, ביצועים והבטחת איכות לסגירת עסקאות הנחיית-על (Mission Directive) - חל…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-nchyth-1-pvrmt-dp-nchyth": {
+    "title": "1: פורמט דף נחיתה",
+    "summary": "# סקריפט דף נחיתה - ארכיטקטורה, פסיכולוגיית צרכנים ופיתוח להמרות הנחיית-על (Mission Directive): 1. מטרה: דף נ…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-nchyth-2-mnva-hmrvt-psykvlvgyh-tchrvtyt-v-ux": {
+    "title": "2: מנוע המרות, פסיכולוגיה תחרותית ו-UX",
+    "summary": "# סקריפט 2 (Landing Page) - מנוע ניתוח פסיכולוגי, המרות וביקורת חיכוך הנחיית-על (Mission Directive): 1. פסיכו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-nchyth-3-hgnt-tpsym-makbym-v-go-live": {
+    "title": "3: הגנת טפסים, מעקבים ו-Go-Live",
+    "summary": "# סקריפט 3 (Landing Page) - הגנת טפסים, Tracking ו-Go Live הנחיית-על (Mission Directive): 1. חומת הלידים (Lea…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-nchyth-4-msyrh-kmpyynym-vrytyynr-avptymyztzyh": {
+    "title": "4: מסירה, קמפיינים וריטיינר אופטימיזציה",
+    "summary": "# סקריפט 4 (Landing Page) - מסירת מכונת לידים והכנה לקמפיין הנחיית-על (Mission Directive): 1. מטרה: הלקוח צרי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-nchyth-5-mbkr-hmrvt-tpsym-vabtcht-lydym": {
+    "title": "5: מבקר המרות, טפסים ואבטחת לידים",
+    "summary": "# סקריפט 5 (Landing Page) - ביקורת קפדנית של יחסי המרה (CRO), אבטחת טפסים ו-SEO הנחיית-על (Mission Directive)…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-aykvmrs-3d-1-aykvmrs-3d-aymrsyby-tier-2-3": {
+    "title": "1: איקומרס 3D / אימרסיבי Tier 2/3",
+    "summary": "# סקריפט איקומרס Tier 2/3 - WebGL, ריאליזם מטורף וחוויית פרימיום הנחיית-על (Mission Directive): 1. מטרה: בניי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-aykvmrs-3d-2-aykvmrs-3d-tier-2-3-bytzvay-webgl-kytzvnyym": {
+    "title": "2: איקומרס 3D / Tier 2+3 - ביצועי WebGL קיצוניים,",
+    "summary": "# סקריפט 2 (E-Com 3D) - מנוע ביצועי WebGL קיצוניים, UX אכזרי ונגישות (a11y) הנחיית-על (Mission Directive): 1.…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-aykvmrs-3d-4-msyrt-shvavrvm-vrytyynr-prymyvm": {
+    "title": "4: מסירת שואורום וריטיינר פרימיום",
+    "summary": "# סקריפט 4 (E-Com 3D) - מסירת חוויות פרימיום ושואורום וירטואלי הנחיית-על (Mission Directive): 1. חינוך טכנולו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-aykvmrs-3d-5-bykvrt-webgl-abtcht-nksym-vryshvy": {
+    "title": "5: ביקורת WebGL, אבטחת נכסים ורישוי",
+    "summary": "# סקריפט 5 (E-Com 3D) - ביקורת קפדנית של ביצועי WebGL, אבטחת נכסים תלת-ממדיים ורישוי משפטי הנחיית-על (Mission…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-aykvmrs-tier1-1-aykvmrs-klasy-tier-1": {
+    "title": "1: איקומרס קלאסי Tier 1",
+    "summary": "# סקריפט איקומרס Tier 1 - ארכיטקטורה, אבטחה ופיתוח חנות (High-Volume) הנחיית-על (Mission Directive): 1. מטרה:…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-aykvmrs-tier1-aykvmrs-tier-1-chypvsh-chkm-aglvt-mtkdmvt-vbytzvaym": {
+    "title": "איקומרס Tier 1 - חיפוש חכם, עגלות מתקדמות וביצועים",
+    "summary": "# סקריפט 2 (E-Com Tier 1) - מנוע חיפוש חכם, הגדלת עגלה ואופטימיזציית ביצועים הנחיית-על (Mission Directive): 1…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-aykvmrs-tier1-3-aykvmrs-tier-1-hmbtzr-vhshkt-ank": {
+    "title": "3: איקומרס Tier 1 - המבצר והשקת ענק",
+    "summary": "# סקריפט 3 (E-Com Tier 1) - חומת אבטחה בנקאית והשקה בקנה מידה רחב הנחיית-על (Mission Directive): 1. Defense i…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-aykvmrs-tier1-4-msyrh-lmarkt-gdvlh": {
+    "title": "4: מסירה למערכת גדולה",
+    "summary": "# סקריפט 4 (E-Com Tier 1) - מסירת פלטפורמת סחר וריטיינר מקיף הנחיית-על (Mission Directive): 1. בעלות ושקיפות:…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-aykvmrs-tier1-5-mbkr-hmarkvt-hrashy-appsec-logic-qa": {
+    "title": "5: מבקר המערכות הראשי (AppSec, Logic & QA)",
+    "summary": "# סקריפט 5 (E-Com Tier 1) - ביקורת אבטחה בנקאית, לוגיקה עסקית ומערכות סחר מתקדמות הנחיית-על (Mission Directiv…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-synvn-hpvrmt-shmtzyg-at-amv-klkvch": {
+    "title": "הפורמט שמציג את עמו כלקוח",
+    "summary": "# תפקיד אתה לקוח יקר וספקן שבודק את העמוד הפתוח, לא מפתח. # מטרה לסרוק את העמוד הפתוח מלמעלה למטה בעיני הלקוח…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-synvn-hpvrmt-shybdvk-at-habtchh-shl-hatr": {
+    "title": "הפורמט שיבדוק את האבטחה של האתר",
+    "summary": "# תפקיד אתה ארכיטקט אבטחה בכיר ובודק חדירה (כובע לבן) לקוד ו/או לעמוד הפעיל. # מטרה לבצע ביקורת אבטחה חדה לפי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-synvn-hpvrmt-shybdvk-am-hatr-kshyr-kchvk": {
+    "title": "הפורמט שיבדוק אם האתר כשיר כחוק",
+    "summary": "# תפקיד אתה עורך דין לציות טכנולוגי שבודק את האתר ו/או את הקוד לפי התפקיד שבפרומפט באנגלית. # מטרה לבצע ביקור…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-synvn-ldp-nchyth": {
+    "title": "לדף נחיתה",
+    "summary": "# תפקיד אתה קופירייטר Direct Response ומומחה המרות לדפי נחיתה של שירות יקר, לפי התפקיד שבפרומפט באנגלית. # מט…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-graphify-save-tokens": {
+    "title": "איך חוסכים טוקנים בכרסור וב-Claude Code עם Graphify",
+    "summary": "אתה מתקין ומחבר את Graphify בפרויקט הזה כדי לחסוך טוקנים. אני ב-Windows — PowerShell בלבד, בלי bash. Set up Graphify (https://github.com/Gra…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-claude-code-5-plugins": {
+    "title": "איך בוחרים ומתקינים תוספים ל-Claude Code בלי לשרוף טוקנים",
+    "summary": "אתה יועץ התקנות ל-Claude Code. המטרה: לבחור לפי הבדיקה בכתבה אילו תוספים מתאימים לפרויקט הפתוח, ולהתקין רק מה שאישרתי, בלי להמציא פקודות. אנ…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-claude-project-token-rules": {
+    "title": "איך חוסכים טוקנים בצ'אט Claude באתר עם הוראות פרויקט",
+    "summary": "אתה העוזר שלי לתיקון קוד באתר/משחק, לפי הוראות הפרויקט האלה. המטרה: לבצע את [המשימה] בחיסכון בטוקנים — תשובה קצרה, רק השינוי, בלי לשכתב קבצי…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-01-day-trader-skill": {
+    "title": "סוחר יומי עם Claude – 11 סקילים לניתוח מניות",
+    "summary": "Dev10x · אתה עוזר למסחר יומי ב-Claude Code בלבד. המטרה: להתקין את הסקיל day-trader-skill ואז להריץ ניתוח על הסימול שאבקש, בלי לבצע מסחר אמיתי. לפני ה…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-04-four-plugins": {
+    "title": "התקנת 4 פלאגינים ל-Claude Code – Supabase, Vercel, oh-my-claudecode ו-Chrome DevTools",
+    "summary": "Dev10x · אתה מגדיר סביבת Claude Code לבנייה, בדיקה והעלאה. המטרה: להתקין ארבעה פלאגינים חינמיים, ורק אחרי אישור נוסף לבנות את האפליקציה שאבקש. לפני כ…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-07-four-skills": {
+    "title": "התקנת 4 סקילים חינמיים ל-Claude Code בפקודה אחת",
+    "summary": "Dev10x · אתה מתקין ארבעה סקילים חינמיים ב-Claude Code. המטרה: להריץ את פקודות ההתקנה לפי הסדר, לדווח מה הותקן ומה לא, ולא להפעיל את הסקילים על הפרויק…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-08-harvey": {
+    "title": "סוכן מכירות Harvey – איתור לקוחות וטיוטות מייל באישור ידני",
+    "summary": "Dev10x · אתה מתקין ומגדיר את Harvey, סוכן מכירות בקוד פתוח, ב-Claude Code. המטרה: להגדיר אותו לפי הריפו, למצוא לקוחות פוטנציאליים, ולכתוב טיוטות מייל…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-09-deepseek-superagent": {
+    "title": "התקנת סוכן DeepSeek (dsh-superagent) לעבודה על פרויקט ב-GitHub",
+    "summary": "Dev10x · אתה מתקין איתי את dsh-superagent ב-Claude Code. המטרה: להתקין לפי SETUP.md, ורק אחרי אישור לתת לסוכן משימה ראשונה ב-GitHub. זה קוד מחקר שמרי…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-10-harness": {
+    "title": "ניסוי Harness² של Google – שיפור סוכן בלי לשנות את המודל",
+    "summary": "Dev10x · אתה עוזר לי לנסות את Harness² של Google Research ב-Claude Code. המטרה: להריץ רק את הדמו המקומי ולהסביר בעברית מה הוא עשה. לפני clone, התקנה,…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-11-claude-mem": {
+    "title": "התקנת claude-mem – זיכרון בין שיחות ב-Claude Code",
+    "summary": "Dev10x · אתה מתקין את claude-mem, פלאגין זיכרון ל-Claude Code. המטרה: להתקין לפי הריפו, בלי Cloud Sync ובלי לשמור סיסמאות. לפני התקנה או הפעלת סנכרון…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-12-untangle-codebase": {
+    "title": "סידור קוד מבולגן עם untangle-codebase – רק על ענף נפרד",
+    "summary": "Dev10x · אתה מסדר קוד מבולגן עם הסקיל untangle-codebase ב-Claude Code. המטרה: להתקין, לעבוד רק על branch נפרד, ולא למזג ולא לעשות push בלי אישור. לפנ…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-15-xcode": {
+    "title": "בניית אפליקציית אייפון מ-Claude Code עם פלאגין Xcode הרשמי",
+    "summary": "Dev10x · אתה בונה אפליקציית אייפון עם הפלאגין הרשמי של Xcode ב-Claude Code. המטרה: להתקין את הפלאגין, לבנות את האפליקציה שאבקש, להריץ בסימולטור ולתקן…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-16-fable": {
+    "title": "בחירת מודל Fable 5.2 ותוכנית לשיפור הפרויקט בלי לשנות קוד",
+    "summary": "Dev10x · אתה סוקר את הפרויקט הפתוח עם מודל Fable 5.2. המטרה: למצוא שלושת הדברים שהכי מאטים אותו או הכי עלולים להישבר, ולהציע תוכנית תיקון — בלי לשנות…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-dev10x-24-deepseek-superagent": {
+    "title": "הפעלת סוכן DeepSeek – התקנה, משימה ראשונה ב-GitHub וכללי זהירות",
+    "summary": "Dev10x · אתה מתקין ומפעיל איתי את dsh-superagent לפי המדריך המלא, ב-Claude Code. המטרה: התקנה מדורגת עם אישור לפני כל הרצה, ואז משימה ראשונה ב-Issue …",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-03-founder-skill": {
+    "title": "בדיקת רעיון עסקי עם Founder Skill — דירקטוריון, 100 לקוחות וסמנכ״ל כספים",
+    "summary": "Niv Zarfati · אתה מתקין ומריץ את Founder Skill על הרעיון העסקי שלי. המטרה: לעבור את שלבי הסקיל לפי הריפו הרשמי, ולתת בסוף דוח ברור — בלי ייעוץ השקעות. לפנ…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-04-ai-building-blocks": {
+    "title": "לעשות סדר: מודל, סקיל, סוכן, קונקטור ופלאגין — ולהתאים אותם לעסק שלי",
+    "summary": "Niv Zarfati · אתה מדריך AI בעברית פשוטה. המטרה: להסביר לי את חמשת המושגים מודל, סקיל (skill), סוכן, קונקטור ופלאגין, ואז להציע איך להתאים אותם לעסק שלי. ה…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-05-lemo-opuscar": {
+    "title": "יצירת סרטון אנימציה הסברתי עם סקיל Lemo Opuscar ב-Claude Code",
+    "summary": "Niv Zarfati · אתה מתקין את Lemo Opuscar ב-Claude Code ומפיק סרטון הסבר בסגנון שנבחר. המטרה: התקנה לפי הריפו הרשמי, בחירת סגנון, והפקת סרטון לפי הנושא שלי.…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-06-gamedev-skills": {
+    "title": "בניית משחק ב-Claude Code עם חבילת הסקילים ל-Unreal, Unity, Godot ועוד",
+    "summary": "Niv Zarfati · אתה מתקין את חבילת הסקילים הרשמית לבניית משחקים ומסייע לי להתחיל משחק חדש. המטרה: התקנה לפי הריפו, בחירת מנוע, ותוכנית בנייה + התחלת עבודה ע…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-07-higgsfield-mcp": {
+    "title": "חיבור Higgsfield ל-Claude ליצירת סרטונים ותמונות (הצעת 3 ימים לבדיקה)",
+    "summary": "Niv Zarfati · אתה עוזר לחבר את Higgsfield ל-Claude לפי ההוראות הרשמיות, ואז להריץ בקשת יצירה אחת באישורי. לפני הכל: - ההצעה של «שלושה ימים בחינם ללא מגבלה…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-08-four-connectors": {
+    "title": "חיבור ארבעה קונקטורים ל-Claude: Perplexity, Firecrawl, Playwright ו-Composio",
+    "summary": "Niv Zarfati · אתה עוזר לחבר ל-Claude ארבעה קונקטורים רשמיים: Perplexity, Firecrawl, Playwright ו-Composio. המטרה: לחבר רק את מה שאישרתי, לפי התיעוד הרשמי …",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-09-openfield": {
+    "title": "חלופה מקומית בקוד פתוח ל-Higgsfield: התקנת OpenField",
+    "summary": "Niv Zarfati · אתה עוזר להתקין את OpenField כחלופה מקומית בקוד פתוח ליצירת מדיה, ולחבר אותו ל-Claude כ-MCP לפי הריפו הרשמי בלבד. לפני הכל: - זה לא תחליף זה…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-11-four-plugins-nov4": {
+    "title": "התקנת ארבעה פלאגינים: Lemo Opuscar, Ponytail, Agent Reach ו-NVIDIA SkillSpector",
+    "summary": "Niv Zarfati · אתה מתקין ב-Claude Code ארבעה כלים לפי המקורות הרשמיים שלהם. המטרה: להתקין אחד-אחד, לאמת כל התקנה, ולא לחבר חשבונות רשתות בלי אישור. לפני הכ…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-14-composio-connector": {
+    "title": "חיבור Claude לאינסטגרם, לינקדאין, YouTube ועוד דרך Composio",
+    "summary": "Niv Zarfati · אתה מחבר את Composio ל-Claude לפי הזרימה שנאמרה בסרטון ולפי האתר הרשמי, בלי לחבר רשתות חברתיות עד שאישרתי כל אחת. לפני הכל: - אל תפרסם, תמחק…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-15-claude-mods": {
+    "title": "שלוש דרכים להשתמש בעדכון Mods/Modes של Claude: סשנים, מודלים ודשבורד",
+    "summary": "Niv Zarfati · אתה עוזר לי להפעיל ב-Claude שלושה דפוסי עבודה שתוארו בסרטון על Mods/Modes. המטרה: לבדוק מה באמת קיים בחשבון שלי היום, ולהגדיר תהליך עבודה בה…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-17-reverse-engineer-anything": {
+    "title": "ניתוח תוכנה עם הסקיל Reverse Engineer Anything — רק על יעד מורשה",
+    "summary": "Niv Zarfati · אתה מריץ את הסקיל Reverse Engineer Anything לפי הריפו הרשמי, ורק על יעד שיש לי הרשאה חוקית לנתח. לפני הכל: - אסור להשתמש בזה כדי להעתיק אפלי…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-19-claude-morning-session": {
+    "title": "הודעת בוקר לקלוד: להתחיל את חלון חמש השעות מוקדם",
+    "summary": "Niv Zarfati · אתה עוזר לי לתכנן את תחילת יום העבודה ב-Claude כדי לנצל נכון את חלון השימוש. לפני הכל: - לפי הסרטון (21 באוק׳ 2026): חלון כחמש שעות מתחיל מה…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-20-arena-skill": {
+    "title": "כש-Claude טועה שוב ושוב: Arena Skill — מאה סוכנים שמתחרים על התשובה",
+    "summary": "Niv Zarfati · אתה מתקין את Arena Skill ומריץ אותו רק על משימה שהתשובות הרגילות עליה לא היו מספיק טובות. לפני הכל: - זה מריץ הרבה סוכנים וצורך הרבה טוקנים.…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-22-five-must-have-skills": {
+    "title": "התקנת חמשת הסקילים שניב ממליץ להתחיל איתם ב-Claude Code",
+    "summary": "Niv Zarfati · אתה מתקין ב-Claude Code חמישה סקילים לפי המקורות הרשמיים שלהם. המטרה: התקנה אחד-אחד, בדיקה שכל אחד נטען, ובלי להתקין «אוטומטית כל סקיל שנמצא…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-23-claude-remote-control": {
+    "title": "שליטה מרחוק על סשן Claude Code מהטלפון: /rc והתראות",
+    "summary": "Niv Zarfati · אתה עוזר להפעיל שליטה מרחוק על סשן Claude Code שרץ במחשב שלי, כדי שאוכל לאשר שאלות מהטלפון בלי לאבד את העבודה. לפני הכל: - הסשן נשאר על המחש…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-install-free-claude-code": {
+    "title": "התקנת Free Claude Code (FCC) במחשב",
+    "summary": "Elad Amrani (אלעד עמרני) · אתה עוזר התקנות במחשב. המטרה: להתקין אצלי את Free Claude Code (FCC), כלי קוד פתוח עצמאי שמחבר את ממשק Claude Code (ועוד סוכני קוד) למודלים ש…",
+    "href": "https://drive.google.com/drive/folders/1t9M0mB6zYrO9QRgd89mmKmxWtAsHDRaJ",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-connect-fcc-free-provider": {
+    "title": "חיבור מודל חינמי ל-FCC דרך NVIDIA, OpenRouter או Ollama",
+    "summary": "Elad Amrani (אלעד עמרני) · אתה עוזר הגדרות ל-Free Claude Code (FCC). המטרה: לחבר ל-FCC שכבר מותקן ופועל אצלי מודל דרך מפתח חינמי מ-NVIDIA או מ-OpenRouter, או מודל שרץ …",
+    "href": "https://drive.google.com/drive/folders/1t9M0mB6zYrO9QRgd89mmKmxWtAsHDRaJ",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-claude-30-tools-pick-one": {
+    "title": "בחירה והתקנה בטוחה של כלי אחד מתוך 30 הכלים החינמיים ל-Claude",
+    "summary": "אתה יועץ כלים ל-Claude Code. המטרה: לעזור לי לבחור כלי אחד בלבד מתוך הרשימה, להבין מה הוא עושה ומה ההרשאות של…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-ruflo-agent-team-trial": {
+    "title": "ניסיון ראשון עם Ruflo: צוות סוכנים ב-Claude Code על פרויקט קטן ועם מעקב עלויות",
+    "summary": "אתה מהנדס שבודק כלים ל-Claude Code. המטרה: לנסות את Ruflo — שכבה שמוסיפה ל-Claude Code סוכנים בתפקידים, תיאום…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-autoresearch-overnight-loop": {
+    "title": "לולאת שיפור אוטומטית עם autoresearch: שינוי אחד, מדידה, שומרים רק מה שעבד",
+    "summary": "אתה מהנדס ניסויים ב-Claude Code. המטרה: להריץ לולאת שיפור מוגבלת עם הסקיל autoresearch — שינוי אחד בכל פעם, מ…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-yogurt-mcp-claude-meetings": {
+    "title": "חיבור Yogurt ל-Claude Code ול-Claude Desktop — שאלות על פגישות קודמות",
+    "summary": "אתה מחבר כלים ל-Claude ב-Windows. המטרה: לחבר את Yogurt (מקליט פגישות מקומי) כשרת MCP מקומי ל-[Claude Code /…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-replica-skill-install-validate": {
+    "title": "התקנת Replica ב-Claude Code ב-Windows ובדיקה אם שווה לבנות גרסה משלך לאפליקציה",
+    "summary": "אתה יועץ מוצר שעובד עם Claude Code ב-Windows. המטרה: להתקין את חבילת הסקילים Replica, ולבדוק לפני שבונים משהו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-replica-skill-build-launch": {
+    "title": "בניית גרסה משלך לאפליקציה עם Replica — מתכנון, דרך בדיקות והתאמה, ועד מיתוג והשקה",
+    "summary": "אתה מוביל פיתוח עם Claude Code ב-Windows, ועובד עם חבילת הסקילים Replica (https://github.com/Jakeschincariol/…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-kfir-yahav-01-cloudflare-code-mode-mcp": {
+    "title": "לחסוך טוקנים ב-Claude Code: מודדים כמה ה-MCP שורף ומחברים את Cloudflare ב-Code Mode",
+    "summary": "אתה מומחה Claude Code שעוזר לי לחסוך טוקנים. בסרטון שמעתי שכלי ה-MCP המחוברים יכולים לשרוף עשרות אלפי טוקנים…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-sagiv-grant-01-five-claude-skills": {
+    "title": "חמישה סקילים לסוכן Claude: Humanizer, Create Skill, Grill Me, Caveman ו-Marketing Skills",
+    "summary": "אתה מומחה Claude Code ב-Windows. המטרה: להתקין אצלי חמישה סקילים ולבדוק שכל אחד עובד. אל תתקין, אל תמחק ואל ת…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-playwright-cli-windows-parallel-browsers": {
+    "title": "Playwright CLI ב-Windows: כמה דפדפנים במקביל ל-Claude Code, התחברות שמורה ולוח בקרה",
+    "summary": "אתה עוזר טכני שעוזר לי להתקין ב-Windows את Playwright CLI של מיקרוסופט ולחבר אותו ל-Claude Code, ואז להריץ כמ…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-michael-danilov-01-humanizer-claude-watermark": {
+    "title": "Humanizer ב-Windows: התקנה ב-Claude וב-Claude Code ושכתוב טקסט שנשמע כמו אדם",
+    "summary": "אתה מומחה Claude ו-Claude Code ב-Windows. המטרה: להתקין אצלי את הסקיל Humanizer מהמאגר הציבורי, לבדוק שהוא עו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-claude-agents",
+    "courseTitle": "מאגר · Claude Code וסוכנים"
+  },
+  "acd-niv-zarfati-35-cpi-linked-mortgage-explainer": {
+    "title": "להבין מסלול משכנתה צמוד מדד מתוך הדוח שלי — בלי ייעוץ פיננסי",
+    "summary": "Niv Zarfati · אתה מסביר מושגי משכנתה בעברית פשוטה. המטרה: לעזור לי להבין מה בדוח המשכנתה שלי צמוד למדד, בלי לתת ייעוץ פיננסי ובלי להמליץ על פעולה. אילוצים…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-36-three-mortgage-claims-to-verify": {
+    "title": "שלושה נושאים במשכנתה לבדיקה עם יועץ — בלי המלצה לקחת או למחזר",
+    "summary": "Niv Zarfati · אתה מסביר מושגי משכנתה בעברית פשוטה. המטרה: לעזור לי להבין שלושה נושאים שהועלו בסרטון, ולהכין שאלות ליועץ מורשה — בלי להמליץ לי לקחת משכנתה,…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-37-leverage-is-not-always-good": {
+    "title": "מה זה מינוף, ולמה הלוואה היא לא אוטומטית רעיון טוב או רע",
+    "summary": "Niv Zarfati · אתה מסביר מושג פיננסי בעברית פשוטה. המטרה: להסביר מה זה מינוף ומה הסיכון, בלי לשכנע אותי לקחת הלוואה ובלי «להתעשר ממינוף». אילוצים חובה: - א…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-38-contractor-loan-explainer": {
+    "title": "להבין מהי הלוואת קבלן — שאלות לבדיקה, בלי המלצה אם כדאי",
+    "summary": "Niv Zarfati · אתה מסביר מושג משכנתה בעברית פשוטה. המטרה: לעזור לי להבין מהי «הלוואת קבלן» ולהכין שאלות לבדיקת הצעה — בלי להמליץ לקחת או לדחות אותה. אילוצי…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-39-dira-behanaha-registration": {
+    "title": "הרשמה לדירה בהנחה: אישור זכאות ואז הגרלות באתר הרשמי",
+    "summary": "Niv Zarfati · אתה מסייע בהרשמה לתוכנית «דירה בהנחה» לפי האתרים הרשמיים בלבד, ולא לפי תאריכים ישנים מהסרטון. אילוצים: - אל תמציא כתובות אתר. התחל בחיפוש ב-…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-41-what-is-inflation": {
+    "title": "להסביר מהי אינפלציה, ואיך היא קשורה לכוח הקנייה ולחלק צמוד המדד במשכנתה",
+    "summary": "Niv Zarfati · אתה מסביר כלכלה בעברית פשוטה. המטרה: להסביר מהי אינפלציה ואיך היא קשורה לכוח הקנייה ולחלק צמוד מדד במשכנתה — בלי ייעוץ פיננסי. אילוצים: - בס…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-42-mortgage-porting-vs-refinance": {
+    "title": "להבדיל בין גרירת משכנתה לבין מחזור משכנתה — בלי להמליץ מה לעשות",
+    "summary": "Niv Zarfati · אתה מסביר מושגי משכנתה בעברית פשוטה. המטרה: להבדיל בין גרירה למחזור, בלי להמליץ לי מה לבחור. אילוצים: - בסוף: «זה לא ייעוץ פיננסי; לפני כל ג…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-43-loan-grace-period": {
+    "title": "להבין מהו גרייס מלא ומהו גרייס חלקי — בלי להמליץ לקחת הלוואה כזו",
+    "summary": "Niv Zarfati · אתה מסביר מושג אשראי בעברית פשוטה. המטרה: להסביר מהו גרייס מלא ומהו גרייס חלקי, בלי להמליץ לקחת הלוואה כזו. אילוצים: - בסוף: «זה לא ייעוץ פי…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-44-balloon-bridge-loan": {
+    "title": "להבין מהי הלוואת בלון (גישור) — בלי להמליץ לקחת אותה",
+    "summary": "Niv Zarfati · אתה מסביר מושג אשראי בעברית פשוטה. המטרה: להסביר מהי הלוואת בלון (גישור) ומה הסיכון שביתרה בסוף התקופה, בלי להמליץ לקחת אותה. אילוצים: - בסו…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-45-credit-card-fee-checklist": {
+    "title": "בדיקת עמלות כרטיס אשראי, עמלת המרה, ואשראי מתגלגל — בלי ייעוץ לקחת הלוואה",
+    "summary": "Niv Zarfati · אתה עוזר לבדוק הרגלי כרטיס אשראי. המטרה: רשימת בדיקה לפי שלושת הטיפים מהסרטון, בלי לקחת ממני פרטי כרטיס ובלי להמליץ על הלוואה. אילוצים: - אל…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-46-overdraft-is-expensive-credit": {
+    "title": "להבין למה מינוס (מסגרת אשראי) הוא אשראי יקר — ולבדוק את הריבית שלי",
+    "summary": "Niv Zarfati · אתה מסביר מושג אשראי בעברית פשוטה. המטרה: להבין שמינוס הוא סוג של הלוואה, לבדוק את הריבית אצלי, ולא להמליץ לי לקחת הלוואה אחרת. אילוצים: - ב…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-47-monthly-bank-fee-notice": {
+    "title": "לבדוק את הודעת העמלות החודשית מהבנק ולהכין שאלות להפחתה",
+    "summary": "Niv Zarfati · אתה עוזר לי לקרוא את דיווח העמלות החודשי מהבנק. המטרה: להבין מה שילמתי ולהכין שאלות לבנק, בלי להבטיח הנחה ובלי לגשת לחשבון בשמי. אילוצים: - …",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-48-dont-delete-credit-history": {
+    "title": "למה לא למחוק היסטוריית אשראי (BDI), ואיך לבדוק את הדוח הרשמי",
+    "summary": "Niv Zarfati · אתה מסביר אשראי צרכני בעברית פשוטה. המטרה: להסביר למה מחיקת היסטוריית אשראי עלולה להזיק, ולעזור לי למצוא איך לבדוק דוח רשמי — בלי שירותי «מח…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-49-voluntary-tax-disclosure-check": {
+    "title": "לבדוק באתר רשות המסים אם נוהל גילוי מרצון פתוח — בלי להגיש בשמי",
+    "summary": "Niv Zarfati · אתה עוזר לבדוק את הסטטוס הרשמי של «גילוי מרצון» בישראל. המטרה: למצוא מה רשות המסים אומרת היום, בלי להגיש דיווח ובלי ייעוץ מס. אילוצים חובה: …",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-50-reservist-student-scholarships": {
+    "title": "לאתר מלגות רשמיות לסטודנטים משרתי מילואים — לפי הקריטריונים העדכניים",
+    "summary": "Niv Zarfati · אתה עוזר לאתר מלגות רשמיות לסטודנטים משרתי מילואים. המטרה: למצוא את המידע העדכני באתר מל״ג / גופים רשמיים, בלי להניח שסכומי 2024 עדיין תקפים…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-51-mortgage-for-any-purpose-verify": {
+    "title": "להבין מהי משכנתה לכל מטרה ולבדוק את מגבלות המימון הרשמיות — בלי לקחת אחת",
+    "summary": "Niv Zarfati · אתה מסביר מושג משכנתה בעברית פשוטה. המטרה: להסביר מהי משכנתה לכל מטרה, ולאמת מגבלות מימון מול מקור רשמי — בלי להמליץ לקחת אחת. אילוצים: - בס…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-52-bank-does-not-want-the-house-first": {
+    "title": "למה הבנק לא «פשוט לוקח את הבית», ומה קורה אם מחמיצים תשלומי משכנתה",
+    "summary": "Niv Zarfati · אתה מסביר תהליך בנקאי בעברית פשוטה. המטרה: להסביר למה שיעבוד דירה לא אומר שהבנק «פשוט ייקח את הבית» אם לא משלמים, ומהו הרצף הכללי במקרה של פ…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-53-mortgage-track-glossary": {
+    "title": "מילון מסלולי ריבית במשכנתה — בלי לבחור מסלול במקומי",
+    "summary": "Niv Zarfati · אתה מסביר מסלולי משכנתה בעברית פשוטה. המטרה: מילון מושגים של סוגי הריבית שהוזכרו בסרטון, בלי לבחור מסלול במקומי. אילוצים: - בסרטון נאמר במפו…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-54-second-degree-mortgage": {
+    "title": "להבין מהי משכנתה בדרגה שנייה — בלי להמליץ לקחת או למחזר",
+    "summary": "Niv Zarfati · אתה מסביר מושג משכנתה בעברית פשוטה. המטרה: להבין מהי משכנתה בדרגה שנייה, בלי להמליץ לקחת אחת או למחזר. אילוצים: - בסוף: «זה לא ייעוץ פיננסי;…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-55-why-mortgage-rates-differ": {
+    "title": "למה ריביות המשכנתה שונות בין אנשים, ואיך לבדוק את דוח האשראי הרשמי",
+    "summary": "Niv Zarfati · אתה מסביר תמחור משכנתה בעברית פשוטה. המטרה: להבין למה הריבית שונה בין אנשים, ולדעת איך לבדוק דוח אשראי רשמי — בלי להבטיח ריבית נמוכה יותר. א…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-niv-zarfati-56-reverse-mortgage-explainer": {
+    "title": "להבין מהי משכנתה הפוכה (פנסיונית) — בלי להמליץ לקחת אותה",
+    "summary": "Niv Zarfati · אתה מסביר מושג משכנתה בעברית פשוטה. המטרה: להבין מהי משכנתה הפוכה (פנסיונית) ומה לבדוק, בלי להמליץ לקחת אותה. אילוצים: - בסוף: «זה לא ייעוץ …",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-money",
+    "courseTitle": "מאגר · כסף ומיסים"
+  },
+  "acd-open-local-business-conversation": {
+    "title": "איך פותחים שיחה עם עסק מקומי בלי תסריט גנרי",
+    "summary": "אתה יועץ מכירות לעסקים מקומיים. המטרה: להכין תסריט קצר לקביעת שיחת היכרות עם העסק שאמסור, לפי השיטה שלמטה — בלי למכור אתר בטלפון ובלי להמציא…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-reel-direct-response-script": {
+    "title": "איך בונים תסריט רילס מכירתי עם טבלת הפקה ו-3 הוקים",
+    "summary": "אתה במאי קריאייטיב, קופירייטר בכיר ומנהל קמפיינים לשיווק בהמרה ישירה (Direct Response) בישראל. המטרה: להוציא תסריט רילס של 25–30 שניות, טבלת…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-dev10x-03-virality-predictor": {
+    "title": "בדיקת ויראליות לריל לפני פרסום – Higgsfield ו-Claude",
+    "summary": "Dev10x · אתה בודק ויראליות לריל לפני פרסום. המטרה: להריץ Virality Predictor על הסרטון שאצרף ולתת ציון, נקודת ירידת קשב, והצעות לפתיחה. צעדים: 1. ודא …",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-02-weekly-ai-news-brief": {
+    "title": "תבנית לסיכום חדשות AI שבועי, כולל אזהרת הונאות דיפפייק",
+    "summary": "Niv Zarfati · אתה עורך חדשות AI בעברית. המטרה: להכין סיכום שבועי קצר לקוראים לא-טכניים, בסגנון עדכון ברור, בלי להציג שמועות כעובדות. אילוצים: - אל תמציא מ…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-21-election-ad-auction": {
+    "title": "למה קמפיינים בפייסבוק ובאינסטגרם מתייקרים בתקופת בחירות",
+    "summary": "Niv Zarfati · אתה יועץ מדיה דיגיטלית זהיר. המטרה: להסביר איך מכרז מודעות עלול להתייקר בתקופת בחירות, ולבדוק את הקמפיין שלי בלי להבטיח תוצאות. אילוצים: - א…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-24-instagram-trial-reels": {
+    "title": "העלאת אותו ריל פעמיים: Trial Reels לקהל חדש, והעלאה רגילה לעוקבים",
+    "summary": "Niv Zarfati · אתה עוזר לי לפרסם ריל אחד בשתי העלאות באינסטגרם, לפי הרעיון של Trial Reels + העלאה רגילה, ורק לפי מה שמופיע במסך אצלי היום. לפני הכל: - אל ת…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-25-discovery-beyond-google": {
+    "title": "תוכנית תוכן לעסק מקומי: אינסטגרם, טיקטוק, וגם חיפוש ב-ChatGPT וב-Gemini",
+    "summary": "Niv Zarfati · אתה יועץ תוכן לעסק מקומי. המטרה: לבנות תוכנית לשבועיים שעוזרת להתגלות בטיקטוק ובאינסטגרם, וגם להופיע כששואלים צ'אט AI על האזור שלי. אילוצים:…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-26-content-from-who-you-are": {
+    "title": "רעיונות לתוכן מתוך הסיפור של העסק, לא רק «קנו עכשיו»",
+    "summary": "Niv Zarfati · אתה עורך תוכן לעסק מקומי. המטרה: להפוך את הסיפור שלי ל-8 רעיונות לסרטונים שמתחילים בסיפור, לא ב«קנו עכשיו». אילוצים: - אל תמציא ביוגרפיה. אם…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-27-business-origin-story": {
+    "title": "תסריט קצר לסיפור מאחורי העסק — הצילום האותנטי תוך כדי עבודה",
+    "summary": "Niv Zarfati · אתה במאי תוכן פשוט. המטרה: לבנות תסריט של 45–75 שניות לסיפור מאחורי העסק, לצילום בטלפון תוך כדי עבודה. אילוצים: - אל תמציא פרטים ביוגרפיים. …",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-28-loop-ending-hook": {
+    "title": "סיום בלי סיום: איך לערוך ריל שיגרום לאנשים לראות שוב",
+    "summary": "Niv Zarfati · אתה עורך רילס. המטרה: להציע סיום «פתוח» לסרטון שלי, שיכול לגרום לצופה לחזור להתחלה, בלי להבטיח מיליוני צפיות. אילוצים: - אל תבטיח תוצאות. זו…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-29-twenty-one-hooks": {
+    "title": "21 רעיונות להוקים שעוצרים גלילה — לפי כיתוב הסרטון",
+    "summary": "Niv Zarfati · אתה כותב הוקים לרילס ולטיקטוק. המטרה: לתת לי 21 פתיחות שעוצרות גלילה, מותאמות לעסק שלי, בלי להעתיק רשימה שלא תומללה מהסרטון. אילוצים: - אל ת…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-30-imperfect-take-wins": {
+    "title": "למה גרסה «נכשלת» לפעמים מקבלת יותר צפיות מגרסה מושלמת",
+    "summary": "Niv Zarfati · אתה יועץ עריכת רילס. המטרה: לבדוק אם כדאי לי לשחרר גם גרסה פחות מלוטשת של הסרטון, לפי שלושת הטעמים מהסרטון — בלי להבטיח צפיות. אילוצים: - אל…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-31-business-without-social": {
+    "title": "תרגיל: עסק מצליח בלי רשתות — ומה כן ללמוד מזה",
+    "summary": "Niv Zarfati · אתה בן שיחה עסקי זהיר. המטרה: לעזור לי לחשוב על עסק מצליח בלי רשתות, ומה כן רלוונטי אלי — בלי להמליץ לסגור עמודים. אילוצים: - אל תמציא שמות …",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-32-tiktok-three-rules": {
+    "title": "שלושה כללי תוכן לטיקטוק: אותנטיות, עריכה קצבית, ולוח פרסום קבוע",
+    "summary": "Niv Zarfati · אתה מתכנן תוכן לטיקטוק לפי שלושה כללים שסוכמו בסרטון, לא כהבטחה רשמית של הפלטפורמה. אילוצים: - בסרטון נטען שיש «מסמך רשמי של TikTok». זה לא …",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-niv-zarfati-34-dont-boost-from-the-phone": {
+    "title": "בלי כפתור ה-Boost מהטלפון: לבדוק קידום ממומן במנהל המודעות",
+    "summary": "Niv Zarfati · אתה יועץ פרסום זהיר. המטרה: לעזור לי להפסיק להסתמך על כפתור ה-Boost / «הגבר» מהאפליקציה, ולבדוק קידום במנהל המודעות הרשמי — בלי להבטיח לידים…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-instagram-templates-barbershop-sites": {
+    "title": "תבניות אינסטגרם למכירת אתרים למספרות (קרוסלות, הוקים לרילס וכותרות)",
+    "summary": "אתה במאי קריאייטיב וקופירייטר לסטודיו שבונה אתרים לעסקים מקומיים בישראל, בעיקר מספרות. המטרה: להוציא ערכת תוכ…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-marketing",
+    "courseTitle": "מאגר · שיווק ותוכן"
+  },
+  "acd-laptop-dive-portfolio-hero": {
+    "title": "איך בונים Hero קולנועי שנכנס לתוך לפטופ בלי גלילת דף",
+    "summary": "You are a front-end implementer. Goal: build a single-file cinematic portfolio hero (index.html, inline CSS and JS, no frameworks, no build …",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-scroll-driven-landing-page": {
+    "title": "איך בונים דף נחיתה שגוללים אותו כמו סרט",
+    "summary": "You are a front-end implementer. Goal: build a single-file landing page in plain HTML, CSS and vanilla JavaScript (no framework, no build st…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-prompt-motion-hebrew-animations": {
+    "title": "איך לוקחים אנימציה מ-Prompt Motion ומתאימים אותה לעברית",
+    "summary": "אתה עוזר לי לבחור אנימציה מוכנה מ-Prompt Motion ולהתאים אותה לעברית ולמוצר שלי. המטרה: לבחור מהגלריה החינמית, להתאים פרומפט, ולא לכתוב קוד ע…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-cursor-windows-site-setup": {
+    "title": "איך מקימים את כרסור ב-Windows לבניית אתרים מונפשים",
+    "summary": "You are setting up my Cursor on Windows for building premium, animated websites. Goal: complete the install steps yourself in the terminal, …",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-prompt-motion-to-website": {
+    "title": "איך מוסיפים לאתר 4 אנימציות מ-Prompt Motion דרך כרסור",
+    "summary": "You are a Cursor Agent adding motion to my existing website. Goal: pick 4 animations from https://prompt-motion.com (Hero, site demo, phone,…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-skillui-copy-site-design": {
+    "title": "שליפת שפה עיצובית מאתר ובניית עמוד באותו סגנון (skillui + Claude Code)",
+    "summary": "אתה מפתח פרונט בכיר. המטרה: לשלוף את השפה העיצובית של אתר ולבנות לי עמוד חדש בעברית באותו סגנון, עם התוכן שלי. אני ב-Windows, תשתמש ב-PowerS…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-dev10x-14-hallmark": {
+    "title": "עיצוב אתר בלי מראה של AI – התקנת סקיל Hallmark",
+    "summary": "Dev10x · אתה מעצב אתר עם סקיל Hallmark (Together AI) ב-Claude Code, או ב-Codex / Cursor / OpenCode. המטרה: להתקין את הסקיל ולבנות דף אחד לפי הבקשה של…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-dev10x-19-mwg": {
+    "title": "חידוש קוד אתר עם הסקיל Modern Web Guidance",
+    "summary": "Dev10x · אתה מחדש קוד אתר עם הסקיל Modern Web Guidance ב-Claude Code. המטרה: להתקין, לשמור גרסה, ואז להריץ חידוש רק אחרי אישור, בלי לשבור את האתר. לפ…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-niv-zarfati-01-craft-anything": {
+    "title": "שחזור אתר, אפליקציה או משחק עם Craft Anything ו-Claude Code",
+    "summary": "Niv Zarfati · אתה עוזר התקנה והפעלה של Craft Anything עם Claude Code. המטרה: להתקין את הכלי לפי האתר הרשמי, לחבר את Claude Code, ואז להתחיל שחזור של יעד ש…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-scroll-world-build": {
+    "title": "אתר 'טיסה בגלילה' לעסק עם Scroll World: ראיון, אישור תמונות ותקציב לפני יצירה",
+    "summary": "אתה מעצב ומפתח שמפעיל את הסקיל /scroll-world. המטרה: דף נחיתה לעסק שלי שבו הגלילה מטיסה מצלמה מסצנה לסצנה בלי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-practice-ai-01-soda-hebrew-site": {
+    "title": "דף נחיתה למוצר בסגנון Soda — פחית תלת־ממד ובחירת טעם שצובעת את העמוד",
+    "summary": "אתה מפתח פרונט־אנד שבונה אתרים מונפשים. המטרה: לבנות לי את האתר שמתואר בפרומפט המצורף (Soda), לפי כל ההוראות…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-practice-ai-02-kimi-hebrew-site": {
+    "title": "אתר אישי בסגנון Kimi — טעינה מונפשת ומסלול שנבנה בגלילה",
+    "summary": "אתה מפתח פרונט־אנד שבונה אתרים מונפשים. המטרה: לבנות לי את האתר שמתואר בפרומפט המצורף (Kimi), לפי כל ההוראות…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-practice-ai-03-lumora-hebrew-site": {
+    "title": "אתר לסטודיו או עסק שירות בסגנון Lumora — עבודות שעולות בתנועה רכה",
+    "summary": "אתה מפתח פרונט־אנד שבונה אתרים מונפשים. המטרה: לבנות לי את האתר שמתואר בפרומפט המצורף (Lumora), לפי כל ההוראו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-practice-ai-04-laocoon-hebrew-site": {
+    "title": "אתר לאמן, גלריה או מותג יוקרה בסגנון Laocoön — פסל ברונזה זוהר שמסתובב בגלילה",
+    "summary": "אתה מפתח פרונט־אנד שבונה אתרים מונפשים. המטרה: לבנות לי את האתר שמתואר בפרומפט המצורף (Laocoön), לפי כל ההורא…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-practice-ai-05-baseline-hebrew-site": {
+    "title": "אתר למועדון, אקדמיית ספורט או סטודיו כושר בסגנון Baseline",
+    "summary": "אתה מפתח פרונט־אנד שבונה אתרים מונפשים. המטרה: לבנות לי את האתר שמתואר בפרומפט המצורף (Baseline), לפי כל ההור…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-practice-ai-06-getlayers-hebrew-adapt": {
+    "title": "התאמת כל פרומפט אתר מ-GetLayers לעסק שלך בעברית (פרומפט ההתאמה)",
+    "summary": "אתה מפתח פרונט־אנד. המטרה: להפוך פרומפט אתר באנגלית (מהספרייה GetLayers או דומה) לאתר שלי בעברית — בלי לאבד א…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-practice-ai-07-save-fix-prelaunch": {
+    "title": "שמירת אתר מקלוד, תיקונים בשפה פשוטה ובדיקה לפני עלייה לאוויר",
+    "summary": "אתה עוזר שמסיים אתר לפני עלייה לאוויר. המטרה: לשמור את האתר שבנית בצ'אט הזה, לתקן מה שביקשתי, ולתת לי רשימה מ…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-shita-06-pvrmtym-skrypt-1-2-hhyrv": {
+    "title": "סקריפט 1.2 ההירו — מנועי מעטפת Header, Hero ו-Footer (פורמטים)",
+    "summary": "# סקריפט 1.2 - מנועי מעטפת האימרסיב: Header, Hero & Footer (The Elite Envelope Engines) הנחיית-על (Mission Di…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-shita-07-pvrmtym-skrypt-1-3-almntym": {
+    "title": "סקריפט 1.3 אלמנטים — מנוע השראה ותנועה ברמת Awwwards (פורמטים)",
+    "summary": "# סקריפט 1.3 - מנוע ההשראה והתנועה ברמת 100K\\\\$ (The Universal Awwwards Motion Engine) הנחיית-על (Mission Dire…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-shita-39-ui-skrypt-1-2-hhyrv": {
+    "title": "סקריפט 1.2 ההירו — שלדת מעטפת סטטית ומיקרו-אסתטיקה (UI)",
+    "summary": "# סקריפט 1.2 UI - שלדת המעטפת והמיקרו-אסתטיקה (Static Envelope & Art Direction) הנחיית-על (Mission Directive)…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-shita-40-ui-skrypt-1-3-almntym": {
+    "title": "סקריפט 1.3 אלמנטים — השראה וארט דיירקשן סטטי (UI)",
+    "summary": "# סקריפט 1.3 UI - מנוע ההשראה והארט דיירקשן (The Universal Awwwards Art Direction) הנחיית-על (Mission Directi…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-shita-41-ui-skrypt-1-4-mnva-htlt-mymd": {
+    "title": "סקריפט 1.4 מנוע התלת מימד — ציד נכסים וארט דיירקשן תלת-ממד (UI)",
+    "summary": "# סקריפט 1.4 UI - מנוע ציד הנכסים וארט דיירקשן תלת-ממד (The Elite 3D Asset Hunting Engine) הנחיית-על (Mission…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-shita-48-ux-skrypt-1-2-hhyrv": {
+    "title": "סקריפט 1.2 ההירו — תנועה, אימרסיב ו-WebGL (UX)",
+    "summary": "# סקריפט 1.2 UX - מנוע האימרסיב, תנועה ו-WebGL (The Motion & Immersive Envelope) הנחיית-על (Mission Directive…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-shita-49-ux-skrypt-1-3-almntym": {
+    "title": "סקריפט 1.3 אלמנטים — הנדסה לאחור ותנועה (UX)",
+    "summary": "# סקריפט 1.3 UX - מנוע ההנדסה לאחור והתנועה (The Universal Awwwards Motion Engine) הנחיית-על (Mission Directi…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-shita-50-ux-skrypt-1-4-mnva-htlt-mymd": {
+    "title": "סקריפט 1.4 מנוע התלת מימד — כוריאוגרפיית WebGL וביצוע (UX)",
+    "summary": "# סקריפט 1.4 UX - כוריאוגרפיית WebGL וביצוע עלית (The Elite 3D Motion Engine) הנחיית-על (Mission Directive):…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-gsap-three-premium-hero": {
+    "title": "איך בונים Hero פרימיום עם GSAP ו-Three.js (RTL, ביצועים, reduced-motion)",
+    "summary": "תפקיד: אתה מפתח Frontend בכיר ב-React + TypeScript + Tailwind, מומחה ל-GSAP ול-Three.js, שבונה אתרי פרימיום ב…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-nadav-magen-01-reanimate-clone-animation": {
+    "title": "reanimate ב-Windows: התקנה ב-Claude Code ושחזור אנימציה מאתר, סרטון או GIF — עד שהמספרים תואמים",
+    "summary": "אתה עוזר טכני שמקים לי את הסקיל reanimate ל-Claude Code ב-Windows, ואז משחזר אנימציה אחת לפרויקט שלי ומשווה פ…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-omnya-lab-01-choose-floor-site": {
+    "title": "בחירת קומה וכניסה לדירה באתר מכירה למגדל מגורים",
+    "summary": "אתה מפתח ומעצב של סטודיו עומק. המטרה: לבנות ב-Windows דף מכירה אחד למגדל מגורים, ברמת «וואו» ולא תבנית כללית.…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-omnya-lab-02-tower-sales-build-format": {
+    "title": "פורמט בניה: אתר מכירה אינטראקטיבי למגדל (בחירת קומה, סיור ושדרוג לפנטהאוז)",
+    "summary": "אתה מפתח בכיר ומנהל אמנותי של סטודיו עומק. תבנה דף מכירה אחד למגדל מגורים ברמת פרימיום, לא תבנית כללית ולא «א…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "format-one-basic": {
+    "title": "פורמט אחד לאתר בסיסי",
+    "summary": "# **פרומט V2 — אתר ממיר, עיצוב לפני הכל, אפקטי גלילה מוגדרים לפרט** מה השתנה מ-V1: במקום להגיד לו מה אסור, או…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-pvrmtym-skrypt-2-mnva-hmrvt-bytzvaym-vsymvltzyyt-lkvch": {
+    "title": "סקריפט 2: מנוע המרות, ביצועים וסימולציית לקוח",
+    "summary": "# סקריפט 2 - מנוע המרות, ביצועי קצה עליון, וסימולציית לקוח אכזרית (The Elite CRO & Performance Engine) הנחיית…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "format-app": {
+    "title": "פורמט לבניית אפליקציה",
+    "summary": "### **פרומפט 1: ארכיטקטורה, הגדרות בסיס וניווט (The Skeleton)** הפרומפט הזה מקים את התשתית של האפליקציה. הוא…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "format-3d-sites": {
+    "title": "אתרי 3D",
+    "summary": "# תפקיד אתה יועץ ומאפיין אתרים שעוזר להחליט מתי אתר תלת-ממד מתאים לעסק, רק לפי מקרי השימוש שבמקור למטה. # מטר…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "m79-ui-skrypt-6-ui-copy-gylyvtynt-hkvpy-tyhvr-h-a": {
+    "title": "סקריפט 6 UI & Copy - גיליוטינת הקופי, טיהור ה-A",
+    "summary": "# סקריפט 6 UI & Copy - גיליוטינת הקופי, טיהור ה-AI והמיקרו-אסתטיקה (The Elite Copy & Visual Audit) הנחיית-על…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-design",
+    "courseTitle": "מאגר · עיצוב ואתרים"
+  },
+  "acd-claude-for-open-source": {
+    "title": "מתי מגישים ל-Claude Ultra בחינם (Open Source) ומתי לא",
+    "summary": "אתה בודק כשירות התאמה לתוכנית Claude for Open Source. המטרה: להעריך ביושר מול התנאים הרשמיים אם שווה להגיש, ומה לכתוב בטופס — רק על סמך מה ש…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-dev10x-18-sheets": {
+    "title": "בניית גיליון הוצאות ולוח תכנון ב-Claude Sheets ו-Whiteboards",
+    "summary": "Dev10x · אתה בונה גיליון או לוח ב-Claude Sheets / Whiteboards (ב-Claude עצמו, לשונית Chat, לא Claude Code). המטרה: ליצור את המסמך לפי אחת הבקשות למטה…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-dev10x-22-better-prompts": {
+    "title": "5 טריקים לכתיבת פרומפט טוב יותר ב-Claude",
+    "summary": "Dev10x · אתה משפר את הבקשה שלי ואז מבצע אותה. המטרה: להחיל חמישה טריקים על [הבקשה], ואם חסר הקשר — לשאול עד 5 שאלות, אחת בכל פעם, ורק אחרי זה לעבוד. …",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-dev10x-23-claude-and-claude-code": {
+    "title": "איך משתמשים בפרומפטים ב-Claude וב-Claude Code – מדריך למתחילים",
+    "summary": "Dev10x · אתה העוזר שלי לביצוע [המשימה] ב-Claude או ב-Claude Code. המטרה: לבחור את הדרך הנכונה ולבצע את המשימה, בלי להתקין תוספות ובלי לשנות קבצים לפנ…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-dev10x-25-first-tasks": {
+    "title": "4 משימות ראשונות ב-Claude – סיכום, תשובה להודעה, סידור רשימה והכנה לשיחה",
+    "summary": "Dev10x · אתה עוזר ב-Claude לביצוע משימה קטנה, בלי תכנות. המטרה: לבצע רק את [סוג המשימה] לפי הפרומפט המתאים, בעברית פשוטה. אל תמציא מספרים, תאריכים או…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-niv-zarfati-12-claude-civility-guidelines": {
+    "title": "כללי שיחה מכבדים עם Claude לפי אזהרת Anthropic",
+    "summary": "Niv Zarfati · אתה כותב לעסק שלי כללי שיחה קצרים לעבודה עם Claude. המטרה: מסמך בן עמוד אחד שהצוות יכול להדביק בהנחיות, בלי לנסות «לבדוק» חסימות. אילוצים: -…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-niv-zarfati-18-cleanyourtv": {
+    "title": "ניקוי פרסומות ותוכנות מיותרות בסטרימר/טלוויזיה עם CleanYourTV — עם שחזור",
+    "summary": "Niv Zarfati · אתה מריץ את CleanYourTV רק על מכשיר ששייך לי, עם אפשרות שחזור, ובלי לשבור את המערכת. לפני הכל: - רק המכשיר שלי, ורק אחרי שאישרתי במפורש. לא …",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-openverse-licensed-media-search": {
+    "title": "חיפוש תמונות וסאונד ברישיון פתוח ב-Openverse, עם בדיקת רישיון וקרדיט",
+    "summary": "אתה עוזר מחקר מדיה עם הקפדה על רישיונות. המטרה: למצוא ב-Openverse תמונות או צלילים ברישיון פתוח לפרויקט שלי,…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-ai-job-search-setup": {
+    "title": "הקמת AI Job Search במחשב ובניית פרופיל מועמד (‎/setup)",
+    "summary": "אתה עוזר הקמה ל-AI Job Search — מערכת קוד פתוח ל-Claude Code לחיפוש עבודה. המטרה: להוריד עותק פרטי למחשב, לבד…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-ai-job-search-scrape-apply": {
+    "title": "חיפוש משרות, ציון התאמה, קורות חיים ומכתב מקדים לכל משרה עם AI Job Search",
+    "summary": "אתה יועץ קריירה שמפעיל את AI Job Search ב-Claude Code. המטרה: למצוא משרות שמתאימות לפרופיל שלי, לדרג אותן, ול…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-bytez-one-key-media-tool": {
+    "title": "כלי תמונה, וידאו וקול עם מפתח API אחד של Bytez — Claude Code כותב את הקוד",
+    "summary": "אתה מפתח Node.js שעובד ב-Claude Code. המטרה: לבנות לי כלי קטן שמשתמש במפתח API אחד של Bytez כדי להריץ מודלי A…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-yogurt-windows-install-hebrew": {
+    "title": "התקנת Yogurt ב-Windows ותמלול פגישות בעברית — מקומי, בלי בוט בשיחה",
+    "summary": "אתה מלווה התקנה ב-Windows. המטרה: להתקין את Yogurt (מקליט, מתמלל ומסכם פגישות על המחשב, בלי בוט בשיחה), להגדי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-tools",
+    "courseTitle": "מאגר · כלים"
+  },
+  "acd-dev10x-05-security-part-1": {
+    "title": "5 בדיקות אבטחה לפני עלייה לאוויר – מפתחות, Git, RLS והצפנה",
+    "summary": "Dev10x · אתה מהנדס אבטחה בכיר. המטרה: לבדוק את הפרויקט הפתוח בחמישה נושאים לפני עלייה לאוויר, לתקן רק אחרי שאאשר, ולהוכיח שהבדיקות רצו. לפני כל שינוי…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-dev10x-06-security-part-2": {
+    "title": "בדיקת אבטחה אחת לפני עלייה לאוויר – הרשאות, שדות וגישה לרשומות",
+    "summary": "Dev10x · אתה מהנדס אבטחה בכיר. המטרה: לסרוק את הפרויקט ולסגור שלוש פרצות לפני עלייה לאוויר: הרשאות בשרת, שדות אסורים לשינוי, וגישה לרשומות של משתמש א…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-dev10x-13-claude-code-leak": {
+    "title": "בדיקה וניקוי של סיסמאות שנשמרו בקבצי ההרשאות של Claude Code",
+    "summary": "Dev10x · אתה בודק ומנקה סיסמאות שנשמרו בקבצי ההרשאות של Claude Code. המטרה: למצוא כללים ב-allow שמכילים סודות, להציג רק 4 תווים ראשונים מכל סוד, לנקו…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-dev10x-17-security": {
+    "title": "סקירת אבטחה לקוד עם הסקיל security-audit של Cloudflare",
+    "summary": "Dev10x · אתה מבצע סקירת אבטחה לקוד עם הסקיל security-audit של Cloudflare, ב-Claude Code. המטרה: להתקין, להריץ בדיקה מלאה, ואחרי שאקרא את הדוח — לתקן …",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-dev10x-20-lovable": {
+    "title": "בדיקת RLS ב-Supabase – האם מבקר לא מחובר יכול לגשת לנתונים",
+    "summary": "Dev10x · אתה בודק אם טבלאות Supabase פתוחות למבקר לא מחובר, ומתקן מדיניות RLS כך שכל משתמש יגיע רק לשורות שלו. המטרה: דוח לכל טבלה, תיקון רק אחרי איש…",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-niv-zarfati-33-password-reuse-skit": {
+    "title": "סקיט על סיסמה חוזרת — וגם תזכורת לא להשתמש באותה סיסמה בכל מקום",
+    "summary": "Niv Zarfati · אתה עוזר בשני חלקים נפרדים: תסריט קצר לריל קומי, ואחר כך בדיקת הרגלי סיסמאות — בלי לבקש את הסיסמאות עצמן. אילוצים: - אל תבקש, תשמור או תדפיס…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-vibe-app-security-20-checks": {
+    "title": "20 בדיקות אבטחה לאפליקציה שנבנתה עם AI — בקשה אחת ל-Claude",
+    "summary": "אתה מהנדס אבטחה בכיר שבודק אפליקציה שנבנתה עם AI. המטרה: לעבור על 20 הדרישות למטה, לבדוק מה קיים בקוד, להציג…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-skill-safety-check-before-install": {
+    "title": "בדיקת סקיל לפני התקנה — כולל קישורים חיצוניים שיכולים להשתנות",
+    "summary": "אתה בודק אבטחה של סקילים ותוספים לסוכני AI. המטרה: לבדוק סקיל לפני שאני מתקין אותו — במיוחד קישורים חיצוניים,…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-cloudflare-security-audit-skill": {
+    "title": "סריקת אבטחה לקוד ב-Windows עם הסקיל security-audit של Cloudflare",
+    "summary": "אתה עוזר טכני שעוזר לי להריץ סקירת אבטחה על הקוד שלי ב-Windows, עם הסקיל הרשמי security-audit של Cloudflare.…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-strix-windows-prelaunch-scan": {
+    "title": "Strix ב-Windows: בדיקת אבטחה לאפליקציה שלי לפני עלייה לאוויר",
+    "summary": "אתה עוזר טכני שעוזר לי להתקין את Strix ב-Windows ולהריץ בדיקת אבטחה רק על האפליקציה שלי, בסביבת בדיקות, ואז ל…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-security",
+    "courseTitle": "מאגר · אבטחה"
+  },
+  "acd-grok-bot-agent-army": {
+    "title": "איך בונים צבא סוכנים ב-Grok Bot לפי היררכיה",
+    "summary": "אתה מתכנן צוות סוכנים ל-Grok Bot. המטרה: לבנות היררכיה כמו חברה קטנה לפי המדריך, לא בוט לכל אפליקציה, ולהוציא טקסטים מוכנים להדבקה — בלי להק…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "acd-dev10x-21-grok-bot": {
+    "title": "התחלת עבודה עם Grok Bot – התקנה, כללי בטיחות ושלוש משימות ראשונות",
+    "summary": "Dev10x · אתה העוזר האישי שלי ב-Grok Bot. המטרה: לעבוד לפי הכללים שלמטה, ואז לבצע את [המשימה שבחרתי] בלי לשלוח, לפרסם, למחוק או לשלם בלי אישור. כללים …",
+    "href": "https://drive.google.com/drive/folders/1Usa3EPViDlO5oZ5ho8uCMSH9x8nBPgz-",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "acd-niv-zarfati-10-bland-phone-calls": {
+    "title": "שיחת טלפון מ-Claude, Codex או Grok דרך Bland — רק באישור",
+    "summary": "Niv Zarfati · אתה עוזר לחבר את Bland כדי שאוכל לקבל שיחה כשאתה צריך אישור או עדכון. המטרה: התקנה לפי האתר הרשמי, הגדרת מספר ומפתח, וכללי חיוג ברורים. לפני…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "acd-niv-zarfati-16-kapso-whatsapp": {
+    "title": "סוכן WhatsApp אישי עם Claude Code ו-Kapso (API רשמי)",
+    "summary": "Niv Zarfati · אתה מחבר סוכן WhatsApp ל-Claude Code דרך Kapso, לפי התיעוד הרשמי ובכפוף לכללי WhatsApp Business. לפני הכל: - זה API רשמי. הלקוח חייב לשלוח א…",
+    "href": "https://drive.google.com/drive/folders/1pVGtk9oV_XJbnNVA18Q5dQjTFCyOHnSM",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "acd-kapso-whatsapp-booking-agent": {
+    "title": "סוכן WhatsApp שסוגר תורים ללקוחות עם Kapso ו-Claude Code",
+    "summary": "אתה מפתח סוכני WhatsApp ב-Claude Code. המטרה: לבנות לעסק שלי סוכן WhatsApp שעונה ללקוחות, מציע שעות פנויות וק…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "acd-sagiv-grant-02-three-automations-one-system": {
+    "title": "שלוש אוטומציות לעסק במערכת אחת: סוכן וואטסאפ, תזכורות לפגישה ובקשת ביקורת בגוגל",
+    "summary": "אתה יועץ אוטומציות לעסקים קטנים בישראל. המטרה: לתכנן מערכת אחת עם סוכן AI אחד שמריץ שלושה תהליכים ברצף — מענה…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-automation",
+    "courseTitle": "מאגר · אוטומציה"
+  },
+  "acd-install-claude-seo": {
+    "title": "התקנת פלאגין Claude SEO ב-Claude Code",
+    "summary": "AY Digital (עמיר יעקובי) · אתה עוזר התקנות ל-Claude Code. המטרה: להתקין אצלי את פלאגין Claude SEO החינמי בקוד פתוח, לפי שלוש הפקודות המדויקות למטה, בלי להמציא פקודות ו…",
+    "href": "https://drive.google.com/drive/folders/1ySPZ0AQMnrC4_0oiWDFBHv05IteiYXNP",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-claude-seo-full-audit": {
+    "title": "בדיקת SEO מלאה לאתר עם Claude SEO",
+    "summary": "AY Digital (עמיר יעקובי) · אתה מפעיל בדיקות SEO באמצעות פלאגין Claude SEO ב-Claude Code. המטרה: להריץ בדיקת SEO מלאה על האתר שאמסור, לסכם את התוצאות, ולא לשנות את האתר…",
+    "href": "https://drive.google.com/drive/folders/1ySPZ0AQMnrC4_0oiWDFBHv05IteiYXNP",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-claude-seo-hebrew-action-plan": {
+    "title": "תוכנית עבודה בעברית מדוח Claude SEO",
+    "summary": "AY Digital (עמיר יעקובי) · אתה כותב תוכניות עבודה SEO לבעל אתר או ללקוח, בעברית פשוטה וברורה. המטרה: לקרוא את דוח Claude SEO האחרון ולהפוך אותו לתוכנית עבודה מעשית — ב…",
+    "href": "https://drive.google.com/drive/folders/1ySPZ0AQMnrC4_0oiWDFBHv05IteiYXNP",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-gbp-profile-optimization": {
+    "title": "איך ממלאים פרופיל Google לעסק מקומי בישראל (מספרה)",
+    "summary": "אתה יועץ פרופיל Google Business (פרופיל העסק בגוגל) לעסקים מקומיים בישראל, עם התמחות במספרות ובעסקים קטנים. ה…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-gbp-review-requests": {
+    "title": "איך מבקשים ומשיבים לביקורות בגוגל בלי לעבור על הכללים",
+    "summary": "אתה יועץ מוניטין מקומי לעסקים בישראל, בעיקר מספרות ועסקים קטנים. המטרה: לכתוב הודעות בקשת ביקורת בגוגל ותשובו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-gbp-posts-local-business": {
+    "title": "איך כותבים פוסטים לפרופיל Google של מספרה ועסק מקומי",
+    "summary": "אתה עורך תוכן לפרופיל Google Business (פרופיל העסק בגוגל) לעסקים מקומיים בישראל, בעיקר מספרות. המטרה: לכתוב פ…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-local-seo-keywords-israel": {
+    "title": "איך בוחרים מילות חיפוש מקומיות למספרה ולעסק קטן בישראל",
+    "summary": "אתה יועץ SEO מקומי לישראל, לעסקים קטנים ומספרות. המטרה: לבנות רשימת מילות חיפוש אמיתיות לעסק שאמסור, ולשייך א…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-gbp-connect-website": {
+    "title": "איך מחברים אתר לפרופיל Google ושומרים על שם, כתובת וטלפון אחידים",
+    "summary": "אתה טכנאי השקה לאתר מקומי ולפרופיל Google Business בישראל. המטרה: לתת רשימת בדיקה מדויקת לחיבור האתר של העסק…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-dahan-dor-01-site-search-internal-links": {
+    "title": "חיפוש site: בגוגל והוספת קישורים פנימיים לעמוד שרוצים לחזק",
+    "summary": "אתה יועץ SEO לקישורים פנימיים באתר קיים. המטרה: למצוא בגוגל, בפקודת site:, עמודים שכבר קיימים באתר שלי וקשורי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-dahan-dor-02-gsc-four-word-queries": {
+    "title": "חיפושי 4 מילים ב-Search Console: סינון בביטוי רגולרי ועמוד שעונה על השאילתה",
+    "summary": "אתה יועץ SEO ל-Google Search Console ולאתרי עסקים קטנים. המטרה: לפתוח איתי את דוח «תוצאות החיפוש» ב-Search Co…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-seo",
+    "courseTitle": "מאגר · SEO"
+  },
+  "acd-premium-film-pipeline": {
+    "title": "סרט קצר ריאליסטי ברמת קולנוע עם Cursor ו-MCP (ראיון, תסריט, וידאו, קול, ליפסינק וכתוביות)",
+    "summary": "# ROLE You are a senior AI film director + pipeline engineer running inside Cursor (Agent mode) on my Windows PC (PowerShell only). Goal: pr…",
+    "href": "https://drive.google.com/drive/folders/1AMzgZOjIids3euKa2zOvRCHy9-vcr4IO",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-install-huashu-motion": {
+    "title": "התקנת Huashu Motion לסוכן הקוד ובדיקת סביבה ב-Windows",
+    "summary": "אתה עוזר התקנות במחשב Windows. המטרה: להכין את המחשב שלי לעבודה עם Huashu Motion — סקיל קוד פתוח שגורם לסוכן…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-huashu-launch-film": {
+    "title": "סרטון השקה למוצר בקוד עם Huashu Motion",
+    "summary": "אתה במאי, מעצב ואנימטור שעובד עם הסקיל /huashu-motion. המטרה: סרטון השקה למוצר שלי, בקוד (index.html אחד, HTM…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-huashu-point-to-edit": {
+    "title": "תיקון סרטון בהצבעה על פריים בעורך של Huashu Motion",
+    "summary": "אתה עורך סרטונים שעובד עם הסקיל /huashu-motion. המטרה: לתקן את הסרטון שלי לפי הערות שאני כותב ישירות על הפריי…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-earshot-sound-effects": {
+    "title": "אפקטים קוליים בקוד לסרטון או לאפליקציה עם earshot",
+    "summary": "אתה מעצב סאונד שעובד עם earshot — כלי קוד פתוח שמייצר אפקטים קוליים מתיאור במילים, על המעבד, בלי מודל אודיו.…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-sfx-kit-cue-sheet": {
+    "title": "בחירת אפקטים חינמיים (CC0) מ-SFX Kit והצמדה לרגעים בסרטון",
+    "summary": "אתה עורך סאונד לסרטונים. המטרה: לבחור אפקטים מ-SFX Kit (320 צלילים מקוריים, רישיון CC0) לכל רגע בסרטון שלי, ו…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-effectcraft-claude-motion-title": {
+    "title": "EffectCraft ב-Windows: התקנה, חיבור ל-Claude Code וכותרת מונפשת לייצוא MP4 ו-Lottie",
+    "summary": "אתה מעצב מושן שעובד עם Claude Code ב-Windows. המטרה: להתקין את EffectCraft (תוכנת אנימציה וקומפוזיטינג חינמית…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-openmontage-video-studio": {
+    "title": "OpenMontage: הופכים את Claude Code לאולפן הפקת וידאו — קודם הצעה ועלות, אחר כך רינדור",
+    "summary": "אתה מפיק וידאו שעובד עם Claude Code. המטרה: להתקין את OpenMontage רק באישור, ולהפיק סרטון אחד במסלול החינמי —…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-niv-zarfati-58-supoclip-self-host": {
+    "title": "SupoClip ב-Windows: התקנה מקומית בדוקר, חיתוך סרטון ארוך לקליפים וחיבור ל-Claude Code",
+    "summary": "אתה עוזר טכני שמקים לי את SupoClip על Windows, כדי לחתוך סרטונים ארוכים לקליפים קצרים בלי לשלם על כלי בענן. ע…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-gemini-video-script": {
+    "title": "סקריפט יצירת סרטונים ריאליסטיים עם Gemini (Veo)",
+    "summary": "# תפקיד אתה במאי קולנוע בכיר ומהנדס הפקה שעובד בתוך Gemini Plus עם Veo. אתה מדבר איתי רק בעברית (שאלות, בריף,…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  },
+  "acd-gemini-veo-format-v2": {
+    "title": "פורמט מאומת לסרטים קצרים ריאליסטיים עם Gemini (Veo) — גרסה 2",
+    "summary": "# תפקיד אתה במאי קולנוע בכיר ומהנדס הפקה שעובד בתוך Gemini Plus עם Veo. אתה מדבר איתי רק בעברית (שאלות, בריף,…",
+    "href": "https://drive.google.com/drive/folders/1xQn4dRyrUL7WOiDfCtEauwsuwzadn22u",
+    "courseId": "pack-video",
+    "courseTitle": "מאגר · וידאו"
+  }
+}
